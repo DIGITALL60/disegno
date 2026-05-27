@@ -194,15 +194,30 @@ export default function App() {
         );
       });
 
-      // Video Showcase Text
+      // Showcase parallax background
+      gsap.to("#showcase-bg", {
+        yPercent: 20,
+        ease: "none",
+        scrollTrigger: {
+          trigger: "#video-section",
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1,
+          invalidateOnRefresh: true,
+        },
+      });
+
+      // Showcase text stagger reveal
       gsap.fromTo(
         ".video-text",
-        { opacity: 0, y: 30 },
+        { opacity: 0, y: 50 },
         {
           opacity: 1,
           y: 0,
-          duration: 1,
-          scrollTrigger: { trigger: "#video-section", start: "top 60%", invalidateOnRefresh: true },
+          duration: 1.2,
+          stagger: 0.15,
+          ease: "power3.out",
+          scrollTrigger: { trigger: "#video-section", start: "top 65%", invalidateOnRefresh: true },
         }
       );
 
@@ -520,21 +535,42 @@ export default function App() {
         </div>
       </section>
 
-      {/* Video Showcase */}
-      <section id="video-section" className="relative h-[80vh] w-full overflow-hidden flex items-center justify-center">
-        <video 
-          autoPlay loop muted playsInline 
-          className="absolute inset-0 w-full h-full object-cover scale-105"
-        >
-          <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 bg-black/70" />
-        
-        <div className="relative z-10 text-center flex flex-col gap-4">
-          <h2 className="video-text text-5xl md:text-7xl font-serif text-white">Cada <span className="italic text-primary">detalle.</span></h2>
-          <h2 className="video-text text-5xl md:text-7xl font-serif text-white">Cada <span className="italic text-primary">espacio.</span></h2>
-          <h2 className="video-text text-5xl md:text-7xl font-serif text-white">Cada <span className="italic text-primary">historia.</span></h2>
+      {/* Showcase Section */}
+      <section id="video-section" className="relative h-[90vh] w-full overflow-hidden flex items-center justify-center">
+        <div
+          id="showcase-bg"
+          className="absolute inset-0 w-full h-[130%] -top-[15%]"
+          style={{
+            backgroundImage: "url('/showcase.png')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/80" />
+
+        {/* Decorative line top */}
+        <div className="absolute top-16 left-1/2 -translate-x-1/2 w-[1px] h-16 bg-primary/50" />
+
+        <div className="relative z-10 text-center flex flex-col gap-2 px-6">
+          <p className="text-primary font-sans text-xs tracking-[0.35em] uppercase mb-8">Diseño sin compromisos</p>
+          <h2 className="video-text text-6xl md:text-8xl lg:text-9xl font-serif text-white leading-[1.05]">
+            Cada <span className="italic text-primary">detalle.</span>
+          </h2>
+          <h2 className="video-text text-6xl md:text-8xl lg:text-9xl font-serif text-white leading-[1.05]">
+            Cada <span className="italic text-primary">espacio.</span>
+          </h2>
+          <h2 className="video-text text-6xl md:text-8xl lg:text-9xl font-serif text-white leading-[1.05]">
+            Cada <span className="italic text-primary">historia.</span>
+          </h2>
+          <div className="mt-12">
+            <a href="#contact" className="inline-block border border-primary/60 text-white font-sans text-xs tracking-[0.25em] uppercase px-10 py-4 hover:bg-primary hover:text-black transition-all duration-300">
+              Comenzar proyecto
+            </a>
+          </div>
         </div>
+
+        {/* Decorative line bottom */}
+        <div className="absolute bottom-16 left-1/2 -translate-x-1/2 w-[1px] h-16 bg-primary/50" />
       </section>
 
       {/* Materials */}
