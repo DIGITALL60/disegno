@@ -329,7 +329,7 @@ export default function App() {
       <section className="relative h-screen w-full overflow-hidden flex items-center px-6 md:px-12">
         <div className="absolute inset-0 z-0 bg-[#0A0A0A]">
           <img
-            src="/hero.jpg"
+            src="/hero.png"
             alt="Hero"
             className="w-full h-full object-cover animate-ken-burns opacity-60"
           />
@@ -396,7 +396,7 @@ export default function App() {
             onMouseLeave={() => setCursorState("default")}
           >
             <div className="gallery-img w-full h-full">
-              <img src="/gallery1.jpg" alt="Gallery" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+              <img src="/gallery1.png" alt="Gallery" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
             </div>
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             <div className="absolute bottom-8 left-8 text-white z-10">
@@ -412,7 +412,7 @@ export default function App() {
             onMouseLeave={() => setCursorState("default")}
           >
             <div className="gallery-img w-full h-full">
-              <img src="/gallery2.jpg" alt="Gallery" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+              <img src="/gallery2.png" alt="Gallery" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
             </div>
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             <div className="absolute bottom-6 left-6 text-white z-10">
@@ -428,7 +428,7 @@ export default function App() {
             onMouseLeave={() => setCursorState("default")}
           >
             <div className="gallery-img w-full h-full">
-              <img src="/gallery3.jpg" alt="Gallery" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+              <img src="/gallery3.png" alt="Gallery" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
             </div>
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             <div className="absolute bottom-8 left-8 text-white z-10">
@@ -444,7 +444,7 @@ export default function App() {
             onMouseLeave={() => setCursorState("default")}
           >
             <div className="gallery-img w-full h-full">
-              <img src="/gallery4.jpg" alt="Gallery" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+              <img src="/gallery4.png" alt="Gallery" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
             </div>
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             <div className="absolute bottom-6 left-6 text-white z-10">
@@ -460,7 +460,7 @@ export default function App() {
             onMouseLeave={() => setCursorState("default")}
           >
             <div className="gallery-img w-full h-full">
-              <img src="/gallery5.jpg" alt="Gallery" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+              <img src="/gallery5.png" alt="Gallery" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
             </div>
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             <div className="absolute bottom-6 left-6 text-white z-10">
@@ -483,7 +483,7 @@ export default function App() {
           <div className="w-full md:w-1/2 h-[600px] overflow-hidden relative">
             <img 
               id="philosophy-img"
-              src="/gallery6.jpg" 
+              src="/gallery6.png" 
               alt="Philosophy" 
               className="w-full h-[130%] object-cover" 
               loading="lazy"
@@ -503,7 +503,7 @@ export default function App() {
           {[gallery5, gallery7, gallery8, gallery3].map((img, i) => (
             <div key={i} className="h-project-card w-[70vw] h-[70vh] flex-shrink-0 mr-[5vw] relative flex items-center justify-center mt-[15vh]">
               <div className="w-full h-full overflow-hidden relative group">
-                <img src={`/gallery${img}.jpg`} alt={`Project ${i}`} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" loading="lazy" />
+                <img src={`/gallery${img}.png`} alt={`Project ${i}`} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" loading="lazy" />
                 <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-500" />
                 <div className="absolute bottom-12 left-12">
                   <div className="text-primary text-xs tracking-[0.2em] font-sans mb-3">CATEGORIA {i+1}</div>
@@ -526,7 +526,7 @@ export default function App() {
       <section className="md:hidden bg-[#0A0A0A] py-24 px-6 flex flex-col gap-12">
          {[gallery5, gallery7, gallery8, gallery3].map((img, i) => (
             <div key={i} className="w-full h-[60vh] relative group overflow-hidden">
-              <img src={`/gallery${img}.jpg`} alt={`Project ${i}`} className="w-full h-full object-cover" loading="lazy" />
+              <img src={`/gallery${img}.png`} alt={`Project ${i}`} className="w-full h-full object-cover" loading="lazy" />
               <div className="absolute inset-0 bg-black/40" />
               <div className="absolute bottom-8 left-6">
                 <div className="text-primary text-[10px] tracking-[0.2em] font-sans mb-2">CATEGORIA {i+1}</div>

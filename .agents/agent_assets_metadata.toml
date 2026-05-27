@@ -1,5 +1,58 @@
 uploads = []
-generated = []
+
+[[generated]]
+id = "_xTs4p2Ifmymija0jpMIR"
+uri = "file://artifacts/disegno/public/hero.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "CG14PdOhmKxWVg4wWqQZF"
+uri = "file://artifacts/disegno/public/gallery1.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "NcNAU1RcZoYh84mIC71j3"
+uri = "file://artifacts/disegno/public/gallery2.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "Fh2aJVUyhMJSouam98qVC"
+uri = "file://artifacts/disegno/public/gallery3.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "Miq8MPoIDwLdL-z_0KG14"
+uri = "file://artifacts/disegno/public/gallery4.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "TVefzGyxOUG1YB94mvw8q"
+uri = "file://artifacts/disegno/public/gallery5.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "DR4JplSR9DgXVVCEwG-DL"
+uri = "file://artifacts/disegno/public/gallery6.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "bwmrO-AF3msc6h-rUb3Is"
+uri = "file://artifacts/disegno/public/gallery7.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "3Vp2FNKqqBIQgOpNb33iu"
+uri = "file://artifacts/disegno/public/gallery8.png"
+type = "image"
+title = "generated_image"
 
 [[outputs]]
 id = "dP7YhxTwvc2PK5T1xpM5u"
