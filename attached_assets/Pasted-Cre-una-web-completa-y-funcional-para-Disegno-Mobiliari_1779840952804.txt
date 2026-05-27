@@ -1,0 +1,209 @@
+Creá una web completa y funcional para Disegno Mobiliario, empresa de mobiliario a medida y diseño de interiores de Córdoba, Argentina. La web debe ser de alto nivel, oscura, cálida y elegante como una agencia de diseño premium europea.
+Stack: React + Vite + Tailwind CSS + GSAP + ScrollTrigger
+Paleta de colores:
+
+Fondo principal: #0D0D0D
+Fondo secundario: #141414
+Acento dorado/naranja: #C8822A
+Texto principal: #F0EDE8
+Texto secundario: #8A8580
+Líneas: #2A2520
+
+Tipografías (Google Fonts):
+
+Títulos: Playfair Display (serif, italic para énfasis)
+Cuerpo: Inter weight 300
+
+
+NAVBAR:
+
+Fondo transparente que se vuelve #0D0D0D con blur al hacer scroll
+Logo "Disegno" en Playfair Display dorado a la izquierda, "MOBILIARIO" pequeño debajo
+Links: INICIO · NOSOTROS · SERVICIOS · PROYECTOS · MATERIALES · CONTACTO
+Botón WHATSAPP con ícono en esquina derecha, borde dorado fino
+Al hover cada link: línea dorada que se expande de izquierda a derecha con GSAP
+GSAP: navbar entra desde arriba con fade in al cargar
+
+
+HERO (sección 1):
+
+Fullscreen con imagen de fondo de interior de lujo: https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1920
+Overlay oscuro gradient rgba(0,0,0,0.6)
+Texto izquierda:
+
+Label pequeño dorado: "DISEGNO MOBILIARIO" con línea lateral
+Título grande: "Diseñamos espacios." en blanco serif
+Subtítulo italic dorado: "Creamos experiencias."
+Descripción fina: "Mobiliario a medida con diseño, calidad y funcionalidad para transformar tus ambientes."
+
+
+Panel derecho flotante oscuro con 3 features: Diseño a medida / Calidad premium / Funcionalidad
+Botón "VER PROYECTOS →": borde dorado fino, al hover se llena de dorado con clip-path GSAP
+GSAP: título aparece letra por letra con SplitText manual (dividir en spans), cada letra cae desde y:-60 con stagger 0.03s ease power4.out. Panel derecho entra desde x:80
+
+
+FEATURES BAR (sección 2):
+
+Fondo #141414, 4 columnas con ícono SVG dorado + título en mayúsculas + descripción
+Íconos: triángulo de diseño / diamante / herramientas / persona
+Separadores verticales con línea dorada entre columnas
+GSAP: cada columna entra desde abajo con stagger 0.15s al entrar en viewport con ScrollTrigger
+
+
+PROYECTOS DESTACADOS (sección 3):
+
+Título izquierda: "Espacios que hablan de vos." con línea dorada decorativa
+Grilla asimétrica: 1 imagen grande izquierda + 3 imágenes más pequeñas derecha
+Imágenes de Unsplash:
+
+https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800 → "Casa Funes" / RESIDENCIAL
+https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800 → "Local Comercial" / COMERCIAL
+https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=800 → "Casa GC" / RESIDENCIAL
+https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800 → "Oficinas MT" / COMERCIAL
+
+
+Cada imagen: overlay oscuro con nombre + categoría abajo izquierda
+Hover: zoom suave scale(1.05) + overlay más claro con GSAP
+GSAP ScrollTrigger: imagen grande entra desde x:-80, las 3 pequeñas desde x:80 con stagger
+
+
+SOBRE NOSOTROS (sección 4):
+
+Layout 50/50: izquierda texto, derecha imagen
+Imagen: https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=900
+Texto: "Más de 10 años transformando espacios en Córdoba. Cada proyecto es único, pensado desde el primer boceto hasta la instalación final."
+Número destacado: "200+" proyectos / "10+" años / "100%" satisfacción en 3 columnas doradas
+GSAP: imagen tiene parallax (se mueve más lento que el scroll con ScrollTrigger scrub:1). Texto se revela con clip-path de abajo hacia arriba
+
+
+SERVICIOS (sección 5):
+
+Fondo #0D0D0D, título centrado
+3 cards horizontales con número grande dorado (01, 02, 03), título y descripción
+
+01 → Diseño de Interiores
+02 → Mobiliario a Medida
+03 → Asesoramiento Integral
+
+
+Al hover cada card: línea dorada aparece a la izquierda y el fondo se ilumina levemente
+GSAP: cards aparecen con stagger desde y:60 opacity:0
+
+
+GALERÍA (sección 6):
+
+Título: "Nuestro trabajo habla por nosotros"
+Grilla masonry de 6 imágenes de Unsplash de interiores de lujo con alturas variadas
+Imágenes:
+
+https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600
+https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600
+https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=600
+https://images.unsplash.com/photo-1615529182904-14819c35db37?w=600
+https://images.unsplash.com/photo-1600121848594-d8644e57abab?w=600
+https://images.unsplash.com/photo-1560448204-603b3fc33ddc?w=600
+
+
+GSAP: cada imagen aparece con clip-path inset(100% 0 0 0) que se abre hacia arriba al entrar en viewport
+
+
+VIDEO SHOWCASE (sección 7):
+
+Fondo negro, video de fondo en loop muted autoplay:
+https://www.w3schools.com/html/mov_bbb.mp4 (placeholder — reemplazar con video real)
+Overlay oscuro con texto centrado grande: "Cada detalle. Cada espacio. Cada historia."
+GSAP: texto aparece con fade in al hacer scroll, video tiene efecto parallax leve
+
+
+MATERIALES (sección 8):
+
+Título: "Trabajamos con los mejores materiales"
+4 cards con imagen de textura + nombre del material + descripción corta
+
+Madera de roble / Mármol carrara / Acero inoxidable / Vidrio templado
+
+
+Imágenes de texturas de Unsplash
+GSAP: cards entran con rotación leve rotation: 3 que vuelve a 0 con stagger
+
+
+TESTIMONIOS (sección 9):
+
+Fondo #141414
+3 testimonios con nombre, ciudad y texto
+Comillas grandes doradas decorativas
+GSAP: fade in con stagger al entrar en viewport
+
+
+CONTACTO (sección 10):
+
+Fondo #0D0D0D
+Título: "Hablemos de tu proyecto"
+Layout 50/50: izquierda formulario, derecha info de contacto
+Formulario: Nombre / Email / Teléfono / Mensaje / Botón enviar
+Campos con solo línea inferior dorada, sin bordes. Al focus: línea dorada se anima de izquierda a derecha con GSAP
+Info contacto: dirección Córdoba / WhatsApp / Instagram / horarios
+Botón enviar: efecto líquido dorado que sube desde abajo con clip-path GSAP
+
+
+FOOTER:
+
+Logo + links + redes sociales + copyright
+Línea dorada superior animada
+
+
+BOTONES ÚNICOS (uiverse.io style):
+css/* Botón principal - fill de izquierda a derecha */
+.btn-primary {
+  border: 1px solid #C8822A;
+  color: #F0EDE8;
+  background: transparent;
+  padding: 14px 32px;
+  letter-spacing: 0.15em;
+  font-size: 12px;
+  position: relative;
+  overflow: hidden;
+}
+/* Al hover con GSAP: pseudo-elemento dorado se expande desde x:-100% a x:0 */
+
+/* Botón magnético - se atrae al cursor */
+/* Implementar con mousemove event + gsap.to() en x e y */
+
+/* Botón CTA flotante - círculo con texto rotatorio */
+/* Texto "DISEGNO · MOBILIARIO · CONTACTO ·" rotando infinito */
+
+SKILLS GSAP OBLIGATORIAS:
+javascriptgsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+// 1. Cursor personalizado
+const cursor = document.querySelector('.cursor');
+gsap.quickTo(cursor, "x", {duration: 0.3, ease: "power3"});
+gsap.quickTo(cursor, "y", {duration: 0.3, ease: "power3"});
+
+// 2. SplitText manual para el hero
+const chars = title.textContent.split('').map(char => `<span>${char}</span>`);
+gsap.from(chars, { y: -60, opacity: 0, stagger: 0.03, ease: "power4.out" });
+
+// 3. Parallax en imágenes
+gsap.to(image, { yPercent: -20, ease: "none",
+  scrollTrigger: { trigger: section, scrub: 1 }
+});
+
+// 4. Reveal con clipPath
+gsap.from(element, { clipPath: "inset(100% 0 0 0)",
+  scrollTrigger: { trigger: element, start: "top 80%" }
+});
+
+// 5. Horizontal scroll en proyectos
+gsap.to(track, { xPercent: -100,
+  scrollTrigger: { trigger: container, pin: true, scrub: 1 }
+});
+
+DETALLES FINALES:
+
+Cursor personalizado: círculo pequeño dorado 20px que sigue el mouse, se expande a 60px en hover sobre imágenes
+Smooth scroll nativo con scroll-behavior: smooth
+Loading screen: logo aparece con stroke SVG animado, luego cortina negra sube
+Todo el código en componentes React separados
+Mobile responsive con hamburger menu animado con GSAP
+Usar gsap.context() para cleanup correcto

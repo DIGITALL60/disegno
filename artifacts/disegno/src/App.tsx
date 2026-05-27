@@ -3,15 +3,8 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { useGSAP } from "@gsap/react";
-import {
-  PenTool,
-  Gem,
-  Hammer,
-  Users,
-  ArrowRight,
-  Phone,
-} from "lucide-react";
-import { FaWhatsapp, FaInstagram, FaEnvelope } from "react-icons/fa";
+import { PenTool, Gem, Hammer, Users, ArrowRight } from "lucide-react";
+import { FaWhatsapp, FaInstagram } from "react-icons/fa";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -20,14 +13,15 @@ export default function App() {
   const cursorRef = useRef<HTMLDivElement>(null);
   const cursorTextRef = useRef<HTMLSpanElement>(null);
   const [loading, setLoading] = useState(true);
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  // Custom Cursor Logic
+  // Custom Cursor
   useEffect(() => {
     const cursor = cursorRef.current;
     if (!cursor) return;
 
-    const xTo = gsap.quickTo(cursor, "x", { duration: 0.3, ease: "power3" });
-    const yTo = gsap.quickTo(cursor, "y", { duration: 0.3, ease: "power3" });
+    const xTo = gsap.quickTo(cursor, "x", { duration: 0.2, ease: "power3" });
+    const yTo = gsap.quickTo(cursor, "y", { duration: 0.2, ease: "power3" });
 
     const moveCursor = (e: MouseEvent) => {
       xTo(e.clientX);
@@ -41,7 +35,7 @@ export default function App() {
     };
   }, []);
 
-  const setCursorState = (state: "default" | "VER" | "DRAG") => {
+  const setCursorState = (state: "default" | "VER") => {
     if (!cursorRef.current || !cursorTextRef.current) return;
     if (state === "default") {
       cursorRef.current.classList.remove("expand");
@@ -54,7 +48,7 @@ export default function App() {
 
   useGSAP(
     () => {
-      // 1. Loader Animation
+      // Loader Animation
       const tl = gsap.timeline({
         onComplete: () => {
           setLoading(false);
@@ -74,151 +68,170 @@ export default function App() {
           ease: "expo.inOut",
         })
         .fromTo(
-          ".hero-title-char",
+          "#main-nav",
           { y: -80, opacity: 0 },
+          { y: 0, opacity: 1, duration: 1, ease: "power3.out" },
+          "-=0.8"
+        )
+        .fromTo(
+          ".hero-char",
+          { y: -60, opacity: 0 },
           { y: 0, opacity: 1, stagger: 0.03, ease: "power4.out", duration: 1 },
           "-=0.5"
         )
         .fromTo(
-          ".hero-subtitle",
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 1 },
-          "-=0.5"
+          "#hero-right-panel",
+          { x: 80, opacity: 0 },
+          { x: 0, opacity: 1, duration: 1, ease: "power3.out" },
+          "-=0.2"
         );
 
-      // 2. Fixed Nav
+      // Fixed Nav Scroll
       ScrollTrigger.create({
         start: "top -100",
         onUpdate: (self) => {
           const nav = document.getElementById("main-nav");
           if (nav) {
             if (self.direction === 1) {
-              nav.classList.add("bg-[#0A0A0A]", "text-white");
-              nav.classList.remove("bg-transparent", "text-white");
+              nav.classList.add("bg-[#0D0D0D]", "backdrop-blur-md");
+              nav.classList.remove("bg-transparent");
             } else if (self.progress === 0) {
-              nav.classList.remove("bg-[#0A0A0A]", "text-white");
-              nav.classList.add("bg-transparent", "text-white");
+              nav.classList.remove("bg-[#0D0D0D]", "backdrop-blur-md");
+              nav.classList.add("bg-transparent");
             }
           }
         },
       });
 
-      // 4. Features Bar
+      // Features Bar
       gsap.fromTo(
         ".feature-item",
-        { y: 50, opacity: 0 },
+        { y: 60, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          stagger: 0.1,
+          stagger: 0.15,
           scrollTrigger: {
-            trigger: "#features-section",
-            start: "top 80%",
+            trigger: "#features-bar",
+            start: "top 85%",
+            invalidateOnRefresh: true,
           },
         }
       );
 
-      // 5. Masonry Gallery
-      gsap.utils.toArray(".gallery-img-container").forEach((el: any) => {
-        gsap.fromTo(
-          el.querySelector(".gallery-img"),
-          { clipPath: "inset(0 100% 0 0)" },
-          {
-            clipPath: "inset(0 0% 0 0)",
-            ease: "power3.inOut",
-            duration: 1,
-            scrollTrigger: {
-              trigger: el,
-              start: "top 85%",
-            },
-          }
-        );
-      });
+      // Featured Projects
+      gsap.fromTo(
+        "#featured-large",
+        { x: -80, opacity: 0 },
+        {
+          x: 0,
+          opacity: 1,
+          duration: 1,
+          scrollTrigger: { trigger: "#featured-projects", start: "top 75%", invalidateOnRefresh: true },
+        }
+      );
 
-      // 6. Philosophy
-      gsap.to(".philosophy-word", {
-        opacity: 1,
-        stagger: 0.1,
-        scrollTrigger: {
-          trigger: "#philosophy-section",
-          start: "top 70%",
-          end: "bottom 50%",
-          scrub: 1.5,
-        },
-      });
+      gsap.fromTo(
+        ".featured-small",
+        { x: 80, opacity: 0 },
+        {
+          x: 0,
+          opacity: 1,
+          stagger: 0.2,
+          duration: 1,
+          scrollTrigger: { trigger: "#featured-projects", start: "top 75%", invalidateOnRefresh: true },
+        }
+      );
 
-      gsap.to("#philosophy-img", {
+      // About Us Parallax & Reveal
+      gsap.to("#about-image", {
         y: -100,
+        ease: "none",
         scrollTrigger: {
-          trigger: "#philosophy-section",
+          trigger: "#about-section",
           start: "top bottom",
           end: "bottom top",
-          scrub: 0.3,
+          scrub: 1,
+          invalidateOnRefresh: true,
         },
       });
 
-      // 7. Horizontal Scroll Projects
-      const isMobile = window.innerWidth < 768;
-      if (!isMobile) {
-        const hScrollContainer = document.getElementById("h-scroll-container");
-        const hScrollSection = document.getElementById("h-scroll-section");
-        if (hScrollContainer && hScrollSection) {
-          const totalWidth = hScrollContainer.scrollWidth;
-          const viewportWidth = window.innerWidth;
-          
-          gsap.to(hScrollContainer, {
-            x: -(totalWidth - viewportWidth),
-            ease: "none",
-            scrollTrigger: {
-              trigger: hScrollSection,
-              pin: true,
-              scrub: 1,
-              end: "+=3000",
-              invalidateOnRefresh: true,
-            },
-          });
-
-          gsap.fromTo(
-            ".h-project-card",
-            { rotation: 3, opacity: 0.5 },
-            {
-              rotation: 0,
-              opacity: 1,
-              stagger: 0.2,
-              scrollTrigger: {
-                trigger: hScrollSection,
-                start: "top center",
-                end: "+=3000",
-                scrub: 1,
-              },
-            }
-          );
-        }
-      }
-
-      // 8. Process
       gsap.fromTo(
-        ".process-step",
+        "#about-text",
+        { clipPath: "inset(100% 0 0 0)" },
+        {
+          clipPath: "inset(0% 0 0 0)",
+          duration: 1.5,
+          ease: "power3.out",
+          scrollTrigger: { trigger: "#about-section", start: "top 70%", invalidateOnRefresh: true },
+        }
+      );
+
+      // Services
+      gsap.fromTo(
+        ".service-card",
         { y: 60, opacity: 0 },
         {
           y: 0,
           opacity: 1,
           stagger: 0.2,
-          scrollTrigger: {
-            trigger: "#process-section",
-            start: "top 80%",
-          },
+          duration: 1,
+          scrollTrigger: { trigger: "#services-section", start: "top 80%", invalidateOnRefresh: true },
         }
       );
 
-      // Rotating CTA
-      gsap.to("#cta-text", {
-        rotation: 360,
-        repeat: -1,
-        duration: 8,
-        ease: "none",
-        transformOrigin: "50% 50%",
+      // Gallery Masonry
+      gsap.utils.toArray(".gallery-item").forEach((el: any) => {
+        gsap.fromTo(
+          el,
+          { clipPath: "inset(100% 0 0 0)" },
+          {
+            clipPath: "inset(0% 0 0 0)",
+            duration: 1.2,
+            ease: "power3.out",
+            scrollTrigger: { trigger: el, start: "top 85%", invalidateOnRefresh: true },
+          }
+        );
       });
+
+      // Video Showcase Text
+      gsap.fromTo(
+        ".video-text",
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          scrollTrigger: { trigger: "#video-section", start: "top 60%", invalidateOnRefresh: true },
+        }
+      );
+
+      // Materials
+      gsap.fromTo(
+        ".material-card",
+        { rotation: 3, opacity: 0, y: 40 },
+        {
+          rotation: 0,
+          opacity: 1,
+          y: 0,
+          stagger: 0.15,
+          duration: 0.8,
+          scrollTrigger: { trigger: "#materials-section", start: "top 80%", invalidateOnRefresh: true },
+        }
+      );
+
+      // Testimonials
+      gsap.fromTo(
+        ".testimonial-card",
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          stagger: 0.2,
+          duration: 1,
+          scrollTrigger: { trigger: "#testimonials-section", start: "top 80%", invalidateOnRefresh: true },
+        }
+      );
     },
     { scope: containerRef }
   );
@@ -238,12 +251,7 @@ export default function App() {
     };
 
     return (
-      <button
-        ref={btnRef}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        className={className}
-      >
+      <button ref={btnRef} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} className={className}>
         {children}
       </button>
     );
@@ -251,308 +259,323 @@ export default function App() {
 
   const splitText = (text: string) => {
     return text.split("").map((char, index) => (
-      <span key={index} className="hero-title-char inline-block whitespace-pre">
+      <span key={index} className="hero-char inline-block whitespace-pre">
         {char}
       </span>
     ));
   };
 
-  const splitWords = (text: string) => {
-    return text.split(" ").map((word, index) => (
-      <span key={index} className="philosophy-word opacity-20 inline-block mr-3 mb-2">
-        {word}
-      </span>
-    ));
-  };
-
   return (
-    <div ref={containerRef} className="bg-background text-foreground min-h-screen font-sans selection:bg-primary selection:text-primary-foreground overflow-x-hidden">
+    <div ref={containerRef} className="bg-background text-foreground min-h-screen">
       {/* Custom Cursor */}
       <div ref={cursorRef} className="custom-cursor hidden md:flex">
-        <span ref={cursorTextRef}></span>
+        <span ref={cursorTextRef} className="text-primary-foreground font-sans font-semibold tracking-wider"></span>
       </div>
 
-      {/* Cinematic Loader */}
-      <div
-        id="loader-curtain"
-        className="fixed inset-0 z-50 bg-[#0A0A0A] flex flex-col items-center justify-center pointer-events-none"
-      >
+      {/* Loader */}
+      <div id="loader-curtain" className="fixed inset-0 z-[100] bg-[#0A0A0A] flex flex-col items-center justify-center pointer-events-none">
         <div className="relative flex flex-col items-center">
           <svg width="80" height="80" viewBox="0 0 100 100" fill="none">
             <path
               id="loader-svg-path"
               d="M 20 20 L 50 20 C 70 20 80 35 80 50 C 80 65 70 80 50 80 L 20 80 Z"
-              stroke="#C9A96E"
+              stroke="#C8822A"
               strokeWidth="2"
               strokeDasharray="250"
               strokeDashoffset="250"
             />
           </svg>
-          <div
-            id="loader-logo"
-            className="mt-6 opacity-0 text-white font-serif text-2xl tracking-widest text-center"
-          >
+          <div id="loader-logo" className="mt-6 opacity-0 text-white font-serif text-2xl tracking-widest text-center">
             Disegno
-            <div className="text-[10px] font-sans tracking-[0.3em] text-[#C9A96E] mt-2">
-              MOBILIARIO
-            </div>
+            <div className="text-[10px] font-sans tracking-[0.3em] text-primary mt-2">MOBILIARIO</div>
           </div>
         </div>
       </div>
 
-      {/* Navigation */}
-      <nav
-        id="main-nav"
-        className="fixed top-0 w-full z-40 transition-colors duration-500 bg-transparent text-white border-b border-transparent py-4 px-6 md:px-12 flex justify-between items-center"
-      >
+      {/* Navbar */}
+      <nav id="main-nav" className="fixed top-0 w-full z-50 transition-all duration-500 bg-transparent py-4 px-6 md:px-12 flex justify-between items-center">
         <div className="flex flex-col cursor-pointer">
-          <span className="font-serif text-xl tracking-wider leading-none">
-            Disegno
-          </span>
-          <span className="font-sans text-[9px] tracking-[0.2em] text-primary mt-1">
-            MOBILIARIO
-          </span>
+          <span className="font-serif text-xl tracking-wider leading-none text-primary">Disegno</span>
+          <span className="font-sans text-[9px] tracking-[0.2em] text-foreground mt-1">MOBILIARIO</span>
         </div>
         <div className="hidden md:flex gap-8 items-center font-sans font-light text-xs tracking-widest uppercase">
-          <a href="#" className="hover:text-primary transition-colors">Inicio</a>
-          <a href="#" className="hover:text-primary transition-colors">Nosotros</a>
-          <a href="#" className="hover:text-primary transition-colors">Proyectos</a>
-          <a href="#" className="hover:text-primary transition-colors">Proceso</a>
-          <a href="#" className="hover:text-primary transition-colors">Contacto</a>
+          {["INICIO", "NOSOTROS", "SERVICIOS", "PROYECTOS", "MATERIALES", "CONTACTO"].map((link) => (
+            <a key={link} href="#" className="relative group hover:text-primary transition-colors">
+              {link}
+              <span className="absolute -bottom-1 left-0 w-full h-[1px] bg-primary scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300"></span>
+            </a>
+          ))}
         </div>
-        <button className="w-10 h-10 rounded-full border border-primary text-primary flex items-center justify-center hover:bg-primary hover:text-black transition-colors duration-300">
-          <FaWhatsapp size={18} />
+        <div className="hidden md:flex">
+          <button className="w-10 h-10 rounded-full border border-primary text-primary flex items-center justify-center hover:bg-primary hover:text-[#0D0D0D] transition-colors duration-300">
+            <FaWhatsapp size={18} />
+          </button>
+        </div>
+        <button className="md:hidden text-white z-50 relative" onClick={() => setMenuOpen(!menuOpen)}>
+          <div className="w-6 flex flex-col gap-1.5">
+            <span className={`h-0.5 w-full bg-white transition-transform duration-300 ${menuOpen ? "rotate-45 translate-y-2" : ""}`}></span>
+            <span className={`h-0.5 w-full bg-white transition-opacity duration-300 ${menuOpen ? "opacity-0" : ""}`}></span>
+            <span className={`h-0.5 w-full bg-white transition-transform duration-300 ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`}></span>
+          </div>
         </button>
       </nav>
 
+      {/* Mobile Menu */}
+      <div className={`fixed inset-0 bg-[#0D0D0D] z-40 flex flex-col items-center justify-center transition-transform duration-500 ${menuOpen ? "translate-x-0" : "translate-x-full"}`}>
+        <div className="flex flex-col gap-8 text-center font-serif text-3xl">
+          {["INICIO", "NOSOTROS", "SERVICIOS", "PROYECTOS", "MATERIALES", "CONTACTO"].map((link) => (
+            <a key={link} href="#" className="hover:text-primary transition-colors" onClick={() => setMenuOpen(false)}>{link}</a>
+          ))}
+        </div>
+      </div>
+
       {/* Hero */}
-      <section className="relative h-screen w-full overflow-hidden flex items-center px-6 md:px-12">
-        <div className="absolute inset-0 z-0 bg-[#0A0A0A]">
-          <img
-            src="/hero.png"
-            alt="Hero"
-            className="w-full h-full object-cover animate-ken-burns opacity-60"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-black/20" />
+      <section className="relative h-[100dvh] w-full overflow-hidden flex items-center px-6 md:px-12">
+        <div className="absolute inset-0 z-0">
+          <img src="/hero.png" alt="Hero background" className="w-full h-full object-cover animate-ken-burns" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/40" />
         </div>
         
-        <div className="relative z-10 w-full max-w-7xl mx-auto pt-20">
-          <div className="text-primary font-sans text-xs tracking-[0.3em] uppercase mb-6 opacity-0 animate-in fade-in fill-mode-forwards delay-1000">
-            Disegno Mobiliario
-          </div>
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif text-white leading-[1.1] mb-6 max-w-4xl">
-            <div className="block">{splitText("Diseñamos espacios.")}</div>
-            <div className="block italic text-primary">{splitText("Creamos experiencias.")}</div>
-          </h1>
-          <p className="hero-subtitle text-lg md:text-xl font-sans font-light text-white/80 max-w-2xl mb-12">
-            Mobiliario a medida con diseño, calidad y funcionalidad para transformar tus ambientes.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-6">
-            <MagneticButton className="relative group overflow-hidden border border-primary text-white px-8 py-4 text-sm tracking-widest uppercase flex items-center gap-3">
-              <span className="relative z-10 group-hover:text-black transition-colors duration-300">Ver Proyectos</span>
+        <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center md:items-end gap-12 pt-20">
+          <div className="w-full md:w-2/3">
+            <div className="flex items-center gap-4 mb-6">
+              <span className="w-8 h-[1px] bg-primary block"></span>
+              <span className="text-primary font-sans text-xs tracking-[0.3em] uppercase">DISEGNO MOBILIARIO</span>
+            </div>
+            <h1 className="text-5xl md:text-7xl lg:text-[80px] font-serif text-white leading-[1.1] mb-2">
+              <div className="block">{splitText("Diseñamos espacios.")}</div>
+            </h1>
+            <h2 className="text-4xl md:text-6xl lg:text-[70px] font-serif italic text-primary leading-[1.1] mb-8">
+              <div className="block">{splitText("Creamos experiencias.")}</div>
+            </h2>
+            <p className="font-sans font-light text-foreground/80 max-w-lg mb-10 text-lg">
+              Mobiliario a medida con diseño, calidad y funcionalidad para transformar tus ambientes.
+            </p>
+            <MagneticButton className="relative group overflow-hidden border border-primary text-white px-8 py-4 text-sm tracking-widest uppercase flex items-center gap-3 w-max">
+              <span className="relative z-10 group-hover:text-black transition-colors duration-300">VER PROYECTOS</span>
               <ArrowRight size={16} className="relative z-10 group-hover:text-black transition-colors duration-300" />
               <div className="absolute inset-0 bg-primary scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-400 ease-out" />
             </MagneticButton>
-            
-            <MagneticButton className="hover-clip-path-bottom relative text-white px-8 py-4 text-sm tracking-widest uppercase group border border-transparent">
-              <span className="relative z-10 group-hover:text-black transition-colors duration-300">Contactar</span>
-              <div className="clip-path-bottom absolute inset-0 bg-primary" />
-            </MagneticButton>
+          </div>
+
+          <div id="hero-right-panel" className="w-full md:w-1/3 bg-[#141414]/80 backdrop-blur-md p-8 border border-white/5 hidden md:block">
+            <div className="flex flex-col gap-6">
+              {[
+                { title: "Diseño a medida", desc: "Pensado para tu espacio" },
+                { title: "Calidad premium", desc: "Materiales seleccionados" },
+                { title: "Funcionalidad", desc: "Estética con propósito" }
+              ].map((item, i) => (
+                <div key={i} className="flex flex-col gap-2 border-l border-primary/30 pl-4 hover:border-primary transition-colors">
+                  <span className="text-white font-serif text-xl">{item.title}</span>
+                  <span className="text-muted-foreground font-sans text-sm font-light">{item.desc}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* Features Bar */}
-      <section id="features-section" className="bg-[#0A0A0A] py-16 px-6 md:px-12 border-t border-white/5">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <section id="features-bar" className="bg-[#141414] py-16 px-6 md:px-12 border-b border-[#2A2520]">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
           {[
-            { icon: PenTool, title: "Diseño Personalizado" },
-            { icon: Gem, title: "Materiales Premium" },
-            { icon: Hammer, title: "Fabricación Propia" },
-            { icon: Users, title: "Asesoramiento Integral" },
+            { icon: PenTool, title: "Diseño Personalizado", desc: "Adaptado a tu visión" },
+            { icon: Gem, title: "Materiales Premium", desc: "Selección rigurosa" },
+            { icon: Hammer, title: "Fabricación Propia", desc: "Control de calidad" },
+            { icon: Users, title: "Asesoramiento Integral", desc: "Acompañamiento total" },
           ].map((feature, i) => (
-            <div key={i} className="feature-item flex items-center gap-4 text-white">
-              <div className="w-12 h-12 rounded-full border border-primary/30 flex items-center justify-center text-primary shrink-0">
-                <feature.icon size={20} strokeWidth={1} />
+            <div key={i} className="feature-item flex flex-col items-start gap-4 lg:border-r border-[#2A2520] last:border-r-0 lg:pr-8">
+              <div className="text-primary"><feature.icon size={32} strokeWidth={1.5} /></div>
+              <div>
+                <h3 className="text-white font-sans text-sm tracking-widest uppercase mb-2">{feature.title}</h3>
+                <p className="text-muted-foreground font-sans font-light text-sm">{feature.desc}</p>
               </div>
-              <span className="font-sans font-light text-sm tracking-wide">{feature.title}</span>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Masonry Gallery */}
-      <section className="py-24 px-6 md:px-12 bg-background">
-        <div className="max-w-7xl mx-auto mb-16">
-          <h2 className="text-3xl md:text-5xl font-serif text-[#0A0A0A]">Espacios que hablan de vos</h2>
-        </div>
-        
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[300px]">
-          {/* Item 1 */}
-          <div 
-            className="gallery-img-container relative md:col-span-2 md:row-span-2 overflow-hidden group cursor-none"
-            onMouseEnter={() => setCursorState("VER")}
-            onMouseLeave={() => setCursorState("default")}
-          >
-            <div className="gallery-img w-full h-full">
-              <img src="/gallery1.png" alt="Gallery" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+      {/* Featured Projects */}
+      <section id="featured-projects" className="py-24 px-6 md:px-12 bg-background">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-16">
+            <h2 className="text-4xl md:text-5xl font-serif text-white mb-4">Espacios que hablan de vos.</h2>
+            <div className="w-24 h-[1px] bg-primary"></div>
+          </div>
+
+          <div className="flex flex-col lg:flex-row gap-6">
+            {/* Large Image */}
+            <div id="featured-large" className="w-full lg:w-[60%] h-[500px] lg:h-[700px] relative group overflow-hidden cursor-none" onMouseEnter={() => setCursorState("VER")} onMouseLeave={() => setCursorState("default")}>
+              <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800" alt="Casa Funes" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-500" />
+              <div className="absolute bottom-8 left-8">
+                <div className="text-primary font-sans text-xs tracking-widest uppercase mb-2">RESIDENCIAL</div>
+                <h3 className="text-3xl font-serif text-white">Casa Funes</h3>
+              </div>
             </div>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="absolute bottom-8 left-8 text-white z-10">
-              <div className="text-primary text-[10px] tracking-[0.2em] font-sans mb-2">RESIDENCIAL</div>
-              <div className="font-serif italic text-2xl md:text-3xl">Casa Funes</div>
+
+            {/* Small Images */}
+            <div className="w-full lg:w-[40%] flex flex-col gap-6">
+              {[
+                { url: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800", name: "Local Comercial", cat: "COMERCIAL" },
+                { url: "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=800", name: "Casa GC", cat: "RESIDENCIAL" },
+                { url: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800", name: "Oficinas MT", cat: "COMERCIAL" }
+              ].map((proj, i) => (
+                <div key={i} className="featured-small h-[220px] relative group overflow-hidden cursor-none" onMouseEnter={() => setCursorState("VER")} onMouseLeave={() => setCursorState("default")}>
+                  <img src={proj.url} alt={proj.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+                  <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-500" />
+                  <div className="absolute bottom-6 left-6">
+                    <div className="text-primary font-sans text-[10px] tracking-widest uppercase mb-1">{proj.cat}</div>
+                    <h3 className="text-xl font-serif text-white">{proj.name}</h3>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* Item 2 */}
-          <div 
-            className="gallery-img-container relative md:col-span-1 md:row-span-1 overflow-hidden group cursor-none"
-            onMouseEnter={() => setCursorState("VER")}
-            onMouseLeave={() => setCursorState("default")}
-          >
-            <div className="gallery-img w-full h-full">
-              <img src="/gallery2.png" alt="Gallery" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
-            </div>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="absolute bottom-6 left-6 text-white z-10">
-              <div className="text-primary text-[10px] tracking-[0.2em] font-sans mb-1">COMERCIAL</div>
-              <div className="font-serif italic text-xl">Local Comercial</div>
-            </div>
-          </div>
-
-          {/* Item 3 */}
-          <div 
-            className="gallery-img-container relative md:col-span-1 md:row-span-2 overflow-hidden group cursor-none"
-            onMouseEnter={() => setCursorState("VER")}
-            onMouseLeave={() => setCursorState("default")}
-          >
-            <div className="gallery-img w-full h-full">
-              <img src="/gallery3.png" alt="Gallery" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
-            </div>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="absolute bottom-8 left-8 text-white z-10">
-              <div className="text-primary text-[10px] tracking-[0.2em] font-sans mb-2">RESIDENCIAL</div>
-              <div className="font-serif italic text-2xl md:text-3xl">Casa GC</div>
-            </div>
-          </div>
-
-          {/* Item 4 */}
-          <div 
-            className="gallery-img-container relative md:col-span-1 md:row-span-1 overflow-hidden group cursor-none"
-            onMouseEnter={() => setCursorState("VER")}
-            onMouseLeave={() => setCursorState("default")}
-          >
-            <div className="gallery-img w-full h-full">
-              <img src="/gallery4.png" alt="Gallery" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
-            </div>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="absolute bottom-6 left-6 text-white z-10">
-              <div className="text-primary text-[10px] tracking-[0.2em] font-sans mb-1">RESIDENCIAL</div>
-              <div className="font-serif italic text-xl">Casa Trabajador</div>
-            </div>
-          </div>
-
-           {/* Item 5 */}
-           <div 
-            className="gallery-img-container relative md:col-span-1 md:row-span-1 overflow-hidden group cursor-none"
-            onMouseEnter={() => setCursorState("VER")}
-            onMouseLeave={() => setCursorState("default")}
-          >
-            <div className="gallery-img w-full h-full">
-              <img src="/gallery5.png" alt="Gallery" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
-            </div>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="absolute bottom-6 left-6 text-white z-10">
-              <div className="text-primary text-[10px] tracking-[0.2em] font-sans mb-1">RESIDENCIAL</div>
-              <div className="font-serif italic text-xl">Casa Moderna</div>
-            </div>
+          <div className="mt-16 flex justify-center">
+             <button className="border border-white/20 text-white px-8 py-4 text-sm tracking-widest uppercase hover:bg-white hover:text-black transition-colors duration-300">
+               VER TODOS LOS PROYECTOS →
+             </button>
           </div>
         </div>
       </section>
 
-      {/* Philosophy */}
-      <section id="philosophy-section" className="py-32 px-6 md:px-12 bg-background relative overflow-hidden">
+      {/* About Us */}
+      <section id="about-section" className="py-24 px-6 md:px-12 bg-[#141414] overflow-hidden">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16">
-          <div className="w-full md:w-1/2 z-10">
-            <div className="text-primary font-sans text-xs tracking-[0.3em] uppercase mb-8">La artesanía como filosofía</div>
-            <h2 className="text-4xl md:text-5xl lg:text-7xl font-serif leading-[1.2] text-[#0A0A0A]">
-              {splitWords("No fabricamos muebles. Creamos espacios que perduran.")}
-            </h2>
+          <div id="about-text" className="w-full md:w-1/2">
+             <div className="text-primary font-sans text-xs tracking-[0.3em] uppercase mb-6">SOBRE NOSOTROS</div>
+             <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-8 leading-[1.2]">
+               Más de 10 años transformando espacios en Córdoba.
+             </h2>
+             <p className="font-sans font-light text-muted-foreground text-lg leading-relaxed mb-12">
+               Cada proyecto es único, pensado desde el primer boceto hasta la instalación final. Trabajamos con los mejores materiales y los artesanos más talentosos de la región para garantizar que cada mueble no solo sea hermoso, sino que perdure en el tiempo.
+             </p>
+             <div className="grid grid-cols-3 gap-6 pt-8 border-t border-[#2A2520]">
+                <div>
+                  <div className="text-3xl font-serif text-primary mb-2">200+</div>
+                  <div className="text-xs font-sans text-muted-foreground uppercase tracking-wider">Proyectos</div>
+                </div>
+                <div>
+                  <div className="text-3xl font-serif text-primary mb-2">10+</div>
+                  <div className="text-xs font-sans text-muted-foreground uppercase tracking-wider">Años</div>
+                </div>
+                <div>
+                  <div className="text-3xl font-serif text-primary mb-2">100%</div>
+                  <div className="text-xs font-sans text-muted-foreground uppercase tracking-wider">Satisfacción</div>
+                </div>
+             </div>
           </div>
-          <div className="w-full md:w-1/2 h-[600px] overflow-hidden relative">
-            <img 
-              id="philosophy-img"
-              src="/gallery6.png" 
-              alt="Philosophy" 
-              className="w-full h-[130%] object-cover" 
-              loading="lazy"
-            />
+          <div className="w-full md:w-1/2 h-[600px] overflow-hidden">
+            <img id="about-image" src="https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=900" alt="About Us" className="w-full h-[120%] object-cover" loading="lazy" />
           </div>
         </div>
       </section>
 
-      {/* Horizontal Scroll Projects */}
-      <section id="h-scroll-section" className="hidden md:flex bg-[#0A0A0A] h-screen items-center overflow-hidden">
-        <div 
-          id="h-scroll-container" 
-          className="flex h-full w-max px-[10vw]"
-          onMouseEnter={() => setCursorState("DRAG")}
-          onMouseLeave={() => setCursorState("default")}
-        >
-          {[gallery5, gallery7, gallery8, gallery3].map((img, i) => (
-            <div key={i} className="h-project-card w-[70vw] h-[70vh] flex-shrink-0 mr-[5vw] relative flex items-center justify-center mt-[15vh]">
-              <div className="w-full h-full overflow-hidden relative group">
-                <img src={`/gallery${img}.png`} alt={`Project ${i}`} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" loading="lazy" />
-                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-500" />
-                <div className="absolute bottom-12 left-12">
-                  <div className="text-primary text-xs tracking-[0.2em] font-sans mb-3">CATEGORIA {i+1}</div>
-                  <h3 className="text-5xl font-serif text-white mb-6">Proyecto Exclusivo {i+1}</h3>
-                  <button className="group/btn flex items-center gap-3 text-white">
-                    <span className="font-sans text-sm tracking-widest relative">
-                      Ver más
-                      <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all duration-300 group-hover/btn:w-full"></span>
-                    </span>
-                    <ArrowRight size={16} className="transition-transform duration-300 group-hover/btn:translate-x-2 text-primary" />
-                  </button>
+      {/* Services */}
+      <section id="services-section" className="py-24 px-6 md:px-12 bg-background">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-serif text-center text-white mb-20">Nuestros Servicios</h2>
+          
+          <div className="flex flex-col">
+            {[
+              { num: "01", title: "Diseño de Interiores", desc: "Transformamos tu visión en espacios habitables y estéticamente únicos." },
+              { num: "02", title: "Mobiliario a Medida", desc: "Cada pieza diseñada y fabricada específicamente para tu espacio y necesidades." },
+              { num: "03", title: "Asesoramiento Integral", desc: "Te acompañamos en cada etapa, desde el concepto hasta la instalación." }
+            ].map((srv, i) => (
+              <div key={i} className="service-card group relative border-t border-[#2A2520] py-12 flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-16 hover:bg-[#141414] transition-colors px-6 cursor-pointer">
+                <span className="absolute left-0 top-0 bottom-0 w-[2px] bg-primary scale-y-0 group-hover:scale-y-100 origin-top transition-transform duration-300"></span>
+                <div className="text-5xl md:text-6xl font-serif text-primary/40 group-hover:text-primary transition-colors">{srv.num}</div>
+                <div className="flex-1">
+                  <h3 className="text-2xl md:text-3xl font-serif text-white mb-4">{srv.title}</h3>
+                  <p className="text-muted-foreground font-sans font-light text-lg">{srv.desc}</p>
+                </div>
+                <div className="hidden md:block">
+                  <ArrowRight size={24} className="text-muted-foreground group-hover:text-primary group-hover:translate-x-2 transition-all duration-300" />
                 </div>
               </div>
+            ))}
+            <div className="border-t border-[#2A2520]"></div>
+          </div>
+        </div>
+      </section>
+
+      {/* Gallery Masonry */}
+      <section id="gallery-section" className="py-24 px-6 md:px-12 bg-[#141414]">
+        <h2 className="text-4xl md:text-5xl font-serif text-center text-white mb-16">Nuestro trabajo habla por nosotros</h2>
+        <div className="max-w-7xl mx-auto columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
+          {[
+            "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600",
+            "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600",
+            "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=600",
+            "https://images.unsplash.com/photo-1615529182904-14819c35db37?w=600",
+            "https://images.unsplash.com/photo-1600121848594-d8644e57abab?w=600",
+            "https://images.unsplash.com/photo-1560448204-603b3fc33ddc?w=600"
+          ].map((url, i) => (
+            <div key={i} className="gallery-item break-inside-avoid relative group overflow-hidden cursor-none" onMouseEnter={() => setCursorState("VER")} onMouseLeave={() => setCursorState("default")}>
+              <img src={url} alt={`Gallery image ${i}`} className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
             </div>
           ))}
         </div>
       </section>
 
-      {/* Mobile Projects fallback */}
-      <section className="md:hidden bg-[#0A0A0A] py-24 px-6 flex flex-col gap-12">
-         {[gallery5, gallery7, gallery8, gallery3].map((img, i) => (
-            <div key={i} className="w-full h-[60vh] relative group overflow-hidden">
-              <img src={`/gallery${img}.png`} alt={`Project ${i}`} className="w-full h-full object-cover" loading="lazy" />
-              <div className="absolute inset-0 bg-black/40" />
-              <div className="absolute bottom-8 left-6">
-                <div className="text-primary text-[10px] tracking-[0.2em] font-sans mb-2">CATEGORIA {i+1}</div>
-                <h3 className="text-3xl font-serif text-white mb-4">Proyecto Exclusivo {i+1}</h3>
-                <button className="text-primary font-sans text-xs tracking-widest underline underline-offset-4">Ver más</button>
-              </div>
-            </div>
-          ))}
+      {/* Video Showcase */}
+      <section id="video-section" className="relative h-[80vh] w-full overflow-hidden flex items-center justify-center">
+        <video 
+          autoPlay loop muted playsInline 
+          className="absolute inset-0 w-full h-full object-cover scale-105"
+        >
+          <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-black/70" />
+        
+        <div className="relative z-10 text-center flex flex-col gap-4">
+          <h2 className="video-text text-5xl md:text-7xl font-serif text-white">Cada <span className="italic text-primary">detalle.</span></h2>
+          <h2 className="video-text text-5xl md:text-7xl font-serif text-white">Cada <span className="italic text-primary">espacio.</span></h2>
+          <h2 className="video-text text-5xl md:text-7xl font-serif text-white">Cada <span className="italic text-primary">historia.</span></h2>
+        </div>
       </section>
 
-      {/* Process */}
-      <section id="process-section" className="py-32 px-6 md:px-12 bg-background">
+      {/* Materials */}
+      <section id="materials-section" className="py-24 px-6 md:px-12 bg-[#141414]">
         <div className="max-w-7xl mx-auto">
-          <div className="text-primary font-sans text-xs tracking-[0.3em] uppercase mb-16 text-center">Nuestro Proceso</div>
+          <h2 className="text-4xl md:text-5xl font-serif text-center text-white mb-16">Trabajamos con los mejores materiales</h2>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
-              { num: "01", title: "Consulta Inicial", desc: "Escuchamos tus ideas y analizamos el espacio detalladamente." },
-              { num: "02", title: "Diseño y Planificación", desc: "Creamos planos y renders fotorrealistas para visualizar." },
-              { num: "03", title: "Fabricación Artesanal", desc: "Cada pieza construida a mano con materiales premium." },
-              { num: "04", title: "Instalación y Entrega", desc: "Instalamos y supervisamos minuciosamente cada detalle." }
-            ].map((step, i) => (
-              <div key={i} className="process-step relative pt-12">
-                <div className="absolute top-0 left-0 text-8xl md:text-9xl font-serif text-primary opacity-10 select-none">{step.num}</div>
-                <h4 className="font-serif text-xl md:text-2xl text-[#0A0A0A] mb-4 relative z-10">{step.title}</h4>
-                <p className="font-sans font-light text-sm text-[#0A0A0A]/70 relative z-10 leading-relaxed">{step.desc}</p>
+              { name: "Madera de Roble", img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400", desc: "Calidez y durabilidad excepcional." },
+              { name: "Mármol Carrara", img: "https://images.unsplash.com/photo-1541123437800-1bb1317badc2?w=400", desc: "Elegancia atemporal y sofisticación." },
+              { name: "Acero Inoxidable", img: "https://images.unsplash.com/photo-1558618047-3c8c76ca7dfa?w=400", desc: "Acabados modernos y resistencia." },
+              { name: "Vidrio Templado", img: "https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?w=400", desc: "Transparencia y seguridad absoluta." }
+            ].map((mat, i) => (
+              <div key={i} className="material-card flex flex-col bg-background/50 border border-[#2A2520] hover:border-primary/50 transition-colors">
+                <div className="h-48 overflow-hidden">
+                  <img src={mat.img} alt={mat.name} className="w-full h-full object-cover" loading="lazy" />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-serif text-white mb-2">{mat.name}</h3>
+                  <p className="font-sans font-light text-muted-foreground text-sm">{mat.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section id="testimonials-section" className="py-24 px-6 md:px-12 bg-[#141414] border-t border-[#2A2520]">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            {[
+              { quote: "El equipo de Disegno transformó completamente nuestro living. La calidad de los muebles es excepcional.", author: "María González, Córdoba" },
+              { quote: "Profesionales de otra categoría. Desde el diseño hasta la instalación, todo impecable.", author: "Carlos Méndez, Buenos Aires" },
+              { quote: "Nuestro local quedó increíble. Los clientes siempre preguntan quién nos lo diseñó.", author: "Restaurant Luma, Córdoba" }
+            ].map((t, i) => (
+              <div key={i} className="testimonial-card relative px-6 py-8 border border-[#2A2520] bg-background/30">
+                <div className="absolute -top-6 left-6 text-6xl font-serif text-primary opacity-50">"</div>
+                <p className="font-sans font-light text-foreground text-lg italic mb-6 relative z-10">{t.quote}</p>
+                <p className="font-sans text-primary text-sm tracking-widest uppercase">{t.author}</p>
               </div>
             ))}
           </div>
@@ -560,89 +583,102 @@ export default function App() {
       </section>
 
       {/* Contact */}
-      <section className="bg-[#0A0A0A] py-32 px-6 md:px-12 text-white relative">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-20">
-          <div>
-            <h2 className="text-5xl md:text-7xl font-serif leading-[1.1] mb-12">Hablemos de tu<br/><span className="italic text-primary">proyecto</span></h2>
-            
-            <div className="flex flex-col gap-6 font-sans font-light text-sm tracking-wide text-white/80">
-              <a href="#" className="flex items-center gap-4 hover:text-primary transition-colors"><FaWhatsapp size={20}/> +54 9 11 1234-5678</a>
-              <a href="#" className="flex items-center gap-4 hover:text-primary transition-colors"><FaEnvelope size={20}/> hola@disegnomobiliario.com</a>
-              <a href="#" className="flex items-center gap-4 hover:text-primary transition-colors"><FaInstagram size={20}/> @disegno.mobiliario</a>
-            </div>
-          </div>
-          
-          <div>
-            <form className="flex flex-col gap-8" onSubmit={(e) => e.preventDefault()}>
-              {["Nombre", "Email", "Teléfono"].map((label, i) => (
-                <div key={i} className="relative group">
+      <section id="contact-section" className="py-24 px-6 md:px-12 bg-background">
+        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16">
+          <div className="w-full lg:w-1/2">
+            <h2 className="text-4xl md:text-5xl font-serif text-white mb-10">Hablemos de tu proyecto</h2>
+            <form className="flex flex-col gap-8">
+              {["Nombre", "Email", "Teléfono"].map((field) => (
+                <div key={field} className="relative group">
                   <input 
-                    type={label === "Email" ? "email" : "text"} 
-                    placeholder={label}
-                    className="w-full bg-transparent border-b border-white/20 py-4 font-sans font-light text-sm outline-none text-white focus:border-transparent peer transition-colors"
+                    type={field === "Email" ? "email" : "text"} 
+                    placeholder={field}
+                    className="w-full bg-transparent border-b border-[#2A2520] py-4 text-white placeholder-muted-foreground font-sans font-light focus:outline-none focus:border-transparent transition-colors peer"
                   />
-                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[1px] bg-primary transition-all duration-300 peer-focus:w-full"></div>
+                  <span className="absolute bottom-0 left-0 w-full h-[1px] bg-primary scale-x-0 peer-focus:scale-x-100 origin-left transition-transform duration-300"></span>
                 </div>
               ))}
               <div className="relative group">
                 <textarea 
-                  placeholder="Mensaje"
-                  rows={4}
-                  className="w-full bg-transparent border-b border-white/20 py-4 font-sans font-light text-sm outline-none text-white focus:border-transparent peer transition-colors resize-none"
+                  placeholder="Mensaje" rows={4}
+                  className="w-full bg-transparent border-b border-[#2A2520] py-4 text-white placeholder-muted-foreground font-sans font-light focus:outline-none focus:border-transparent transition-colors peer resize-none"
                 ></textarea>
-                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[1px] bg-primary transition-all duration-300 peer-focus:w-full"></div>
+                <span className="absolute bottom-0 left-0 w-full h-[1px] bg-primary scale-x-0 peer-focus:scale-x-100 origin-left transition-transform duration-300"></span>
               </div>
               
-              <div className="mt-4">
-                <MagneticButton className="hover-clip-path-bottom relative text-white px-10 py-5 text-sm tracking-widest uppercase group border border-primary/30 w-full sm:w-auto overflow-hidden">
-                  <span className="relative z-10 group-hover:text-black transition-colors duration-300 font-medium">Enviar Consulta</span>
-                  <div className="clip-path-bottom absolute inset-0 bg-primary" />
-                </MagneticButton>
-              </div>
+              <MagneticButton className="hover-clip-path-bottom relative bg-transparent border border-primary text-white py-5 mt-4 text-sm tracking-widest uppercase font-sans font-semibold overflow-hidden group">
+                 <span className="relative z-10 group-hover:text-black transition-colors duration-300">ENVIAR CONSULTA</span>
+                 <div className="clip-path-bottom absolute inset-0 bg-primary" />
+              </MagneticButton>
             </form>
+          </div>
+          
+          <div className="w-full lg:w-1/2 flex flex-col gap-10 lg:pl-16">
+            <div>
+              <h3 className="text-primary font-sans text-xs tracking-widest uppercase mb-4">DIRECCIÓN</h3>
+              <p className="font-serif text-2xl text-white">Córdoba, Argentina</p>
+            </div>
+            <div>
+              <h3 className="text-primary font-sans text-xs tracking-widest uppercase mb-4">WHATSAPP</h3>
+              <p className="font-serif text-2xl text-white">+54 9 351 000-0000</p>
+            </div>
+            <div>
+              <h3 className="text-primary font-sans text-xs tracking-widest uppercase mb-4">INSTAGRAM</h3>
+              <p className="font-serif text-2xl text-white">@disegno.mobiliario</p>
+            </div>
+            <div>
+              <h3 className="text-primary font-sans text-xs tracking-widest uppercase mb-4">HORARIOS</h3>
+              <p className="font-sans font-light text-lg text-muted-foreground">Lun-Vie 9:00 - 18:00</p>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-background py-12 px-6 md:px-12 border-t border-[#0A0A0A]/5">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-          <div className="flex flex-col items-center md:items-start text-[#0A0A0A]">
-            <span className="font-serif text-lg tracking-wider">Disegno</span>
-            <span className="font-sans text-[8px] tracking-[0.2em] text-primary">MOBILIARIO</span>
+      <footer className="bg-[#0A0A0A] pt-16 pb-8 border-t border-[#2A2520] relative">
+        <div className="absolute top-0 left-0 w-full h-[1px] bg-primary origin-left scale-x-0" id="footer-line"></div>
+        <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col items-center gap-10">
+          <div className="flex flex-col items-center">
+            <span className="font-serif text-3xl tracking-wider leading-none text-primary">Disegno</span>
+            <span className="font-sans text-[10px] tracking-[0.3em] text-foreground mt-2">MOBILIARIO</span>
           </div>
           
-          <div className="flex gap-6 font-sans text-xs tracking-widest text-[#0A0A0A]/60">
-            <a href="#" className="hover:text-primary transition-colors">INICIO</a>
-            <a href="#" className="hover:text-primary transition-colors">PROYECTOS</a>
-            <a href="#" className="hover:text-primary transition-colors">CONTACTO</a>
+          <div className="flex flex-wrap justify-center gap-6 md:gap-10 text-xs font-sans tracking-widest uppercase text-muted-foreground">
+            {["INICIO", "NOSOTROS", "SERVICIOS", "PROYECTOS", "MATERIALES", "CONTACTO"].map((link) => (
+              <a key={link} href="#" className="hover:text-primary transition-colors">{link}</a>
+            ))}
           </div>
 
-          <div className="font-sans text-[10px] text-[#0A0A0A]/40 uppercase tracking-widest">
-            © 2025 Disegno Mobiliario · Todos los derechos reservados
+          <div className="flex gap-6 text-white">
+            <a href="#" className="hover:text-primary transition-colors"><FaInstagram size={24} /></a>
+            <a href="#" className="hover:text-primary transition-colors"><FaWhatsapp size={24} /></a>
+          </div>
+
+          <div className="text-[#8A8580] font-sans text-xs font-light mt-8">
+            © 2025 Disegno Mobiliario · Córdoba, Argentina
           </div>
         </div>
       </footer>
 
       {/* Floating CTA */}
-      <a href="#" className="fixed bottom-8 right-8 z-40 w-[80px] h-[80px] rounded-full bg-primary text-[#0A0A0A] flex items-center justify-center hover:scale-110 transition-transform duration-300 shadow-lg shadow-black/20">
-        <div className="absolute inset-0 p-2">
-          <svg viewBox="0 0 100 100" id="cta-text" className="w-full h-full fill-current uppercase text-[10px] font-sans font-semibold tracking-widest">
-            <path id="circle" d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" fill="transparent" />
-            <text>
-              <textPath href="#circle" startOffset="0%">
-                DISEGNO · MOBILIARIO · CONTACTO · 
-              </textPath>
-            </text>
-          </svg>
-        </div>
-        <Phone size={18} className="absolute z-10" />
-      </a>
+      <div className="fixed bottom-8 right-8 z-40">
+        <button className="relative w-20 h-20 bg-primary rounded-full flex items-center justify-center text-black hover:scale-105 transition-transform shadow-lg shadow-black/50 group">
+          <div className="absolute inset-[-10px]">
+             <svg viewBox="0 0 100 100" width="100" height="100" id="cta-text" className="animate-[spin_8s_linear_infinite]">
+              <defs>
+                <path id="circle" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" />
+              </defs>
+              <text fontSize="11" fill="hsl(var(--primary))" letterSpacing="2" className="font-sans font-semibold uppercase">
+                <textPath href="#circle">
+                  DISEGNO · MOBILIARIO · CONTACTO ·
+                </textPath>
+              </text>
+            </svg>
+          </div>
+          <FaWhatsapp size={32} className="relative z-10" />
+        </button>
+      </div>
+
     </div>
   );
 }
-
-const gallery5 = "5";
-const gallery7 = "7";
-const gallery8 = "8";
-const gallery3 = "3";
