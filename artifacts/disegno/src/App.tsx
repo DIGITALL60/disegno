@@ -334,7 +334,7 @@ export default function App() {
       {/* Hero */}
       <section className="relative h-[100dvh] w-full overflow-hidden flex items-center px-6 md:px-12">
         <div className="absolute inset-0 z-0">
-          <img src="/hero.png" alt="Hero background" className="w-full h-full object-cover animate-ken-burns" />
+          <img src="/hero.webp" alt="Hero background" className="w-full h-full object-cover animate-ken-burns" />
           <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/40" />
         </div>
         
@@ -549,8 +549,8 @@ export default function App() {
           {/* Right: two Instagram Reels as clickable phone frames */}
           <div className="flex-shrink-0 order-1 md:order-2 flex gap-5 items-end">
             {[
-              { code: "DTtl_2bjjyl", thumb: "/reel1.png", label: "Proyecto residencial", offset: "0px" },
-              { code: "DPMDqR0Dk-B", thumb: "/reel2.png", label: "Proceso artesanal", offset: "48px" },
+              { code: "DTtl_2bjjyl", thumb: "/reel1.webp", label: "Proyecto residencial", offset: "0px" },
+              { code: "DPMDqR0Dk-B", thumb: "/reel2.webp", label: "Proceso artesanal", offset: "48px" },
             ].map(({ code, thumb, label, offset }) => (
               <div key={code} className="w-[185px] lg:w-[210px]" style={{ marginTop: offset }}>
                 <a
