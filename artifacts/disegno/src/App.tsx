@@ -12,6 +12,7 @@ export default function App() {
   const containerRef = useRef<HTMLDivElement>(null);
   const cursorRef = useRef<HTMLDivElement>(null);
   const cursorTextRef = useRef<HTMLSpanElement>(null);
+  const logoRef = useRef<HTMLDivElement>(null);
   const [loading, setLoading] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -32,6 +33,31 @@ export default function App() {
 
     return () => {
       window.removeEventListener("mousemove", moveCursor);
+    };
+  }, []);
+
+  // Logo hover animations (separate from useGSAP to avoid early-return issue)
+  useEffect(() => {
+    const logoEl = logoRef.current;
+    if (!logoEl) return;
+
+    const onEnter = () => {
+      gsap.fromTo(
+        ".nav-logo-char",
+        { y: 0 },
+        { y: -9, duration: 0.22, stagger: { each: 0.055, from: "start" }, ease: "power2.out", yoyo: true, repeat: 1 }
+      );
+      gsap.to(".nav-sub", { letterSpacing: "0.45em", duration: 0.4, ease: "power2.out" });
+    };
+    const onLeave = () => {
+      gsap.to(".nav-sub", { letterSpacing: "0.2em", duration: 0.5, ease: "power2.inOut" });
+    };
+
+    logoEl.addEventListener("mouseenter", onEnter);
+    logoEl.addEventListener("mouseleave", onLeave);
+    return () => {
+      logoEl.removeEventListener("mouseenter", onEnter);
+      logoEl.removeEventListener("mouseleave", onLeave);
     };
   }, []);
 
@@ -74,6 +100,18 @@ export default function App() {
           "-=0.8"
         )
         .fromTo(
+          ".nav-logo-char",
+          { y: 22, opacity: 0, rotateX: -60 },
+          { y: 0, opacity: 1, rotateX: 0, duration: 0.7, stagger: 0.07, ease: "back.out(2)" },
+          "-=0.6"
+        )
+        .fromTo(
+          ".nav-sub",
+          { opacity: 0, letterSpacing: "0.6em" },
+          { opacity: 1, letterSpacing: "0.2em", duration: 0.8, ease: "power3.out" },
+          "-=0.4"
+        )
+        .fromTo(
           ".hero-char",
           { y: -60, opacity: 0 },
           { y: 0, opacity: 1, stagger: 0.03, ease: "power4.out", duration: 1 },
@@ -85,6 +123,13 @@ export default function App() {
           { x: 0, opacity: 1, duration: 1, ease: "power3.out" },
           "-=0.2"
         );
+
+      // Logo shimmer sweep — golden gleam that crosses every 4s
+      gsap.fromTo(
+        ".nav-shimmer-line",
+        { x: "-200%" },
+        { x: "300%", duration: 0.75, ease: "power1.inOut", repeat: -1, repeatDelay: 4, delay: 3.2 }
+      );
 
       // Fixed Nav Scroll
       ScrollTrigger.create({
@@ -287,16 +332,45 @@ export default function App() {
               strokeDashoffset="250"
             />
           </svg>
-          <div id="loader-logo" className="mt-6 opacity-0">
-            <img src="/logo.webp" alt="Disegno Mobiliario" className="h-12 w-auto object-contain mx-auto" />
+          <div id="loader-logo" className="mt-6 opacity-0 text-white font-serif text-2xl tracking-widest text-center">
+            Disegno
+            <div className="text-[10px] font-sans tracking-[0.3em] text-primary mt-2">MOBILIARIO</div>
           </div>
         </div>
       </div>
 
       {/* Navbar */}
       <nav id="main-nav" className="fixed top-0 w-full z-50 transition-all duration-500 bg-transparent py-4 px-6 md:px-12 flex justify-between items-center">
-        <div className="cursor-pointer">
-          <img src="/logo.webp" alt="Disegno Mobiliario" className="h-10 w-auto object-contain" />
+        <div ref={logoRef} id="nav-logo" className="flex flex-col cursor-pointer relative">
+          {/* Golden shimmer sweep */}
+          <div className="nav-shimmer absolute inset-0 pointer-events-none overflow-hidden">
+            <div
+              className="nav-shimmer-line absolute inset-y-0 w-6"
+              style={{
+                background: "linear-gradient(90deg, transparent, rgba(200,130,42,0.5), rgba(255,220,150,0.7), rgba(200,130,42,0.5), transparent)",
+                transform: "skewX(-15deg)",
+                left: 0,
+              }}
+            />
+          </div>
+
+          {/* "Disegno" — split into letters */}
+          <div className="flex leading-none" style={{ perspective: "300px" }}>
+            {Array.from("Disegno").map((char, i) => (
+              <span
+                key={i}
+                className="nav-logo-char inline-block font-serif text-xl tracking-wider text-primary"
+                style={{ willChange: "transform", display: "inline-block" }}
+              >
+                {char}
+              </span>
+            ))}
+          </div>
+
+          {/* MOBILIARIO */}
+          <span className="nav-sub font-sans text-[9px] text-foreground mt-1 block" style={{ letterSpacing: "0.2em" }}>
+            MOBILIARIO
+          </span>
         </div>
         <div className="hidden md:flex gap-8 items-center font-sans font-light text-xs tracking-widest uppercase">
           {["INICIO", "NOSOTROS", "SERVICIOS", "PROYECTOS", "MATERIALES", "CONTACTO"].map((link) => (
