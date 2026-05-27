@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Disegno Mobiliario"
+version = "1.0.0"
+id = "artifacts/disegno"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 26181
+
+[services.development]
+run = "pnpm --filter @workspace/disegno run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/disegno", "run", "build" ]
+publicDir = "artifacts/disegno/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "26181"
+BASE_PATH = "/"

@@ -1,0 +1,56 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "dP7YhxTwvc2PK5T1xpM5u"
+uri = "file://artifacts/disegno/public/hero.jpg"
+type = "image"
+title = "luxury interior design dark wood"
+
+[[outputs]]
+id = "J3ML7IVgJf3tWDrQlXyhp"
+uri = "file://artifacts/disegno/public/gallery1.jpg"
+type = "image"
+title = "custom furniture atelier workshop"
+
+[[outputs]]
+id = "WGYjF1MuVaQ0o-tRPisfG"
+uri = "file://artifacts/disegno/public/gallery2.jpg"
+type = "image"
+title = "minimalist living room bespoke furniture"
+
+[[outputs]]
+id = "1bTaezUTu-s-a2vURurxi"
+uri = "file://artifacts/disegno/public/gallery3.jpg"
+type = "image"
+title = "luxury dining room warm lighting"
+
+[[outputs]]
+id = "b7HpVF0V1lSym9-c6uWy7"
+uri = "file://artifacts/disegno/public/gallery4.jpg"
+type = "image"
+title = "bedroom interior design walnut"
+
+[[outputs]]
+id = "E-J4xO6e1Z_EirOQeH_sY"
+uri = "file://artifacts/disegno/public/gallery5.jpg"
+type = "image"
+title = "office interior modern wood furniture"
+
+[[outputs]]
+id = "mSk0vvg88JsaMNb6KkJG8"
+uri = "file://artifacts/disegno/public/gallery6.jpg"
+type = "image"
+title = "luxury kitchen custom cabinets"
+
+[[outputs]]
+id = "z3W0qnlH6KzkdcwsAMBzc"
+uri = "file://artifacts/disegno/public/gallery7.jpg"
+type = "image"
+title = "contemporary living room marble"
+
+[[outputs]]
+id = "-8ReUfIL9qFQJId6NBXes"
+uri = "file://artifacts/disegno/public/gallery8.jpg"
+type = "image"
+title = "commercial interior restaurant warm"

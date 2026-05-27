@@ -1,0 +1,43 @@
+Creá una landing page de alto nivel para Disegno Mobiliario, estudio de diseño de interiores. Usá botones únicos inspirados en uiverse.io adaptados al estilo de la marca.
+Stack: React + Vite + Tailwind + GSAP + ScrollTrigger
+Paleta: Blanco roto #F5F0EB, negro profundo #0A0A0A, dorado #C9A96E. Tipografía: Playfair Display para títulos, Inter Light para cuerpo.
+
+BOTONES ÚNICOS (estilo uiverse.io adaptados):
+
+Botón principal "Ver Proyectos" → borde fino dorado, al hover el borde se llena de izquierda a derecha con dorado, texto cambia a negro. Animado con GSAP.
+Botón "Contactar" → fondo transparente, al hover aparece un líquido dorado que sube desde abajo llenando el botón (efecto fill líquido con clip-path animado con GSAP).
+Botón "Ver más" → solo una línea horizontal dorada debajo del texto, al hover la línea se expande y aparece una flecha que desliza hacia la derecha.
+Botón CTA flotante → círculo dorado fijo en esquina inferior derecha, con texto rotatorio que dice "DISEGNO · MOBILIARIO · CONTACTO ·" animado con GSAP rotation infinita.
+
+
+SKILLS GSAP PROFESIONALES DE ALTA GAMA:
+
+SplitText → título hero se divide en caracteres, cada letra cae desde arriba con stagger de 0.03s y ease power4.out
+ScrollTrigger scrub → texto de filosofía se revela palabra por palabra sincronizado exactamente con el scroll (scrub: 1.5)
+Parallax multicapa → imágenes de fondo se mueven a 0.3x la velocidad del scroll, elementos del medio a 0.6x, texto al frente a 1x
+Magnetic buttons → los botones se atraen hacia el cursor cuando está cerca (efecto magnético con mousemove + GSAP quickTo para máxima performance)
+Horizontal scroll section → sección de proyectos donde el scroll vertical se convierte en movimiento horizontal con pin: true y scrub: 1
+Morphing SVG → separadores entre secciones son líneas SVG que se deforman orgánicamente con GSAP MorphSVG al hacer scroll
+Image reveal con clipPath → cada imagen aparece con una cortina que se abre de izquierda a derecha usando clip-path animado
+Cursor personalizado → círculo pequeño dorado que sigue el mouse con gsap.quickTo (sin lag), se agranda al hacer hover sobre imágenes y se convierte en texto "VER" sobre los proyectos
+Stagger cards → al entrar en viewport, las cards de proyectos aparecen en cascada con rotación leve rotation: 5 que vuelve a 0
+Loader cinematográfico → al entrar a la web, el logo se dibuja con SVG stroke animation, luego una cortina negra sube revelando la web
+
+
+SECCIONES:
+
+Hero fullscreen → video o imagen con Ken Burns, título animado con SplitText, dos botones únicos
+Galería Masonry asimétrica → grilla con imágenes de distintos tamaños, cada una con image reveal al entrar en viewport, hover con cursor personalizado
+Filosofía → texto grande con scrub reveal + imagen parallax lateral
+Proyectos → scroll horizontal con cards, botón magnético
+Proceso → 4 pasos con números grandes dorados que aparecen con stagger
+Contacto → fondo negro, formulario minimalista, campos con línea dorada animada al focus, botón líquido
+
+
+Detalles finales:
+
+Todo en un solo archivo React
+Imágenes de interiores de lujo desde Unsplash (https://source.unsplash.com/featured/?luxury,interior)
+Mobile responsive
+Performance: usar gsap.context() para limpiar animaciones correctamente
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
