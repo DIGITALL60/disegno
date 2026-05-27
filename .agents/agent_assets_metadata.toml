@@ -60,6 +60,18 @@ uri = "file://artifacts/disegno/public/showcase.png"
 type = "image"
 title = "generated_image"
 
+[[generated]]
+id = "1HgOp5NZTGF_ouOlDeGRr"
+uri = "file://artifacts/disegno/public/reel1.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "a5KrdG1fhMgKrB8ONVL5_"
+uri = "file://artifacts/disegno/public/reel2.png"
+type = "image"
+title = "generated_image"
+
 [[outputs]]
 id = "dP7YhxTwvc2PK5T1xpM5u"
 uri = "file://artifacts/disegno/public/hero.jpg"

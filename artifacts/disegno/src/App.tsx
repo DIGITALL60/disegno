@@ -546,38 +546,72 @@ export default function App() {
             </a>
           </div>
 
-          {/* Right: Instagram Reel embed in phone frame */}
-          <div className="flex-shrink-0 order-1 md:order-2 w-[240px] md:w-[300px] lg:w-[340px]">
-            <div
-              className="relative overflow-hidden shadow-2xl shadow-primary/20"
-              style={{
-                borderRadius: "32px",
-                border: "2px solid rgba(200,130,42,0.25)",
-                aspectRatio: "9/16",
-              }}
-            >
-              {/* Subtle gold glow border */}
-              <div
-                className="absolute -inset-px pointer-events-none"
-                style={{
-                  borderRadius: "32px",
-                  boxShadow: "0 0 40px rgba(200,130,42,0.15) inset",
-                  zIndex: 10,
-                }}
-              />
-              <iframe
-                src="https://www.instagram.com/reel/DTtl_2bjjyl/embed/"
-                className="w-full h-full border-0 block"
-                scrolling="no"
-                allow="encrypted-media; autoplay"
-                title="Disegno Mobiliario Reel"
-              />
-            </div>
-            {/* Instagram label */}
-            <div className="flex items-center gap-2 mt-4 justify-center opacity-50">
-              <FaInstagram size={12} className="text-primary" />
-              <span className="font-sans text-[10px] tracking-[0.2em] text-white uppercase">@disegno.mobiliario</span>
-            </div>
+          {/* Right: two Instagram Reels as clickable phone frames */}
+          <div className="flex-shrink-0 order-1 md:order-2 flex gap-5 items-end">
+            {[
+              { code: "DTtl_2bjjyl", thumb: "/reel1.png", label: "Proyecto residencial", offset: "0px" },
+              { code: "DPMDqR0Dk-B", thumb: "/reel2.png", label: "Proceso artesanal", offset: "48px" },
+            ].map(({ code, thumb, label, offset }) => (
+              <div key={code} className="w-[185px] lg:w-[210px]" style={{ marginTop: offset }}>
+                <a
+                  href={`https://www.instagram.com/reel/${code}/`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block group"
+                >
+                  <div
+                    className="relative overflow-hidden shadow-2xl shadow-black/60"
+                    style={{
+                      borderRadius: "28px",
+                      border: "1.5px solid rgba(200,130,42,0.35)",
+                      aspectRatio: "9/16",
+                    }}
+                  >
+                    {/* Thumbnail */}
+                    <img
+                      src={thumb}
+                      alt={label}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+
+                    {/* Dark overlay */}
+                    <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors duration-300" />
+
+                    {/* Gold glow on hover */}
+                    <div
+                      className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                      style={{ boxShadow: "0 0 40px rgba(200,130,42,0.25) inset" }}
+                    />
+
+                    {/* Play button */}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div
+                        className="w-14 h-14 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110"
+                        style={{
+                          background: "rgba(200,130,42,0.90)",
+                          backdropFilter: "blur(4px)",
+                          boxShadow: "0 0 24px rgba(200,130,42,0.5)",
+                        }}
+                      >
+                        {/* Triangle play icon */}
+                        <svg width="18" height="20" viewBox="0 0 18 20" fill="white">
+                          <path d="M0 0 L18 10 L0 20 Z" />
+                        </svg>
+                      </div>
+                    </div>
+
+                    {/* Bottom label */}
+                    <div className="absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
+                      <div className="flex items-center gap-1.5 mb-1">
+                        <FaInstagram size={10} className="text-primary" />
+                        <span className="font-sans text-[9px] tracking-[0.15em] text-primary uppercase">@disegno.mobiliario</span>
+                      </div>
+                      <p className="font-serif text-white text-sm italic">{label}</p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            ))}
           </div>
 
         </div>
