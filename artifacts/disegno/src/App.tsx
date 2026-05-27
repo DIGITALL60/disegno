@@ -194,19 +194,6 @@ export default function App() {
         );
       });
 
-      // Showcase parallax background
-      gsap.to("#showcase-bg", {
-        yPercent: 20,
-        ease: "none",
-        scrollTrigger: {
-          trigger: "#video-section",
-          start: "top bottom",
-          end: "bottom top",
-          scrub: 1,
-          invalidateOnRefresh: true,
-        },
-      });
-
       // Showcase text stagger reveal
       gsap.fromTo(
         ".video-text",
@@ -536,41 +523,68 @@ export default function App() {
       </section>
 
       {/* Showcase Section */}
-      <section id="video-section" className="relative h-[90vh] w-full overflow-hidden flex items-center justify-center">
-        <div
-          id="showcase-bg"
-          className="absolute inset-0 w-full h-[130%] -top-[15%]"
-          style={{
-            backgroundImage: "url('/showcase.png')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/80" />
+      <section id="video-section" className="relative w-full overflow-hidden bg-black" style={{ minHeight: "90vh" }}>
+        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center gap-12 md:gap-20 py-24 md:py-0" style={{ minHeight: "90vh" }}>
 
-        {/* Decorative line top */}
-        <div className="absolute top-16 left-1/2 -translate-x-1/2 w-[1px] h-16 bg-primary/50" />
-
-        <div className="relative z-10 text-center flex flex-col gap-2 px-6">
-          <p className="text-primary font-sans text-xs tracking-[0.35em] uppercase mb-8">Diseño sin compromisos</p>
-          <h2 className="video-text text-6xl md:text-8xl lg:text-9xl font-serif text-white leading-[1.05]">
-            Cada <span className="italic text-primary">detalle.</span>
-          </h2>
-          <h2 className="video-text text-6xl md:text-8xl lg:text-9xl font-serif text-white leading-[1.05]">
-            Cada <span className="italic text-primary">espacio.</span>
-          </h2>
-          <h2 className="video-text text-6xl md:text-8xl lg:text-9xl font-serif text-white leading-[1.05]">
-            Cada <span className="italic text-primary">historia.</span>
-          </h2>
-          <div className="mt-12">
-            <a href="#contact" className="inline-block border border-primary/60 text-white font-sans text-xs tracking-[0.25em] uppercase px-10 py-4 hover:bg-primary hover:text-black transition-all duration-300">
+          {/* Left: text content */}
+          <div className="flex-1 text-left order-2 md:order-1">
+            <p className="text-primary font-sans text-xs tracking-[0.35em] uppercase mb-8">Diseño sin compromisos</p>
+            <h2 className="video-text text-5xl md:text-7xl font-serif text-white leading-[1.05] mb-3">
+              Cada <span className="italic text-primary">detalle.</span>
+            </h2>
+            <h2 className="video-text text-5xl md:text-7xl font-serif text-white leading-[1.05] mb-3">
+              Cada <span className="italic text-primary">espacio.</span>
+            </h2>
+            <h2 className="video-text text-5xl md:text-7xl font-serif text-white leading-[1.05] mb-12">
+              Cada <span className="italic text-primary">historia.</span>
+            </h2>
+            <a
+              href="#contact"
+              className="inline-block border border-primary/60 text-white font-sans text-xs tracking-[0.25em] uppercase px-10 py-4 hover:bg-primary hover:text-black transition-all duration-300"
+            >
               Comenzar proyecto
             </a>
           </div>
+
+          {/* Right: Instagram Reel embed in phone frame */}
+          <div className="flex-shrink-0 order-1 md:order-2 w-[240px] md:w-[300px] lg:w-[340px]">
+            <div
+              className="relative overflow-hidden shadow-2xl shadow-primary/20"
+              style={{
+                borderRadius: "32px",
+                border: "2px solid rgba(200,130,42,0.25)",
+                aspectRatio: "9/16",
+              }}
+            >
+              {/* Subtle gold glow border */}
+              <div
+                className="absolute -inset-px pointer-events-none"
+                style={{
+                  borderRadius: "32px",
+                  boxShadow: "0 0 40px rgba(200,130,42,0.15) inset",
+                  zIndex: 10,
+                }}
+              />
+              <iframe
+                src="https://www.instagram.com/reel/DTtl_2bjjyl/embed/"
+                className="w-full h-full border-0 block"
+                scrolling="no"
+                allow="encrypted-media; autoplay"
+                title="Disegno Mobiliario Reel"
+              />
+            </div>
+            {/* Instagram label */}
+            <div className="flex items-center gap-2 mt-4 justify-center opacity-50">
+              <FaInstagram size={12} className="text-primary" />
+              <span className="font-sans text-[10px] tracking-[0.2em] text-white uppercase">@disegno.mobiliario</span>
+            </div>
+          </div>
+
         </div>
 
-        {/* Decorative line bottom */}
-        <div className="absolute bottom-16 left-1/2 -translate-x-1/2 w-[1px] h-16 bg-primary/50" />
+        {/* Subtle dark gradient sides */}
+        <div className="absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-black to-transparent pointer-events-none z-20" />
+        <div className="absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-black to-transparent pointer-events-none z-20" />
       </section>
 
       {/* Materials */}
