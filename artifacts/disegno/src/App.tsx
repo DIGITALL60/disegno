@@ -287,18 +287,16 @@ export default function App() {
               strokeDashoffset="250"
             />
           </svg>
-          <div id="loader-logo" className="mt-6 opacity-0 text-white font-serif text-2xl tracking-widest text-center">
-            Disegno
-            <div className="text-[10px] font-sans tracking-[0.3em] text-primary mt-2">MOBILIARIO</div>
+          <div id="loader-logo" className="mt-6 opacity-0">
+            <img src="/logo.webp" alt="Disegno Mobiliario" className="h-12 w-auto object-contain mx-auto" />
           </div>
         </div>
       </div>
 
       {/* Navbar */}
       <nav id="main-nav" className="fixed top-0 w-full z-50 transition-all duration-500 bg-transparent py-4 px-6 md:px-12 flex justify-between items-center">
-        <div className="flex flex-col cursor-pointer">
-          <span className="font-serif text-xl tracking-wider leading-none text-primary">Disegno</span>
-          <span className="font-sans text-[9px] tracking-[0.2em] text-foreground mt-1">MOBILIARIO</span>
+        <div className="cursor-pointer">
+          <img src="/logo.webp" alt="Disegno Mobiliario" className="h-10 w-auto object-contain" />
         </div>
         <div className="hidden md:flex gap-8 items-center font-sans font-light text-xs tracking-widest uppercase">
           {["INICIO", "NOSOTROS", "SERVICIOS", "PROYECTOS", "MATERIALES", "CONTACTO"].map((link) => (
