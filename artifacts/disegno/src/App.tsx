@@ -325,11 +325,6 @@ export default function App() {
 
   return (
     <div ref={containerRef} className="bg-background text-foreground min-h-screen">
-      {/* Custom Cursor */}
-      <div ref={cursorRef} className="custom-cursor hidden">
-        <span ref={cursorTextRef} className="text-primary-foreground font-sans font-semibold tracking-wider"></span>
-      </div>
-
       {/* Loader */}
       <div id="loader-curtain" className="fixed inset-0 z-[100] bg-[#0A0A0A] flex flex-col items-center justify-center pointer-events-none">
         <div className="relative flex flex-col items-center">
