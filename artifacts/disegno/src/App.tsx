@@ -87,7 +87,18 @@ export default function App() {
         duration: 1.5,
         ease: "power2.inOut",
       })
-        .to("#loader-logo", { opacity: 1, duration: 0.5 })
+        .to("#loader-logo", { opacity: 1, duration: 0.1 })
+        .fromTo(
+          ".loader-logo-char",
+          { y: 22, opacity: 0, rotateX: -60 },
+          { y: 0, opacity: 1, rotateX: 0, duration: 0.6, stagger: 0.07, ease: "back.out(2)" }
+        )
+        .fromTo(
+          ".loader-sub",
+          { opacity: 0, letterSpacing: "0.6em" },
+          { opacity: 1, letterSpacing: "0.3em", duration: 0.7, ease: "power3.out" },
+          "-=0.3"
+        )
         .to("#loader-curtain", {
           y: "-100%",
           duration: 1.2,
@@ -315,7 +326,7 @@ export default function App() {
   return (
     <div ref={containerRef} className="bg-background text-foreground min-h-screen">
       {/* Custom Cursor */}
-      <div ref={cursorRef} className="custom-cursor hidden md:flex">
+      <div ref={cursorRef} className="custom-cursor hidden">
         <span ref={cursorTextRef} className="text-primary-foreground font-sans font-semibold tracking-wider"></span>
       </div>
 
@@ -332,9 +343,21 @@ export default function App() {
               strokeDashoffset="250"
             />
           </svg>
-          <div id="loader-logo" className="mt-6 opacity-0 text-white font-serif text-2xl tracking-widest text-center">
-            Disegno
-            <div className="text-[10px] font-sans tracking-[0.3em] text-primary mt-2">MOBILIARIO</div>
+          <div id="loader-logo" className="mt-6 opacity-0 text-center">
+            <div className="flex justify-center leading-none" style={{ perspective: "300px" }}>
+              {Array.from("Disegno").map((char, i) => (
+                <span
+                  key={i}
+                  className="loader-logo-char inline-block font-serif text-2xl tracking-widest text-white"
+                  style={{ willChange: "transform", display: "inline-block" }}
+                >
+                  {char}
+                </span>
+              ))}
+            </div>
+            <div className="loader-sub text-[10px] font-sans text-primary mt-2" style={{ letterSpacing: "0.6em", opacity: 0 }}>
+              MOBILIARIO
+            </div>
           </div>
         </div>
       </div>
