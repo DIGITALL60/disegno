@@ -1,0 +1,67 @@
+Tengo una web en HTML puro. Quiero que analices TODO el código completo, detectes automáticamente cada imagen y video que existe en la web y los reemplaces por el contenido de estas carpetas de Google Drive:
+
+Carpeta 1: https://drive.google.com/drive/folders/1tFC-WVG6_k-2jhr-HtY7Bv3t7hP77Wth
+Carpeta 2: https://drive.google.com/drive/folders/12TuKZA2Tg-_9-QDSqXByjwr4yLLsAtU9
+Carpeta 3: https://drive.google.com/drive/folders/1qtkRCvNKdR3vVTlfD9csyj3pQoz-ukDJ
+
+LO QUE DEBE HACER LA IA:
+
+Detectar automáticamente todas las etiquetas <img>, <video>, <source>, backgrounds en CSS, y cualquier referencia a imágenes o videos en el código
+Listar los archivos de Drive usando la API pública de Google Drive con este endpoint:
+
+https://www.googleapis.com/drive/v3/files?q='FOLDER_ID'+in+parents&key=AIzaSyD...
+O alternativamente usar el formato directo:
+https://drive.google.com/uc?export=view&id=FILE_ID
+
+Reemplazar inteligentemente:
+
+Hero/banner principal → primera imagen de mayor resolución de Carpeta 1
+Galería de proyectos → todas las imágenes de Carpeta 2
+Sección de materiales o detalles → imágenes de Carpeta 3
+Videos → archivos .mp4 o .mov encontrados en cualquier carpeta
+Si hay más imágenes en Drive que slots en la web → crear nuevas cards o slides automáticamente
+
+
+Agregar efectos a TODAS las imágenes y videos:
+
+CARRUSEL AUTOMÁTICO:
+
+Donde haya más de 3 imágenes juntas, convertirlas en carrusel
+Cambio automático cada 4 segundos con fade suave
+Flechas de navegación + puntos indicadores
+Pausa al hacer hover
+Fullwidth con altura adaptable al contenido
+
+GALERÍA SCROLL PARALLAX:
+
+Donde haya grilla de imágenes, aplicar masonry de 3 columnas
+Cada imagen aparece con fade in desde abajo usando Intersection Observer + GSAP
+Parallax: imágenes fondo se mueven a 0.3x velocidad del scroll
+Hover: zoom scale(1.05) con sombra sutil
+Lightbox al hacer clic: imagen/video fullscreen, flechas para navegar, ESC para cerrar
+
+VIDEOS:
+
+Autoplay, muted, loop
+Si es hero: video de fondo fullscreen con overlay oscuro
+Si es sección: video con controles, poster con primera imagen
+Efecto parallax leve en scroll
+
+EFECTOS ADICIONALES EN TODAS LAS IMÁGENES:
+
+Skeleton loader animado con shimmer mientras cargan
+Lazy loading con loading="lazy" + Intersection Observer
+Al entrar en viewport: animación con GSAP desde opacity:0, y:40 a opacity:1, y:0
+Responsive: mobile 1 columna, tablet 2 columnas, desktop 3 columnas
+
+
+MANTENER todo el diseño, colores, tipografías y estructura original de la web intactos. Solo reemplazar el contenido multimedia y agregar los efectos.
+CÓDIGO FINAL:
+
+
+Todo en HTML puro con CSS y JS en el mismo archivo o archivos separados
+GSAP desde CDN: https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js
+ScrollTrigger desde CDN
+Sin frameworks, sin npm, sin build tools
+Código limpio y comentado
+Listo para copiar y pegar

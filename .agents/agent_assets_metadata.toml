@@ -125,3 +125,9 @@ id = "-8ReUfIL9qFQJId6NBXes"
 uri = "file://artifacts/disegno/public/gallery8.jpg"
 type = "image"
 title = "commercial interior restaurant warm"
+
+[[outputs]]
+id = "GCCv6s0-_1rrzLtnfnZYC"
+uri = "file://gallery-export/galeria.zip"
+type = "unspecified"
+title = "galeria.zip — Carrusel + Masonry con Google Drive"

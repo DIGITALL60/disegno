@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Galería - Disegno Mobiliario</title>
+
+  <!-- GSAP desde CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <style>
+    /* ─── RESET & BASE ─────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0d0d0d; font-family: sans-serif; color: #f0ede8; }
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+    /* ─── SKELETON SHIMMER ──────────────────────────────────── */
+    @keyframes shimmer {
+      0%   { background-position: -800px 0; }
+      100% { background-position:  800px 0; }
+    }
+    .skeleton {
+      background: linear-gradient(90deg, #1a1a1a 25%, #2a2520 50%, #1a1a1a 75%);
+      background-size: 800px 100%;
+      animation: shimmer 1.4s infinite linear;
+      border-radius: 4px;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       SECCIÓN 1 — CARRUSEL
+    ═══════════════════════════════════════════════════════════ */
+    #carousel-section {
+      position: relative;
+      width: 100%;
+      height: 500px;
+      overflow: hidden;
+      background: #0d0d0d;
+    }
+
+    /* Contenedor de slides */
+    .carousel-track {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Cada slide */
+    .carousel-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+      pointer-events: none;
+    }
+    .carousel-slide.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Skeleton de carga del carrusel */
+    .carousel-skeleton {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+    }
+
+    /* Overlay oscuro con gradiente */
+    .carousel-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.15) 0%,
+        rgba(0,0,0,0.05) 40%,
+        rgba(0,0,0,0.45) 100%
+      );
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* Flechas */
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      background: rgba(200, 130, 42, 0.15);
+      border: 1px solid rgba(200, 130, 42, 0.4);
+      color: #fff;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+      transition: background 0.3s, transform 0.2s;
+    }
+    .carousel-btn:hover {
+      background: rgba(200, 130, 42, 0.45);
+      transform: translateY(-50%) scale(1.08);
+    }
+    .carousel-btn.prev { left: 20px; }
+    .carousel-btn.next { right: 20px; }
+    .carousel-btn svg { width: 20px; height: 20px; fill: none; stroke: #fff; stroke-width: 2; }
+
+    /* Dots */
+    .carousel-dots {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex;
+      gap: 8px;
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.35);
+      border: 1px solid rgba(200,130,42,0.4);
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .dot.active {
+      background: #c8822a;
+      transform: scale(1.3);
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       SECCIÓN 2 — GALERÍA MASONRY
+    ═══════════════════════════════════════════════════════════ */
+    #gallery-section {
+      padding: 80px 24px;
+      background: #0d0d0d;
+    }
+    #gallery-section h2 {
+      text-align: center;
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      color: #c8822a;
+      margin-bottom: 12px;
+    }
+    #gallery-section p.subtitle {
+      text-align: center;
+      font-size: 0.78rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #8a8075;
+      margin-bottom: 56px;
+    }
+
+    /* Masonry grid con CSS columns */
+    .masonry-grid {
+      columns: 3;
+      column-gap: 16px;
+    }
+    @media (max-width: 900px) {
+      .masonry-grid { columns: 2; }
+    }
+    @media (max-width: 560px) {
+      .masonry-grid { columns: 1; }
+      #carousel-section { height: 280px; }
+    }
+
+    /* Item de la galería */
+    .gallery-item {
+      break-inside: avoid;
+      margin-bottom: 16px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 4px;
+      cursor: zoom-in;
+      /* estado inicial para GSAP */
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    /* Skeleton dentro de cada item */
+    .gallery-item .item-skeleton {
+      width: 100%;
+      border-radius: 4px;
+    }
+
+    /* La imagen real, oculta hasta cargar */
+    .gallery-item img.real-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 0.5s ease, transform 0.6s ease;
+      will-change: transform;
+    }
+    .gallery-item img.real-img.loaded {
+      opacity: 1;
+    }
+
+    /* Hover: zoom + sombra dorada */
+    .gallery-item:hover img.real-img.loaded {
+      transform: scale(1.05);
+    }
+    .gallery-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      box-shadow: inset 0 0 0 0 rgba(200,130,42,0);
+      transition: box-shadow 0.4s ease;
+      pointer-events: none;
+      border-radius: 4px;
+    }
+    .gallery-item:hover::after {
+      box-shadow: inset 0 0 0 2px rgba(200,130,42,0.6),
+                  0 8px 32px rgba(200,130,42,0.2);
+    }
+
+    /* ─── LIGHTBOX ──────────────────────────────────────────── */
+    #lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(0,0,0,0.95);
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    #lightbox.open {
+      display: flex;
+    }
+    #lightbox img {
+      max-width: 90vw;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 4px;
+      box-shadow: 0 0 60px rgba(200,130,42,0.15);
+    }
+    .lb-close {
+      position: fixed;
+      top: 20px;
+      right: 24px;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 2rem;
+      cursor: pointer;
+      line-height: 1;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    .lb-close:hover { opacity: 1; }
+    .lb-nav {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(200,130,42,0.2);
+      border: 1px solid rgba(200,130,42,0.4);
+      color: #fff;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.3s;
+      font-size: 1.2rem;
+    }
+    .lb-nav:hover { background: rgba(200,130,42,0.5); }
+    .lb-nav.prev { left: 16px; }
+    .lb-nav.next { right: 16px; }
+    .lb-counter {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      color: #8a8075;
+    }
+
+    /* ─── MENSAJES DE ESTADO ────────────────────────────────── */
+    .status-msg {
+      text-align: center;
+      padding: 60px 20px;
+      color: #5a5450;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+    }
+    .api-notice {
+      background: rgba(200,130,42,0.08);
+      border: 1px solid rgba(200,130,42,0.25);
+      border-radius: 4px;
+      padding: 16px 24px;
+      margin: 0 auto 40px;
+      max-width: 640px;
+      font-size: 0.82rem;
+      line-height: 1.7;
+      color: #c8a870;
+      text-align: center;
+    }
+    .api-notice code {
+      background: rgba(200,130,42,0.15);
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: monospace;
+    }
+    .api-notice a { color: #c8822a; }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════
+     CONFIGURACIÓN — editá estos valores antes de usar
+════════════════════════════════════════════════════════════ -->
+<script>
+  const CONFIG = {
+    /*
+      API KEY de Google:
+      1. Ir a https://console.cloud.google.com/
+      2. Crear proyecto → APIs → Habilitar "Google Drive API"
+      3. Credenciales → Crear clave de API
+      4. Pegar la clave abajo (sin restricciones para pruebas)
+    */
+    apiKey: 'TU_API_KEY_AQUI',
+
+    /* IDs de carpetas (parte final de la URL de Drive) */
+    folderCarousel: '1tFC-WVG6_k-2jhr-HtY7Bv3t7hP77Wth',
+    folderGallery1: '12TuKZA2Tg-_9-QDSqXByjwr4yLLsAtU9',
+    folderGallery2: '1qtkRCvNKdR3vVTlfD9csyj3pQoz-ukDJ',
+
+    /* Tiempo entre slides del carrusel (ms) */
+    carouselInterval: 4000,
+
+    /* Número máximo de imágenes por sección */
+    maxCarousel: 20,
+    maxGallery: 60,
+  };
+</script>
+
+<!-- ════════════════════════════════════════════════════════════
+     SECCIÓN 1 — CARRUSEL AUTOMÁTICO
+════════════════════════════════════════════════════════════ -->
+<section id="carousel-section">
+  <!-- Skeleton mientras carga -->
+  <div class="carousel-skeleton skeleton" id="carousel-skeleton"></div>
+
+  <div class="carousel-overlay"></div>
+
+  <div class="carousel-track" id="carousel-track">
+    <!-- Los slides se insertan con JS -->
+  </div>
+
+  <button class="carousel-btn prev" id="carousel-prev" aria-label="Anterior">
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+  </button>
+  <button class="carousel-btn next" id="carousel-next" aria-label="Siguiente">
+    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+  </button>
+
+  <div class="carousel-dots" id="carousel-dots"></div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     SECCIÓN 2 — GALERÍA MASONRY CON PARALLAX
+════════════════════════════════════════════════════════════ -->
+<section id="gallery-section">
+  <h2>PROYECTOS</h2>
+  <p class="subtitle">Diseño · Artesanía · Detalle</p>
+
+  <!-- Aviso sobre API Key (se oculta si hay key) -->
+  <div class="api-notice" id="api-notice" style="display:none">
+    Para cargar las imágenes de Google Drive necesitás una <strong>API Key</strong>.<br/>
+    Editá la variable <code>CONFIG.apiKey</code> al inicio del archivo.<br/>
+    <a href="https://console.cloud.google.com/" target="_blank">→ Obtener API Key gratis</a>
+  </div>
+
+  <!-- Grid masonry — los items se insertan con JS -->
+  <div class="masonry-grid" id="masonry-grid"></div>
+
+  <div class="status-msg" id="gallery-status" style="display:none">Cargando galería...</div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     LIGHTBOX
+════════════════════════════════════════════════════════════ -->
+<div id="lightbox" role="dialog" aria-modal="true">
+  <button class="lb-close" id="lb-close" aria-label="Cerrar">✕</button>
+  <img id="lb-img" src="" alt="Imagen ampliada" />
+  <button class="lb-nav prev" id="lb-prev" aria-label="Anterior">&#8592;</button>
+  <button class="lb-nav next" id="lb-next" aria-label="Siguiente">&#8594;</button>
+  <div class="lb-counter" id="lb-counter"></div>
+</div>
+
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+/* ─── UTILIDADES ─────────────────────────────────────────────── */
+
+/**
+ * Construye la URL de descarga directa de un archivo de Drive.
+ * Usa el endpoint de thumbnail que es más confiable que /uc?export=view
+ */
+function driveImgUrl(fileId, size = 'w1600') {
+  return `https://drive.google.com/thumbnail?id=${fileId}&sz=${size}`;
+}
+
+/**
+ * Llama a la Drive API v3 para listar archivos imagen de una carpeta.
+ * Requiere que la carpeta sea pública ("Cualquiera con el enlace puede ver").
+ */
+async function fetchDriveImages(folderId, maxResults = 60) {
+  const mimeFilter = encodeURIComponent(
+    `'${folderId}' in parents and (mimeType contains 'image/') and trashed = false`
+  );
+  const fields = encodeURIComponent('files(id,name,mimeType)');
+  const url = `https://www.googleapis.com/drive/v3/files?q=${mimeFilter}&key=${CONFIG.apiKey}&fields=${fields}&pageSize=${maxResults}&orderBy=name`;
+
+  const resp = await fetch(url);
+  if (!resp.ok) throw new Error(`Drive API error ${resp.status}: ${await resp.text()}`);
+  const data = await resp.json();
+  return (data.files || []).filter(f => f.mimeType.startsWith('image/'));
+}
+
+/* ─── VALIDAR API KEY ────────────────────────────────────────── */
+const hasApiKey = CONFIG.apiKey && CONFIG.apiKey !== 'TU_API_KEY_AQUI';
+if (!hasApiKey) {
+  document.getElementById('api-notice').style.display = 'block';
+  document.getElementById('carousel-skeleton').style.display = 'none';
+  document.getElementById('gallery-status').style.display = 'none';
+}
+
+
+/* ══════════════════════════════════════════════════════════════
+   SECCIÓN 1 — CARRUSEL
+══════════════════════════════════════════════════════════════ */
+const Carousel = (() => {
+  const track    = document.getElementById('carousel-track');
+  const dotsEl   = document.getElementById('carousel-dots');
+  const skeleton = document.getElementById('carousel-skeleton');
+  const btnPrev  = document.getElementById('carousel-prev');
+  const btnNext  = document.getElementById('carousel-next');
+
+  let slides   = [];
+  let dots     = [];
+  let current  = 0;
+  let timer    = null;
+  let paused   = false;
+
+  function goTo(idx) {
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = (idx + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+  }
+
+  function next() { goTo(current + 1); }
+  function prev() { goTo(current - 1); }
+
+  function startTimer() {
+    clearInterval(timer);
+    timer = setInterval(() => { if (!paused) next(); }, CONFIG.carouselInterval);
+  }
+
+  function build(files) {
+    skeleton.style.display = 'none';
+
+    files.forEach((file, i) => {
+      /* Slide */
+      const slide = document.createElement('div');
+      slide.className = 'carousel-slide' + (i === 0 ? ' active' : '');
+
+      const img = document.createElement('img');
+      img.src = driveImgUrl(file.id, 'w1600');
+      img.alt = file.name;
+      img.loading = 'lazy';
+      slide.appendChild(img);
+      track.appendChild(slide);
+      slides.push(slide);
+
+      /* Dot */
+      const dot = document.createElement('button');
+      dot.className = 'dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', `Slide ${i + 1}`);
+      dot.addEventListener('click', () => goTo(i));
+      dotsEl.appendChild(dot);
+      dots.push(dot);
+    });
+
+    /* Flechas */
+    btnPrev.addEventListener('click', () => { prev(); startTimer(); });
+    btnNext.addEventListener('click', () => { next(); startTimer(); });
+
+    /* Pausa al hover */
+    const section = document.getElementById('carousel-section');
+    section.addEventListener('mouseenter', () => { paused = true; });
+    section.addEventListener('mouseleave', () => { paused = false; });
+
+    /* Swipe en mobile */
+    let touchStartX = 0;
+    section.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
+    section.addEventListener('touchend',   e => {
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 50) { dx < 0 ? next() : prev(); startTimer(); }
+    });
+
+    startTimer();
+  }
+
+  async function init() {
+    if (!hasApiKey) return;
+    try {
+      const files = await fetchDriveImages(CONFIG.folderCarousel, CONFIG.maxCarousel);
+      if (!files.length) {
+        skeleton.innerHTML = '<div class="status-msg">Sin imágenes en la carpeta del carrusel.</div>';
+        skeleton.className = '';
+        return;
+      }
+      build(files);
+    } catch (err) {
+      console.error('Carousel error:', err);
+      skeleton.className = '';
+      skeleton.innerHTML = `<div class="status-msg">Error cargando carrusel.<br><small>${err.message}</small></div>`;
+    }
+  }
+
+  return { init };
+})();
+
+
+/* ══════════════════════════════════════════════════════════════
+   SECCIÓN 2 — GALERÍA MASONRY + PARALLAX + LIGHTBOX
+══════════════════════════════════════════════════════════════ */
+const Gallery = (() => {
+  const grid      = document.getElementById('masonry-grid');
+  const statusEl  = document.getElementById('gallery-status');
+
+  /* Lightbox state */
+  let galleryFiles = [];
+  let lbIndex = 0;
+
+  /* ── Construir un item de galería ── */
+  function buildItem(file, index) {
+    const item = document.createElement('div');
+    item.className = 'gallery-item';
+
+    /* Altura variable para efecto masonry real */
+    const heights = [220, 280, 320, 260, 300, 240];
+    const h = heights[index % heights.length];
+
+    /* Skeleton mientras carga */
+    const skel = document.createElement('div');
+    skel.className = 'item-skeleton skeleton';
+    skel.style.height = h + 'px';
+    item.appendChild(skel);
+
+    /* Imagen real (lazy) */
+    const img = document.createElement('img');
+    img.className = 'real-img';
+    img.alt = file.name;
+    img.style.height = h + 'px';
+    img.style.position = 'relative';
+
+    /* Lazy loading con Intersection Observer */
+    img.dataset.src = driveImgUrl(file.id, 'w1000');
+    item.appendChild(img);
+
+    /* Abrir lightbox al clic */
+    item.addEventListener('click', () => openLightbox(index));
+
+    return item;
+  }
+
+  /* ── Intersection Observer: lazy load + GSAP fade-in ── */
+  function setupObserver(items) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+
+        const item = entry.target;
+        const img  = item.querySelector('img.real-img');
+
+        /* Cargar imagen */
+        if (img && img.dataset.src && !img.src) {
+          img.src = img.dataset.src;
+          img.onload = () => {
+            img.classList.add('loaded');
+            const skel = item.querySelector('.item-skeleton');
+            if (skel) skel.style.display = 'none';
+          };
+          img.onerror = () => {
+            const skel = item.querySelector('.item-skeleton');
+            if (skel) { skel.style.background = '#1a1a1a'; skel.style.animation = 'none'; }
+          };
+        }
+
+        /* GSAP fade-in desde abajo */
+        gsap.to(item, {
+          opacity: 1,
+          y: 0,
+          duration: 0.75,
+          ease: 'power3.out',
+        });
+
+        observer.unobserve(item);
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+    items.forEach(item => observer.observe(item));
+  }
+
+  /* ── ScrollTrigger parallax en cada item ── */
+  function setupParallax(items) {
+    items.forEach((item, i) => {
+      /* Las columnas del centro se mueven más lento (efecto profundidad) */
+      const speed = (i % 3 === 1) ? 0.25 : 0.1;
+      gsap.to(item.querySelector('img.real-img'), {
+        yPercent: -20 * speed * 10,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: item,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1,
+          invalidateOnRefresh: true,
+        },
+      });
+    });
+  }
+
+  /* ── Lightbox ── */
+  const lb        = document.getElementById('lightbox');
+  const lbImg     = document.getElementById('lb-img');
+  const lbCounter = document.getElementById('lb-counter');
+
+  function openLightbox(idx) {
+    lbIndex = idx;
+    lbImg.src = driveImgUrl(galleryFiles[idx].id, 'w1600');
+    lbCounter.textContent = `${idx + 1} / ${galleryFiles.length}`;
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    gsap.fromTo(lbImg, { scale: 0.92, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: 'power2.out' });
+  }
+
+  function closeLightbox() {
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function lbNav(dir) {
+    lbIndex = (lbIndex + dir + galleryFiles.length) % galleryFiles.length;
+    gsap.to(lbImg, { opacity: 0, x: dir * -40, duration: 0.2, onComplete: () => {
+      lbImg.src = driveImgUrl(galleryFiles[lbIndex].id, 'w1600');
+      lbCounter.textContent = `${lbIndex + 1} / ${galleryFiles.length}`;
+      gsap.fromTo(lbImg, { opacity: 0, x: dir * 40 }, { opacity: 1, x: 0, duration: 0.25, ease: 'power2.out' });
+    }});
+  }
+
+  document.getElementById('lb-close').addEventListener('click', closeLightbox);
+  document.getElementById('lb-prev').addEventListener('click', () => lbNav(-1));
+  document.getElementById('lb-next').addEventListener('click', () => lbNav(1));
+  lb.addEventListener('click', e => { if (e.target === lb) closeLightbox(); });
+  document.addEventListener('keydown', e => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape')      closeLightbox();
+    if (e.key === 'ArrowLeft')   lbNav(-1);
+    if (e.key === 'ArrowRight')  lbNav(1);
+  });
+
+  /* ── Build grid ── */
+  function build(files) {
+    galleryFiles = files;
+    statusEl.style.display = 'none';
+
+    const items = files.map((f, i) => {
+      const item = buildItem(f, i);
+      grid.appendChild(item);
+      return item;
+    });
+
+    setupObserver(items);
+    setupParallax(items);
+  }
+
+  async function init() {
+    if (!hasApiKey) return;
+    statusEl.style.display = 'block';
+
+    try {
+      /* Cargar ambas carpetas en paralelo */
+      const [files1, files2] = await Promise.all([
+        fetchDriveImages(CONFIG.folderGallery1, CONFIG.maxGallery),
+        fetchDriveImages(CONFIG.folderGallery2, CONFIG.maxGallery),
+      ]);
+
+      const all = [...files1, ...files2].slice(0, CONFIG.maxGallery);
+
+      if (!all.length) {
+        statusEl.textContent = 'Sin imágenes en las carpetas de galería.';
+        return;
+      }
+
+      build(all);
+    } catch (err) {
+      console.error('Gallery error:', err);
+      statusEl.textContent = `Error cargando galería: ${err.message}`;
+    }
+  }
+
+  return { init };
+})();
+
+/* ── Arrancar todo ── */
+Carousel.init();
+Gallery.init();
+</script>
+</body>
+</html>
