@@ -956,8 +956,7 @@ export default function App() {
                     loop
                     muted
                     playsInline
-                    onMouseEnter={(e) => (e.currentTarget as HTMLVideoElement).play()}
-                    onMouseLeave={(e) => { const v = e.currentTarget as HTMLVideoElement; v.pause(); v.currentTime = 0; }}
+                    autoPlay
                   />
                   {/* Play icon overlay - desaparece al hacer hover */}
                   <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/5 transition-colors duration-300 pointer-events-none">
@@ -1152,9 +1151,9 @@ export default function App() {
       </footer>
 
       {/* ── FLOATING CTA ── */}
-      <div className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-40 scale-[0.75] md:scale-100 origin-bottom-right">
-        <button className="relative w-20 h-20 bg-primary rounded-full flex items-center justify-center text-black hover:scale-[1.05] transition-transform shadow-lg shadow-black/50 group">
-          <div className="absolute inset-[-10px]">
+      <div className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-40">
+        <button className="relative w-14 h-14 md:w-20 md:h-20 bg-primary rounded-full flex items-center justify-center text-black hover:scale-105 transition-transform shadow-lg shadow-black/50 group">
+          <div className="absolute inset-[-10px] hidden md:block">
             <svg viewBox="0 0 100 100" width="100" height="100" className="animate-[spin_8s_linear_infinite]">
               <defs><path id="circle" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" /></defs>
               <text fontSize="11" fill="hsl(var(--primary))" letterSpacing="2" className="font-sans font-semibold uppercase">
@@ -1162,7 +1161,7 @@ export default function App() {
               </text>
             </svg>
           </div>
-          <FaWhatsapp size={32} className="relative z-10" />
+          <FaWhatsapp className="relative z-10 text-3xl md:text-4xl" />
         </button>
       </div>
 
