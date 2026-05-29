@@ -1,5 +1,5 @@
 {
   "buildCommand": "pnpm --filter @workspace/disegno run build",
-  "outputDirectory": "artifacts/disegno/dist/public",
+  "outputDirectory": "dist"
   "installCommand": "pnpm install"
 }
