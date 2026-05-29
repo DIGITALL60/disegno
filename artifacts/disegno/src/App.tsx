@@ -8,80 +8,175 @@ import { FaWhatsapp, FaInstagram } from "react-icons/fa";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-/* ─── Google Drive image helper ─────────────────────────────── */
-const D = (id: string, sz = "w1600") =>
-  `https://drive.google.com/thumbnail?id=${id}&sz=${sz}`;
+/* ─── Local image imports ─────────────────────────────────────── */
+import hero1 from "./assets/images/hero-1.jpg";
+import hero2 from "./assets/images/hero-2.jpg";
+import hero3 from "./assets/images/hero-3.jpg";
+import hero4 from "./assets/images/hero-4.jpg";
 
-/* ─── Drive folder IDs ──────────────────────────────────────── */
-const FOLDER1_IDS = [
-  "11MGAFRNJRPKEeKN5OhrCrJprYC3DSs_3",
-  "12SwnYwDm4QBv4AjKDfcDeyF9dLq6MTGX",
-  "1INqtgmMzKPMPJ8nXM6yC43hGB6rQ6gLt",
-  "1JbndqBSI41C2dUjNbRQTJpilS4Q4UK8V",
-  "1jU3dJ1ABI5s8CZ3QtfdgjcbMuMjSRrgB",
-  "1Mv12HRkegILVYjAuvd3Cl8IijKSePiNW",
-  "1t9breUfPtzHrM6eBDMn9Cl3uGVUgpBKN",
-  "1wQjH7yep4GoYDWrMz1i299hhkxUrTwTk",
-  "1wyyXW6Ov8Bm4K-2ZtzeFrLJ1dL31UCcq",
-  "1xqOPvNs3PaUxSdhp0fKm0-kVgSCPXFh8",
+import feat1 from "./assets/images/feat-1.jpg";
+import feat2 from "./assets/images/feat-2.jpg";
+import feat3 from "./assets/images/feat-3.jpg";
+import feat4 from "./assets/images/feat-4.jpg";
+
+import aboutImg from "./assets/images/about-2.jpg";
+
+import scroll1 from "./assets/images/scroll-1.jpg";
+import scroll2 from "./assets/images/scroll-2.jpg";
+import scroll3 from "./assets/images/scroll-3.jpg";
+import scroll4 from "./assets/images/scroll-4.jpg";
+import scroll5 from "./assets/images/scroll-5.jpg";
+import scroll6 from "./assets/images/scroll-6.jpg";
+import scroll7 from "./assets/images/scroll-7.jpg";
+import scroll8 from "./assets/images/scroll-8.jpg";
+
+import mas1 from "./assets/images/mas-1.jpg";
+import mas2 from "./assets/images/mas-2.jpg";
+import mas3 from "./assets/images/mas-3.jpg";
+import mas4 from "./assets/images/mas-4.jpg";
+import mas5 from "./assets/images/mas-5.jpg";
+import mas6 from "./assets/images/mas-6.jpg";
+import mas7 from "./assets/images/mas-7.jpg";
+import mas8 from "./assets/images/mas-8.jpg";
+import mas9 from "./assets/images/mas-9.jpg";
+import mas10 from "./assets/images/mas-10.jpg";
+import mas11 from "./assets/images/mas-11.jpg";
+import mas12 from "./assets/images/mas-12.jpg";
+
+import reelVideo1 from "./assets/images/reel-DTtl_2bjjyl.mp4";
+import reelVideo2 from "./assets/images/reel-DPMDqR0Dk-B.mp4";
+
+/* ─── Project page images ─────────────────────────────────────── */
+import projFoa       from "./assets/images/projects/foa.jpg";
+import projFoa2      from "./assets/images/projects/foa-2.jpg";
+import projFoa3      from "./assets/images/projects/foa-3.jpg";
+import projFoa4      from "./assets/images/projects/foa-4.jpg";
+import projFoa5      from "./assets/images/projects/foa-5.jpg";
+import projCocina    from "./assets/images/projects/cocina.jpg";
+import projCocina2   from "./assets/images/projects/cocina-2.jpg";
+import projCocina3   from "./assets/images/projects/cocina-3.jpg";
+import projCocina4   from "./assets/images/projects/cocina-4.jpg";
+import projPilar     from "./assets/images/projects/pilar.jpg";
+import projPilar2    from "./assets/images/projects/pilar-2.jpg";
+import projPilar3    from "./assets/images/projects/pilar-3.jpg";
+import projPilar4    from "./assets/images/projects/pilar-4.jpg";
+import projLaguna    from "./assets/images/projects/laguna.jpg";
+import projLaguna2   from "./assets/images/projects/laguna-2.jpg";
+import projLaguna3   from "./assets/images/projects/laguna-3.jpg";
+import projLaguna4   from "./assets/images/projects/laguna-4.jpg";
+import projLapankana from "./assets/images/projects/lapankana.jpg";
+import projLapankana2 from "./assets/images/projects/lapankana-2.jpg";
+import projLapankana3 from "./assets/images/projects/lapankana-3.jpg";
+import projLapankana4 from "./assets/images/projects/lapankana-4.jpg";
+import projObra      from "./assets/images/projects/obra.jpg";
+import projObra2     from "./assets/images/projects/obra-2.jpg";
+import projObra3     from "./assets/images/projects/obra-3.jpg";
+import projOficina   from "./assets/images/projects/oficina.jpg";
+import projOficina2  from "./assets/images/projects/oficina-2.jpg";
+import projOficina3  from "./assets/images/projects/oficina-3.jpg";
+import projOficina4  from "./assets/images/projects/oficina-4.jpg";
+import projVilla     from "./assets/images/projects/villa.jpg";
+import projVilla2    from "./assets/images/projects/villa-2.jpg";
+import projVilla3    from "./assets/images/projects/villa-3.jpg";
+import projVilla4    from "./assets/images/projects/villa-4.jpg";
+
+const HERO_IMGS = [hero1, hero2, hero3, hero4];
+const PROJECT_IMGS = [feat1, feat2, feat3, feat4];
+const HSCROLL_IMGS = [scroll1, scroll2, scroll3, scroll4, scroll5, scroll6, scroll7, scroll8];
+const MASONRY_IMGS = [mas1, mas2, mas3, mas4, mas5, mas6, mas7, mas8, mas9, mas10, mas11, mas12];
+const ABOUT_IMG = aboutImg;
+const REEL_VIDEOS = [
+  { src: reelVideo1, label: "Proyecto residencial" },
+  { src: reelVideo2, label: "Proceso artesanal" },
 ];
 
-const FOLDER2_IDS = [
-  "10pJrqem_weqkNQf-CAQvO00bSsXI3OiJ",
-  "10T0M-n3UmGMvIQ5E5xJM5zNDwfvNXMTq",
-  "10wsyk9X3OflT6vfvxAgzbLhREOFjvNMp",
-  "1628sT4beTxHq1layOEdZ1DZRFiT8tSt1",
-  "17hhJATbBjcKRcKkgj5EX-AagiYPrijNF",
-  "1An6ebdO5pthCaxxfdYqjagq2Pu8bckFs",
-  "1_balOUSLCp7NAoy-chwrAvIWwxGzNXmm",
-  "1D1X0xytY1bWdXcH5vacQBJTAr3Qx3H14",
-  "1d5oLv-81VZh99ezv55b7EugeBpoZbpXA",
-  "1Dc7C7Wlw5E0PkO16w2ljNH0Yjc525YmL",
-  "1Embieg2k3Gy-84Oa_Rzvt0HPtCkAXdy6",
-  "1FNKcX68Dsbton3lA7fYvpY9u7ILS_4u6",
-  "1fxJumF3wohG9b4K6d6rLf5742sZ21LEW",
-  "1GdzFYFWwcgLCUi3Q5fnA_k7ZdeK6fQul",
-  "1GwDtbwhl7Rj1MaKv_ZuXb_cftpDuyuXM",
-  "1HLqLkHHBkAw-yPOzfJPlvZFzjOKJoVXJ",
-  "1i4346z3I5VsNiOctK-xCfM8OifcHUe-e",
-  "1J4h5dm3stkRIx-b8f9m3OLQ2Q-6dGmQP",
-  "1JaSqPPS-Klak6dHhxVS5SoIpX49plWyo",
-  "1jr4birc4oNf1VOZSIt_YWgT3kLYHXiOP",
+const PROJECTS_ALL = [
+  { imgs: [projFoa, projFoa2, projFoa3, projFoa4, projFoa5],               name: "Casa FOA 2026",        cat: "RESIDENCIAL" },
+  { imgs: [projCocina, projCocina2, projCocina3, projCocina4],             name: "Cocina Phlaukalber",   cat: "COCINA" },
+  { imgs: [projPilar, projPilar2, projPilar3, projPilar4],                 name: "Diseño Pilar",         cat: "RESIDENCIAL" },
+  { imgs: [projLaguna, projLaguna2, projLaguna3, projLaguna4],             name: "Laguna Larga",         cat: "RESIDENCIAL" },
+  { imgs: [projLapankana, projLapankana2, projLapankana3, projLapankana4], name: "Lapankana",            cat: "RESIDENCIAL" },
+  { imgs: [projObra, projObra2, projObra3],                                name: "Obra Phlaukalber",     cat: "CONSTRUCCIÓN" },
+  { imgs: [projOficina, projOficina2, projOficina3, projOficina4],         name: "Oficina Corporativa",  cat: "COMERCIAL" },
+  { imgs: [projVilla, projVilla2, projVilla3, projVilla4],                 name: "Villa del Rosario",    cat: "RESIDENCIAL" },
 ];
 
-const FOLDER3_IDS = [
-  "13Ey4JF5fXU9bcYYQHrUhK7R2ENpgGqGy",
-  "144jR39wjB7aPVEAcY49abr5w7FLIWKsC",
-  "1-5eowomRRqP68spiJHl17MQTI-q2zofN",
-  "16o5m-0M1vsK_8K6KEVgAL4o34qGmcrQC",
-  "173sXyqShjmhQ5zn7upxDfGwxzxfSoVHV",
-  "18xU3JDNXUurRVZ3h0_7o-mrwY0oCOIqw",
-  "190zQ1NYYB0B5kN7aDdZ3l0XEVyggvzWF",
-  "19OqG7v0JoMuGy2U55PVKGf33rjnPBbMF",
-  "1B-dKd-8Ngc_z9l1Iw58NGEKUKnyfRjrB",
-  "1bTemxe59PqEU3wpMp3POOC7314aYCGYn",
-  "1bwsVUuIyOcTIJi4ZUhC4SqTV0EjERRuI",
-  "1dtkxUMBI1wBmqT70KA1OA6hkQgZHXCXW",
-  "1dYrfPBQtuhWCagaZoEa_0hfqET-MTMnJ",
-  "1ebKdRs1EljHZTXNGDXaqlBgyv2sQjJSe",
-  "1EH-AkV7o0el9hoTTXxtLDqcEA-r48n9V",
-  "1ew4PWFQy9L2YXbiHinIv4oEwaKjvDzt-",
-  "1FqM-m4BigBSMx6IrsEDVkYQA6-tYOZro",
-  "1gDJ7-iDuMRcVBtXNery8Gyiy659NJpKf",
-  "1Hkt5mXL3GXSxeu9-mKPFvJCdcf7B6tQV",
-  "1hyP9NJ6eSIT5pQbOc7lwBfJHhmniZbJO",
-];
+/* ─── Hover-cycling Project Card ─────────────────────────────── */
+function ProjectCard({ imgs, name, cat, index, onClick }: { imgs: string[]; name: string; cat: string; index: number; onClick: () => void }) {
+  const [currentIdx, setCurrentIdx] = useState(0);
+  const [fading, setFading] = useState(false);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-/* Sections assignment */
-const HERO_IMGS    = FOLDER1_IDS.map(id => D(id));               // 10 – hero carousel
-const PROJECT_IMGS = FOLDER2_IDS.slice(0, 4).map(id => D(id, "w1000")); // 4 – featured projects
-const HSCROLL_IMGS = FOLDER2_IDS.slice(4).map(id => D(id));     // 16 – horizontal scroll gallery
-const MASONRY_IMGS = FOLDER3_IDS.slice(0, 12).map(id => D(id, "w900")); // 12 – masonry
-const ABOUT_IMG    = D(FOLDER3_IDS[12], "w1200");
-const REEL_IMGS    = [D(FOLDER1_IDS[0]), D(FOLDER1_IDS[1])];
+  const startCycling = () => {
+    if (imgs.length <= 1) return;
+    intervalRef.current = setInterval(() => {
+      setFading(true);
+      setTimeout(() => {
+        setCurrentIdx(prev => (prev + 1) % imgs.length);
+        setFading(false);
+      }, 400);
+    }, 900);
+  };
+
+  const stopCycling = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+    setFading(false);
+  };
+
+  return (
+    <div
+      className="group relative aspect-[3/4] overflow-hidden cursor-pointer"
+      onMouseEnter={startCycling}
+      onMouseLeave={stopCycling}
+      onClick={onClick}
+    >
+      {imgs.map((src, i) => (
+        <img
+          key={i}
+          src={src}
+          alt={`${name} - ${i + 1}`}
+          className={`absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-105 ${
+            i === currentIdx ? (fading ? "opacity-0" : "opacity-100") : "opacity-0"
+          }`}
+          loading="lazy"
+          decoding="async"
+        />
+      ))}
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
+      {/* Hover line */}
+      <div className="absolute top-0 left-0 w-full h-[2px] bg-primary scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500" />
+      {/* Dot indicators */}
+      {imgs.length > 1 && (
+        <div className="absolute top-4 left-4 flex gap-1.5">
+          {imgs.map((_, i) => (
+            <span
+              key={i}
+              className={`block h-[2px] rounded-full transition-all duration-400 ${
+                i === currentIdx ? "w-5 bg-primary" : "w-2 bg-white/30"
+              }`}
+            />
+          ))}
+        </div>
+      )}
+      {/* Info */}
+      <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+        <span className="block text-primary font-sans text-[10px] tracking-[0.25em] uppercase mb-2">{cat}</span>
+        <h3 className="font-serif text-white text-xl leading-tight">{name}</h3>
+      </div>
+      {/* Index number */}
+      <div className="absolute bottom-6 right-6 font-serif text-white/10 text-4xl leading-none group-hover:text-white/20 transition-colors duration-500">
+        {String(index + 1).padStart(2, "0")}
+      </div>
+    </div>
+  );
+}
 
 /* ─── Magnetic Button ────────────────────────────────────────── */
-function MagneticButton({ children, className }: { children: React.ReactNode; className?: string }) {
+function MagneticButton({ children, className, onClick }: { children: React.ReactNode; className?: string; onClick?: () => void }) {
   const ref = useRef<HTMLButtonElement>(null);
   const onMove = (e: React.MouseEvent) => {
     const el = ref.current; if (!el) return;
@@ -92,7 +187,7 @@ function MagneticButton({ children, className }: { children: React.ReactNode; cl
   };
   const onLeave = () => gsap.to(ref.current, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1,0.3)" });
   return (
-    <button ref={ref} className={className} onMouseMove={onMove} onMouseLeave={onLeave}>
+    <button ref={ref} className={className} onMouseMove={onMove} onMouseLeave={onLeave} onClick={onClick}>
       {children}
     </button>
   );
@@ -105,16 +200,70 @@ function splitText(text: string) {
   ));
 }
 
+/* ─── Custom Magnetic Cursor ─────────────────────────────────── */
+function CustomCursor() {
+  const cursorRef = useRef<HTMLDivElement>(null);
+  
+  useEffect(() => {
+    const cursor = cursorRef.current;
+    if (!cursor) return;
+    
+    // Quick GSAP setter for performance
+    const xTo = gsap.quickTo(cursor, "x", { duration: 0.1, ease: "power3" });
+    const yTo = gsap.quickTo(cursor, "y", { duration: 0.1, ease: "power3" });
+    
+    const onMouseMove = (e: MouseEvent) => {
+      xTo(e.clientX);
+      yTo(e.clientY);
+    };
+    
+    const onMouseEnter = () => {
+       gsap.to(cursor, { scale: 2.5, backgroundColor: "rgba(200, 130, 42, 0.2)", border: "0.5px solid rgba(200, 130, 42, 0.8)", duration: 0.3 });
+    };
+    const onMouseLeave = () => {
+       gsap.to(cursor, { scale: 1, backgroundColor: "rgba(200, 130, 42, 1)", border: "none", duration: 0.3 });
+    };
+    
+    window.addEventListener("mousemove", onMouseMove);
+    
+    const observer = new MutationObserver(() => {
+      const els = document.querySelectorAll("a, button, input, textarea, .cursor-pointer");
+      els.forEach(el => {
+        el.removeEventListener("mouseenter", onMouseEnter);
+        el.removeEventListener("mouseleave", onMouseLeave);
+        el.addEventListener("mouseenter", onMouseEnter);
+        el.addEventListener("mouseleave", onMouseLeave);
+      });
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+    
+    return () => {
+      window.removeEventListener("mousemove", onMouseMove);
+      observer.disconnect();
+    };
+  }, []);
+
+  return (
+    <div 
+      ref={cursorRef} 
+      className="fixed top-0 left-0 w-3 h-3 rounded-full bg-primary pointer-events-none z-[9999] hidden md:block"
+      style={{ transform: "translate(-50%, -50%)" }}
+    />
+  );
+}
+
 export default function App() {
   const containerRef   = useRef<HTMLDivElement>(null);
   const logoRef        = useRef<HTMLDivElement>(null);
   const hScrollRef     = useRef<HTMLDivElement>(null);
   const hScrollTrack   = useRef<HTMLDivElement>(null);
 
-  const [loading, setLoading]   = useState(true);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [heroIdx, setHeroIdx]   = useState(0);
-  const [heroPaused, setHeroPaused] = useState(false);
+  const [loading, setLoading]         = useState(true);
+  const [menuOpen, setMenuOpen]         = useState(false);
+  const [heroIdx, setHeroIdx]           = useState(0);
+  const [heroPaused, setHeroPaused]     = useState(false);
+  const [showProjects, setShowProjects] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<typeof PROJECTS_ALL[0] | null>(null);
 
   /* ── Logo hover ── */
   useEffect(() => {
@@ -233,16 +382,150 @@ export default function App() {
   );
 
   const PROJECT_LABELS = [
-    { name: "Living Moderno", cat: "RESIDENCIAL" },
-    { name: "Local Comercial", cat: "COMERCIAL" },
-    { name: "Suite Premium", cat: "RESIDENCIAL" },
-    { name: "Oficinas MT", cat: "COMERCIAL" },
+    { name: "Casa FOA", cat: "RESIDENCIAL" },
+    { name: "Oficina Corporativa", cat: "COMERCIAL" },
+    { name: "Lapankana", cat: "RESIDENCIAL" },
+    { name: "Residencia Pilar", cat: "RESIDENCIAL" },
   ];
 
-  const HSCROLL_LABELS = HSCROLL_IMGS.map((_, i) => `Proyecto ${String(i + 1).padStart(2, "0")}`);
+  const HSCROLL_LABELS = [
+    "Cocina Phlaukalber",
+    "Diseño Pilar",
+    "Laguna Larga",
+    "Lapankana",
+    "Obra",
+    "Oficina",
+    "Pilar",
+    "Villa Del Rosario"
+  ];
+
+  const NAV_LINKS = [
+    { name: "INICIO", id: "#" },
+    { name: "NOSOTROS", id: "#about-section" },
+    { name: "SERVICIOS", id: "#services-section" },
+    { name: "PROYECTOS", id: "#gallery-section" },
+    { name: "MATERIALES", id: "#materials-section" },
+    { name: "CONTACTO", id: "#contact-section" }
+  ];
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    setMenuOpen(false);
+    if (showProjects) {
+      setShowProjects(false);
+      setTimeout(() => {
+        if (id === "#") window.scrollTo({ top: 0, behavior: "smooth" });
+        else document.querySelector(id)?.scrollIntoView({ behavior: "smooth" });
+      }, 50);
+    } else {
+      if (id === "#") window.scrollTo({ top: 0, behavior: "smooth" });
+      else document.querySelector(id)?.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <div ref={containerRef} className="bg-background text-foreground min-h-screen">
+      <CustomCursor />
+
+      {/* ════ PROJECT DETAIL VIEW (Case Study) ════ */}
+      {selectedProject && (
+        <div className="fixed inset-0 z-[300] bg-[#050505] overflow-y-auto">
+          {/* Top bar */}
+          <div className="sticky top-0 z-10 bg-[#050505]/95 backdrop-blur-md border-b border-[#1A1A1A] px-6 md:px-12 h-20 flex items-center justify-between">
+            <div className="flex flex-col cursor-pointer" onClick={() => { setSelectedProject(null); window.scrollTo({ top: 0 }); }}>
+              <span className="font-serif text-xl tracking-wider text-primary leading-none">Disegno</span>
+              <span className="font-sans text-[9px] tracking-[0.2em] text-white/60 mt-0.5">MOBILIARIO</span>
+            </div>
+            <button
+              onClick={() => { setSelectedProject(null); window.scrollTo({ top: 0 }); }}
+              className="flex items-center gap-3 text-white/60 hover:text-primary transition-colors font-sans text-xs tracking-widest uppercase group"
+            >
+              <ChevronLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
+              <span>Volver a Galería</span>
+            </button>
+          </div>
+
+          {/* Header */}
+          <div className="px-6 md:px-12 pt-24 pb-16 max-w-5xl mx-auto text-center">
+            <p className="text-primary font-sans text-xs tracking-[0.3em] uppercase mb-4">{selectedProject.cat}</p>
+            <h1 className="text-5xl md:text-7xl font-serif text-white mb-8">{selectedProject.name}</h1>
+            <p className="text-muted-foreground font-sans font-light text-lg md:text-xl leading-relaxed max-w-3xl mx-auto">
+              Cada espacio cuenta una historia única. En este proyecto, nos enfocamos en combinar materiales nobles con un diseño funcional de vanguardia, creando una atmósfera de lujo silencioso y confort absoluto.
+            </p>
+          </div>
+
+          {/* Masonry Gallery */}
+          <div className="px-6 md:px-12 pb-32 max-w-7xl mx-auto">
+            <div className="columns-1 md:columns-2 gap-6 space-y-6">
+              {selectedProject.imgs.map((img, i) => (
+                <div key={i} className="break-inside-avoid relative group overflow-hidden rounded-lg">
+                  <img src={img} alt={`${selectedProject.name} foto ${i+1}`} className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ════ PROJECTS PAGE (full page overlay) ════ */}
+      {showProjects && (
+        <div className="fixed inset-0 z-[200] bg-[#030303] overflow-y-auto">
+          {/* Top bar */}
+          <div className="sticky top-0 z-10 bg-[#030303]/95 backdrop-blur-md border-b border-[#1A1A1A] px-6 md:px-12 h-20 flex items-center justify-between">
+            <div className="flex flex-col cursor-pointer" onClick={() => { setShowProjects(false); window.scrollTo({ top: 0 }); }}>
+              <span className="font-serif text-xl tracking-wider text-primary leading-none">Disegno</span>
+              <span className="font-sans text-[9px] tracking-[0.2em] text-white/60 mt-0.5">MOBILIARIO</span>
+            </div>
+            <button
+              onClick={() => { setShowProjects(false); window.scrollTo({ top: 0 }); }}
+              className="flex items-center gap-3 text-white/60 hover:text-primary transition-colors font-sans text-xs tracking-widest uppercase group"
+            >
+              <span>Volver</span>
+              <span className="w-6 h-[1px] bg-current transition-all group-hover:w-10" />
+            </button>
+          </div>
+
+          {/* Hero title */}
+          <div className="px-6 md:px-12 py-20 border-b border-[#1A1A1A]">
+            <p className="text-primary font-sans text-xs tracking-[0.3em] uppercase mb-4">Portafolio Completo</p>
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif text-white">Todos los <span className="italic text-primary">Proyectos.</span></h1>
+          </div>
+
+          {/* Projects grid */}
+          <div className="px-6 md:px-12 py-16">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-1">
+              {PROJECTS_ALL.map((proj, i) => (
+                <ProjectCard
+                  key={i}
+                  index={i}
+                  imgs={proj.imgs}
+                  name={proj.name}
+                  cat={proj.cat}
+                  onClick={() => { setSelectedProject(proj); window.scrollTo({ top: 0 }); }}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Footer CTA */}
+          <div className="px-6 md:px-12 py-20 border-t border-[#1A1A1A] flex flex-col md:flex-row items-center justify-between gap-8">
+            <div>
+              <p className="font-serif text-3xl md:text-5xl text-white mb-2">¿Tienes un proyecto <span className="italic text-primary">en mente?</span></p>
+              <p className="text-muted-foreground font-sans font-light">Hablemos y lo hacemos realidad.</p>
+            </div>
+            <button
+              onClick={() => {
+                setShowProjects(false);
+                setTimeout(() => document.querySelector("#contact-section")?.scrollIntoView({ behavior: "smooth" }), 100);
+              }}
+              className="flex-shrink-0 border border-primary/60 text-white font-sans text-xs tracking-[0.25em] uppercase px-10 py-4 hover:bg-primary hover:text-black transition-all duration-300"
+            >
+              Comenzar Proyecto
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* ── LOADER ── */}
       <div id="loader-curtain" className="fixed inset-0 z-[100] bg-[#0A0A0A] flex flex-col items-center justify-center pointer-events-none">
@@ -276,19 +559,14 @@ export default function App() {
         </div>
 
         <div className="hidden md:flex gap-8 items-center font-sans font-light text-xs tracking-widest uppercase">
-          {["INICIO", "NOSOTROS", "SERVICIOS", "PROYECTOS", "MATERIALES", "CONTACTO"].map((link) => (
-            <a key={link} href="#" className="relative group hover:text-primary transition-colors">
-              {link}
+          {NAV_LINKS.map((link) => (
+            <a key={link.name} href={link.id} onClick={(e) => handleNavClick(e, link.id)} className="relative group hover:text-primary transition-colors">
+              {link.name}
               <span className="absolute -bottom-1 left-0 w-full h-[1px] bg-primary scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300"></span>
             </a>
           ))}
         </div>
 
-        <div className="hidden md:flex">
-          <button className="w-10 h-10 rounded-full border border-primary text-primary flex items-center justify-center hover:bg-primary hover:text-[#0D0D0D] transition-colors duration-300">
-            <FaWhatsapp size={18} />
-          </button>
-        </div>
 
         <button className="md:hidden text-white z-50 relative" onClick={() => setMenuOpen(!menuOpen)}>
           <div className="w-6 flex flex-col gap-1.5">
@@ -302,8 +580,8 @@ export default function App() {
       {/* Mobile Menu */}
       <div className={`fixed inset-0 bg-[#0D0D0D] z-40 flex flex-col items-center justify-center transition-transform duration-500 ${menuOpen ? "translate-x-0" : "translate-x-full"}`}>
         <div className="flex flex-col gap-8 text-center font-serif text-3xl">
-          {["INICIO", "NOSOTROS", "SERVICIOS", "PROYECTOS", "MATERIALES", "CONTACTO"].map((link) => (
-            <a key={link} href="#" className="hover:text-primary transition-colors" onClick={() => setMenuOpen(false)}>{link}</a>
+          {NAV_LINKS.map((link) => (
+            <a key={link.name} href={link.id} onClick={(e) => handleNavClick(e, link.id)} className="hover:text-primary transition-colors">{link.name}</a>
           ))}
         </div>
       </div>
@@ -344,7 +622,13 @@ export default function App() {
             <p className="font-sans font-light text-foreground/80 max-w-lg mb-10 text-lg">
               Mobiliario a medida con diseño, calidad y funcionalidad para transformar tus ambientes.
             </p>
-            <MagneticButton className="relative group overflow-hidden border border-primary text-white px-8 py-4 text-sm tracking-widest uppercase flex items-center gap-3 w-max">
+            <MagneticButton 
+              className="relative group overflow-hidden border border-primary text-white px-8 py-4 text-sm tracking-widest uppercase flex items-center gap-3 w-max"
+              onClick={() => {
+                const el = document.querySelector("#gallery-section");
+                if (el) el.scrollIntoView({ behavior: "smooth" });
+              }}
+            >
               <span className="relative z-10 group-hover:text-black transition-colors duration-300">VER PROYECTOS</span>
               <ArrowRight size={16} className="relative z-10 group-hover:text-black transition-colors duration-300" />
               <div className="absolute inset-0 bg-primary scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-400 ease-out" />
@@ -453,57 +737,103 @@ export default function App() {
           </div>
 
           <div className="mt-16 flex justify-center">
-            <button className="border border-white/20 text-white px-8 py-4 text-sm tracking-widest uppercase hover:bg-white hover:text-black transition-colors duration-300">
-              VER TODOS LOS PROYECTOS →
+            <button
+              onClick={() => { setShowProjects(true); window.scrollTo({ top: 0 }); }}
+              className="border border-primary/60 text-white px-10 py-4 text-sm tracking-widest uppercase hover:bg-primary hover:text-black transition-all duration-300 flex items-center gap-3"
+            >
+              VER TODOS LOS PROYECTOS <ArrowRight size={16} />
             </button>
           </div>
         </div>
       </section>
 
-      {/* ── ABOUT ── */}
-      <section id="about-section" className="py-24 px-6 md:px-12 bg-[#141414] overflow-hidden">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16">
-          <div id="about-text" className="w-full md:w-1/2">
-            <div className="text-primary font-sans text-xs tracking-[0.3em] uppercase mb-6">SOBRE NOSOTROS</div>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-8 leading-[1.2]">Más de 10 años transformando espacios en Córdoba.</h2>
-            <p className="font-sans font-light text-muted-foreground text-lg leading-relaxed mb-12">
-              Cada proyecto es único, pensado desde el primer boceto hasta la instalación final. Trabajamos con los mejores materiales y los artesanos más talentosos de la región para garantizar que cada mueble no solo sea hermoso, sino que perdure en el tiempo.
-            </p>
-            <div className="grid grid-cols-3 gap-6 pt-8 border-t border-[#2A2520]">
-              <div><div className="text-3xl font-serif text-primary mb-2">200+</div><div className="text-xs font-sans text-muted-foreground uppercase tracking-wider">Proyectos</div></div>
-              <div><div className="text-3xl font-serif text-primary mb-2">10+</div><div className="text-xs font-sans text-muted-foreground uppercase tracking-wider">Años</div></div>
-              <div><div className="text-3xl font-serif text-primary mb-2">100%</div><div className="text-xs font-sans text-muted-foreground uppercase tracking-wider">Satisfacción</div></div>
+
+      {/* ── ABOUT / NOSOTROS ── */}
+      <section id="about-section" className="relative py-24 md:py-40 px-6 md:px-12 bg-[#050505] overflow-hidden">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16 md:gap-24">
+          <div className="flex-1 order-2 md:order-1 relative">
+            <div className="absolute -inset-4 bg-primary/5 blur-3xl rounded-full" />
+            <div className="relative rounded-[32px] overflow-hidden border border-primary/20 shadow-2xl shadow-black/80 aspect-[4/5] max-w-md mx-auto">
+              <img src={ABOUT_IMG} alt="Fábrica Disegno" className="w-full h-full object-cover" loading="lazy" decoding="async" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+              <div className="absolute bottom-6 left-6 right-6">
+                <p className="font-sans text-xs tracking-[0.2em] text-primary uppercase mb-2">Hecho a mano en Argentina</p>
+                <p className="font-serif text-white/90 text-lg italic">"La perfección está en los detalles que no se ven a simple vista."</p>
+              </div>
             </div>
           </div>
-          <div className="w-full md:w-1/2 h-[600px] overflow-hidden">
-            <img id="about-image" src={ABOUT_IMG} alt="Nuestro trabajo" className="w-full h-[120%] object-cover" loading="lazy" />
+          <div className="flex-1 order-1 md:order-2">
+            <span className="text-primary font-sans text-xs tracking-[0.3em] uppercase block mb-6">Nuestra Historia</span>
+            <h2 className="text-4xl md:text-6xl font-serif text-white leading-tight mb-8">Maestros<br /><span className="italic text-primary">del oficio.</span></h2>
+            <div className="space-y-6 text-muted-foreground font-sans font-light text-base md:text-lg leading-relaxed">
+              <p>
+                Con más de una década de experiencia, en Disegno Mobiliario nos dedicamos a la creación de espacios que inspiran. No fabricamos muebles, construimos el escenario de tu vida cotidiana.
+              </p>
+              <p>
+                Nuestra fábrica propia nos permite controlar cada etapa del proceso, desde la selección de la madera bruta hasta el último herraje. Esta independencia es lo que nos garantiza entregar una calidad que pocos pueden igualar.
+              </p>
+            </div>
+            <div className="mt-12 flex items-center gap-12">
+              <div>
+                <div className="text-4xl font-serif text-white mb-2">+10</div>
+                <div className="text-[10px] font-sans text-primary tracking-[0.2em] uppercase">Años de exp.</div>
+              </div>
+              <div>
+                <div className="text-4xl font-serif text-white mb-2">+500</div>
+                <div className="text-[10px] font-sans text-primary tracking-[0.2em] uppercase">Proyectos</div>
+              </div>
+              <div>
+                <div className="text-4xl font-serif text-white mb-2">100%</div>
+                <div className="text-[10px] font-sans text-primary tracking-[0.2em] uppercase">A medida</div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* ── SERVICES ── */}
-      <section id="services-section" className="py-24 px-6 md:px-12 bg-background">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-serif text-center text-white mb-20">Nuestros Servicios</h2>
-          <div className="flex flex-col">
+      <section id="services-section" className="py-32 px-6 md:px-12 bg-[#0A0A0A] relative border-t border-[#1E1E1E]">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-20">
+            <span className="text-primary font-sans text-xs tracking-[0.3em] uppercase block mb-4">Experiencia Disegno</span>
+            <h2 className="text-4xl md:text-6xl font-serif text-white">Nuestros Servicios</h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { num: "01", title: "Diseño de Interiores", desc: "Transformamos tu visión en espacios habitables y estéticamente únicos." },
-              { num: "02", title: "Mobiliario a Medida", desc: "Cada pieza diseñada y fabricada específicamente para tu espacio y necesidades." },
-              { num: "03", title: "Asesoramiento Integral", desc: "Te acompañamos en cada etapa, desde el concepto hasta la instalación." }
+              {
+                title: "Diseño de Interiores",
+                desc: "Desarrollamos proyectos integrales de arquitectura interior. Optimizamos la distribución espacial y seleccionamos cada textura para crear atmósferas que reflejen tu identidad.",
+                img: PROJECT_IMGS[0]
+              },
+              {
+                title: "Mobiliario a Medida",
+                desc: "Diseñamos y fabricamos cada pieza en nuestra propia planta. Desde cocinas de alta gama hasta vestidores de lujo, garantizando un ajuste milimétrico y acabados perfectos.",
+                img: PROJECT_IMGS[1]
+              },
+              {
+                title: "Dirección y Montaje",
+                desc: "No solo diseñamos; ejecutamos. Nuestro equipo de profesionales supervisa la instalación completa para asegurar que la visión original se materialice sin compromisos.",
+                img: PROJECT_IMGS[2]
+              }
             ].map((srv, i) => (
-              <div key={i} className="service-card group relative border-t border-[#2A2520] py-12 flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-16 hover:bg-[#141414] transition-colors px-6 cursor-pointer">
-                <span className="absolute left-0 top-0 bottom-0 w-[2px] bg-primary scale-y-0 group-hover:scale-y-100 origin-top transition-transform duration-300"></span>
-                <div className="text-5xl md:text-6xl font-serif text-primary/40 group-hover:text-primary transition-colors">{srv.num}</div>
-                <div className="flex-1">
-                  <h3 className="text-2xl md:text-3xl font-serif text-white mb-4">{srv.title}</h3>
-                  <p className="text-muted-foreground font-sans font-light text-lg">{srv.desc}</p>
-                </div>
-                <div className="hidden md:block">
-                  <ArrowRight size={24} className="text-muted-foreground group-hover:text-primary group-hover:translate-x-2 transition-all duration-300" />
+              <div key={i} className="service-card group relative h-[450px] md:h-[550px] rounded-[24px] overflow-hidden border border-[#2A2520] hover:border-primary/50 transition-colors duration-500">
+                <img src={srv.img} alt={srv.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" loading="lazy" decoding="async" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent opacity-90 transition-opacity duration-500" />
+                
+                <div className="absolute inset-0 p-8 flex flex-col justify-end">
+                  <div className="text-primary font-serif text-5xl mb-4 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                    0{i + 1}.
+                  </div>
+                  <h3 className="text-2xl md:text-3xl font-serif text-white mb-4 transition-transform duration-500 group-hover:-translate-y-2">{srv.title}</h3>
+                  <div className="overflow-hidden">
+                    <p className="font-sans font-light text-muted-foreground text-sm leading-relaxed max-h-0 opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-700 ease-in-out">
+                      {srv.desc}
+                    </p>
+                  </div>
                 </div>
               </div>
             ))}
-            <div className="border-t border-[#2A2520]"></div>
           </div>
         </div>
       </section>
@@ -583,73 +913,168 @@ export default function App() {
 
       {/* ── SHOWCASE / REELS ── */}
       <section id="video-section" className="relative w-full overflow-hidden bg-black" style={{ minHeight: "90vh" }}>
-        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center gap-12 md:gap-20 py-24 md:py-0" style={{ minHeight: "90vh" }}>
+        {/* Fondo de lujo con gradiente oscuro */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[#2A1B0E]/40 via-[#0A0A0A] to-black pointer-events-none"></div>
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-10 pointer-events-none mix-blend-screen"></div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center gap-12 md:gap-16 py-24 md:py-0" style={{ minHeight: "90vh" }}>
           <div className="flex-1 text-left order-2 md:order-1">
-            <p className="text-primary font-sans text-xs tracking-[0.35em] uppercase mb-8">Diseño sin compromisos</p>
-            <h2 className="video-text text-5xl md:text-7xl font-serif text-white leading-[1.05] mb-3">Cada <span className="italic text-primary">detalle.</span></h2>
-            <h2 className="video-text text-5xl md:text-7xl font-serif text-white leading-[1.05] mb-3">Cada <span className="italic text-primary">espacio.</span></h2>
-            <h2 className="video-text text-5xl md:text-7xl font-serif text-white leading-[1.05] mb-12">Cada <span className="italic text-primary">historia.</span></h2>
-            <a href="#contact" className="inline-block border border-primary/60 text-white font-sans text-xs tracking-[0.25em] uppercase px-10 py-4 hover:bg-primary hover:text-black transition-all duration-300">
+            <p className="text-primary font-sans text-xs tracking-[0.35em] uppercase mb-8 drop-shadow-md">Diseño sin compromisos</p>
+            <h2 className="video-text text-5xl md:text-7xl font-serif text-white leading-[1.05] mb-3 text-shadow-sm">Cada <span className="italic text-primary">detalle.</span></h2>
+            <h2 className="video-text text-5xl md:text-7xl font-serif text-white leading-[1.05] mb-3 text-shadow-sm">Cada <span className="italic text-primary">espacio.</span></h2>
+            <h2 className="video-text text-5xl md:text-7xl font-serif text-white leading-[1.05] mb-12 text-shadow-sm">Cada <span className="italic text-primary">historia.</span></h2>
+            <a 
+              href="#contact-section" 
+              onClick={(e) => {
+                e.preventDefault();
+                document.querySelector("#contact-section")?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="inline-block border border-primary/60 text-white font-sans text-xs tracking-[0.25em] uppercase px-10 py-4 hover:bg-primary hover:text-black transition-all duration-300"
+            >
               Comenzar proyecto
             </a>
           </div>
 
-          <div className="flex-shrink-0 order-1 md:order-2 flex gap-5 items-end">
-            {[
-              { code: "DTtl_2bjjyl", thumb: REEL_IMGS[0], label: "Proyecto residencial", offset: "0px" },
-              { code: "DPMDqR0Dk-B", thumb: REEL_IMGS[1], label: "Proceso artesanal", offset: "48px" },
-            ].map(({ code, thumb, label, offset }) => (
-              <div key={code} className="w-[185px] lg:w-[210px]" style={{ marginTop: offset }}>
-                <a href={`https://www.instagram.com/reel/${code}/`} target="_blank" rel="noopener noreferrer" className="block group">
-                  <div className="relative overflow-hidden shadow-2xl shadow-black/60" style={{ borderRadius: "28px", border: "1.5px solid rgba(200,130,42,0.35)", aspectRatio: "9/16" }}>
-                    <img src={thumb} alt={label} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
-                    <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors duration-300" />
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" style={{ boxShadow: "0 0 40px rgba(200,130,42,0.25) inset" }} />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-14 h-14 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110" style={{ background: "rgba(200,130,42,0.90)", backdropFilter: "blur(4px)", boxShadow: "0 0 24px rgba(200,130,42,0.5)" }}>
-                        <svg width="18" height="20" viewBox="0 0 18 20" fill="white"><path d="M0 0 L18 10 L0 20 Z" /></svg>
-                      </div>
-                    </div>
-                    <div className="absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
-                      <div className="flex items-center gap-1.5 mb-1">
-                        <FaInstagram size={10} className="text-primary" />
-                        <span className="font-sans text-[9px] tracking-[0.15em] text-primary uppercase">@disegno.mobiliario</span>
-                      </div>
-                      <p className="font-serif text-white text-sm italic">{label}</p>
+          <div className="flex-shrink-0 order-1 md:order-2 flex flex-col md:flex-row gap-6 items-center md:items-end justify-center">
+            {REEL_VIDEOS.map(({ src, label }, i) => {
+              const offset = i === 1 ? "48px" : "0px";
+              return (
+                <div
+                  key={i}
+                  className="relative group w-[220px] lg:w-[240px] rounded-[28px] overflow-hidden shadow-2xl shadow-black/80"
+                  style={{
+                    marginTop: offset,
+                    height: "430px",
+                    border: "1.5px solid rgba(200,130,42,0.35)",
+                    background: "#0A0A0A",
+                  }}
+                >
+                  <video
+                    src={src}
+                    className="w-full h-full object-cover"
+                    loop
+                    muted
+                    playsInline
+                    onMouseEnter={(e) => (e.currentTarget as HTMLVideoElement).play()}
+                    onMouseLeave={(e) => { const v = e.currentTarget as HTMLVideoElement; v.pause(); v.currentTime = 0; }}
+                  />
+                  {/* Play icon overlay - desaparece al hacer hover */}
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/5 transition-colors duration-300 pointer-events-none">
+                    <div className="w-16 h-16 rounded-full flex items-center justify-center group-hover:scale-110 group-hover:opacity-0 transition-all duration-300" style={{ background: "rgba(200,130,42,0.90)", backdropFilter: "blur(4px)", boxShadow: "0 0 28px rgba(200,130,42,0.55)" }}>
+                      <svg width="20" height="22" viewBox="0 0 18 20" fill="white"><path d="M0 0 L18 10 L0 20 Z" /></svg>
                     </div>
                   </div>
-                </a>
-              </div>
-            ))}
+                  {/* Label inferior */}
+                  <div className="absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-black/90 to-transparent">
+                    <div className="flex items-center gap-1.5 mb-1">
+                      <FaInstagram size={10} className="text-primary" />
+                      <span className="font-sans text-[9px] tracking-[0.15em] text-primary uppercase">@disegno.mobiliario</span>
+                    </div>
+                    <p className="font-serif text-white text-sm italic">{label}</p>
+                  </div>
+                  {/* Golden glow on hover */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" style={{ boxShadow: "0 0 40px rgba(200,130,42,0.25) inset" }} />
+                </div>
+              );
+            })}
           </div>
         </div>
 
-        <div className="absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-black to-transparent pointer-events-none z-20" />
-        <div className="absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-black to-transparent pointer-events-none z-20" />
+        <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-black to-transparent pointer-events-none z-20" />
+        <div className="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-black to-transparent pointer-events-none z-20" />
       </section>
 
       {/* ── MATERIALS ── */}
-      <section id="materials-section" className="py-24 px-6 md:px-12 bg-[#141414]">
+      <section id="materials-section" className="relative py-32 px-6 md:px-12 bg-[#0A0A0A] overflow-hidden">
+        {/* Línea decorativa izquierda */}
+        <div className="absolute left-0 top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-primary/30 to-transparent" />
+
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-serif text-center text-white mb-16">Trabajamos con los mejores materiales</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* Header */}
+          <div className="mb-20 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+            <div>
+              <span className="text-primary font-sans text-xs tracking-[0.3em] uppercase block mb-4">Nuestra selección</span>
+              <h2 className="text-4xl md:text-6xl font-serif text-white leading-tight">Materiales que<br /><span className="italic text-primary">definen lo extraordinario.</span></h2>
+            </div>
+            <p className="font-sans font-light text-muted-foreground text-sm max-w-xs leading-relaxed md:text-right">
+              Cada material es elegido con criterio estético y funcional para garantizar piezas que perduran en el tiempo.
+            </p>
+          </div>
+
+          {/* Material items — lista horizontal premium */}
+          <div className="flex flex-col">
             {[
-              { name: "Madera de Roble", img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400", desc: "Calidez y durabilidad excepcional." },
-              { name: "Mármol Carrara", img: "https://images.unsplash.com/photo-1541123437800-1bb1317badc2?w=400", desc: "Elegancia atemporal y sofisticación." },
-              { name: "Acero Inoxidable", img: "https://images.unsplash.com/photo-1558618047-3c8c76ca7dfa?w=400", desc: "Acabados modernos y resistencia." },
-              { name: "Vidrio Templado", img: "https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?w=400", desc: "Transparencia y seguridad absoluta." }
+              {
+                num: "01",
+                name: "Madera Maciza",
+                origin: "Argentina · Patagonia",
+                desc: "Roble, nogal y cedro seleccionados a mano. Cada veta es única, cada pieza irrepetible.",
+                tag: "ESTRUCTURA"
+              },
+              {
+                num: "02",
+                name: "Mármol & Piedra Natural",
+                origin: "Italia · Brasil",
+                desc: "Superficies que condensan millones de años de historia. Lujo que no necesita explicación.",
+                tag: "SUPERFICIE"
+              },
+              {
+                num: "03",
+                name: "Metales Nobles",
+                origin: "Alemania · Argentina",
+                desc: "Acero inoxidable, cobre envejecido y latón. Detalles que marcan la diferencia entre bueno y extraordinario.",
+                tag: "DETALLE"
+              },
+              {
+                num: "04",
+                name: "Textiles de Alta Gama",
+                origin: "Italia · España",
+                desc: "Cueros naturales, linos y telas técnicas con tratamientos premium para uso residencial y comercial.",
+                tag: "ACABADO"
+              },
             ].map((mat, i) => (
-              <div key={i} className="material-card flex flex-col bg-background/50 border border-[#2A2520] hover:border-primary/50 transition-colors">
-                <div className="h-48 overflow-hidden">
-                  <img src={mat.img} alt={mat.name} className="w-full h-full object-cover" loading="lazy" />
+              <div
+                key={i}
+                className="material-card group relative flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-12 py-10 border-t border-[#1E1E1E] hover:border-primary/20 transition-all duration-500 cursor-default"
+              >
+                {/* Left accent line on hover */}
+                <span className="absolute left-0 top-0 bottom-0 w-[2px] bg-primary scale-y-0 group-hover:scale-y-100 origin-top transition-transform duration-500" />
+
+                {/* Number */}
+                <div className="w-16 flex-shrink-0">
+                  <span className="font-serif text-5xl text-white/8 group-hover:text-primary/20 transition-colors duration-500 select-none leading-none">{mat.num}</span>
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-serif text-white mb-2">{mat.name}</h3>
-                  <p className="font-sans font-light text-muted-foreground text-sm">{mat.desc}</p>
+
+                {/* Tag pill */}
+                <div className="hidden lg:flex flex-shrink-0">
+                  <span className="border border-primary/30 text-primary font-sans text-[9px] tracking-[0.3em] uppercase px-3 py-1 group-hover:bg-primary/10 transition-colors duration-300">
+                    {mat.tag}
+                  </span>
+                </div>
+
+                {/* Name + Origin */}
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-baseline gap-4 mb-2 flex-wrap">
+                    <h3 className="text-2xl md:text-3xl font-serif text-white group-hover:text-primary/90 transition-colors duration-300">{mat.name}</h3>
+                    <span className="font-sans text-[10px] tracking-[0.2em] text-muted-foreground/60 uppercase">{mat.origin}</span>
+                  </div>
+                  <p className="font-sans font-light text-muted-foreground text-sm leading-relaxed max-w-xl">{mat.desc}</p>
+                </div>
+
+                {/* Decorative number large */}
+                <div className="hidden xl:block flex-shrink-0">
+                  <span className="font-serif text-[80px] text-white/3 group-hover:text-white/6 transition-colors duration-500 leading-none select-none">{mat.num}</span>
                 </div>
               </div>
             ))}
+            <div className="border-t border-[#1E1E1E]" />
           </div>
+        </div>
+
+        {/* Decorative right accent */}
+        <div className="absolute right-12 top-1/2 -translate-y-1/2 hidden xl:flex flex-col items-center gap-3 opacity-20">
+          <div className="w-[1px] h-24 bg-primary" />
+          <span className="font-sans text-[9px] tracking-[0.4em] text-primary uppercase rotate-90 origin-center translate-y-8">Calidad</span>
         </div>
       </section>
 
