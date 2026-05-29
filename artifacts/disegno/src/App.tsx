@@ -334,32 +334,36 @@ export default function App() {
       gsap.to("#about-image", { y: -100, ease: "none", scrollTrigger: { trigger: "#about-section", start: "top bottom", end: "bottom top", scrub: 1, invalidateOnRefresh: true } });
       gsap.fromTo("#about-text", { clipPath: "inset(100% 0 0 0)" }, { clipPath: "inset(0% 0 0 0)", duration: 1.5, ease: "power3.out", scrollTrigger: { trigger: "#about-section", start: "top 70%", invalidateOnRefresh: true } });
 
-      /* Horizontal scroll gallery */
-      if (hScrollRef.current && hScrollTrack.current) {
-        const track = hScrollTrack.current;
-        gsap.to(track, {
-          x: () => -(track.scrollWidth - window.innerWidth),
-          ease: "none",
-          scrollTrigger: {
-            trigger: hScrollRef.current,
-            start: "top top",
-            end: () => `+=${track.scrollWidth - window.innerWidth}`,
-            pin: true,
-            scrub: 1,
-            invalidateOnRefresh: true,
-            anticipatePin: 1,
-          },
-        });
+      /* Horizontal scroll gallery (Desktop Only) */
+      let mm = gsap.matchMedia();
+      
+      mm.add("(min-width: 768px)", () => {
+        if (hScrollRef.current && hScrollTrack.current) {
+          const track = hScrollTrack.current;
+          gsap.to(track, {
+            x: () => -(track.scrollWidth - window.innerWidth),
+            ease: "none",
+            scrollTrigger: {
+              trigger: hScrollRef.current,
+              start: "top top",
+              end: () => `+=${track.scrollWidth - window.innerWidth}`,
+              pin: true,
+              scrub: 1,
+              invalidateOnRefresh: true,
+              anticipatePin: 1,
+            },
+          });
 
-        /* Each panel reveals with slight scale */
-        gsap.utils.toArray<HTMLElement>(".hscroll-panel").forEach((panel, i) => {
-          if (i === 0) return;
-          gsap.fromTo(panel.querySelector("img"),
-            { scale: 1.08 },
-            { scale: 1, ease: "none", scrollTrigger: { trigger: hScrollRef.current, start: "top top", end: () => `+=${track.scrollWidth - window.innerWidth}`, scrub: 1, invalidateOnRefresh: true } }
-          );
-        });
-      }
+          /* Each panel reveals with slight scale */
+          gsap.utils.toArray<HTMLElement>(".hscroll-panel").forEach((panel, i) => {
+            if (i === 0) return;
+            gsap.fromTo(panel.querySelector("img"),
+              { scale: 1.08 },
+              { scale: 1, ease: "none", scrollTrigger: { trigger: hScrollRef.current, start: "top top", end: () => `+=${track.scrollWidth - window.innerWidth}`, scrub: 1, invalidateOnRefresh: true } }
+            );
+          });
+        }
+      });
 
       /* Gallery masonry items */
       gsap.utils.toArray(".gallery-item").forEach((el: any) => {
@@ -861,12 +865,11 @@ export default function App() {
       ══════════════════════════════════════════════════════════ */}
       <section ref={hScrollRef} id="hscroll-section" className="bg-black">
         {/* Header visible antes de entrar al pin */}
-        <div ref={hScrollTrack} className="flex will-change-transform">
+        <div ref={hScrollTrack} className="flex flex-col md:flex-row will-change-transform">
           {HSCROLL_IMGS.map((url, i) => (
             <div
               key={i}
-              className="hscroll-panel relative flex-shrink-0 overflow-hidden"
-              style={{ width: "100vw", height: "100vh" }}
+              className="hscroll-panel relative flex-shrink-0 overflow-hidden w-full h-[60vh] md:w-[100vw] md:h-[100vh]"
             >
               <img
                 src={url}
@@ -937,13 +940,11 @@ export default function App() {
 
           <div className="flex-shrink-0 order-1 md:order-2 flex flex-col md:flex-row gap-6 items-center md:items-end justify-center">
             {REEL_VIDEOS.map(({ src, label }, i) => {
-              const offset = i === 1 ? "48px" : "0px";
               return (
                 <div
                   key={i}
-                  className="relative group w-[220px] lg:w-[240px] rounded-[28px] overflow-hidden shadow-2xl shadow-black/80"
+                  className={`relative group w-[220px] lg:w-[240px] rounded-[28px] overflow-hidden shadow-2xl shadow-black/80 ${i === 1 ? 'md:mt-12 mt-4' : ''}`}
                   style={{
-                    marginTop: offset,
                     height: "430px",
                     border: "1.5px solid rgba(200,130,42,0.35)",
                     background: "#0A0A0A",
