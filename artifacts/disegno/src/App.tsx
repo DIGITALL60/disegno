@@ -617,10 +617,10 @@ export default function App() {
               <span className="w-8 h-[1px] bg-primary block"></span>
               <span className="text-primary font-sans text-xs tracking-[0.3em] uppercase">DISEGNO MOBILIARIO</span>
             </div>
-            <h1 className="text-5xl md:text-7xl lg:text-[80px] font-serif text-white leading-[1.1] mb-2">
+            <h1 className="text-4xl md:text-7xl lg:text-[80px] font-serif text-white leading-[1.1] mb-2">
               <div className="block">{splitText("Diseñamos espacios.")}</div>
             </h1>
-            <h2 className="text-4xl md:text-6xl lg:text-[70px] font-serif italic text-primary leading-[1.1] mb-8">
+            <h2 className="text-3xl md:text-6xl lg:text-[70px] font-serif italic text-primary leading-[1.1] mb-8">
               <div className="block">{splitText("Creamos experiencias.")}</div>
             </h2>
             <p className="font-sans font-light text-foreground/80 max-w-lg mb-10 text-lg">
@@ -1152,8 +1152,8 @@ export default function App() {
       </footer>
 
       {/* ── FLOATING CTA ── */}
-      <div className="fixed bottom-8 right-8 z-40">
-        <button className="relative w-20 h-20 bg-primary rounded-full flex items-center justify-center text-black hover:scale-105 transition-transform shadow-lg shadow-black/50 group">
+      <div className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-40 scale-[0.75] md:scale-100 origin-bottom-right">
+        <button className="relative w-20 h-20 bg-primary rounded-full flex items-center justify-center text-black hover:scale-[1.05] transition-transform shadow-lg shadow-black/50 group">
           <div className="absolute inset-[-10px]">
             <svg viewBox="0 0 100 100" width="100" height="100" className="animate-[spin_8s_linear_infinite]">
               <defs><path id="circle" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" /></defs>
