@@ -407,9 +407,7 @@ export default function App() {
     { name: "INICIO", id: "#" },
     { name: "NOSOTROS", id: "#about-section" },
     { name: "SERVICIOS", id: "#services-section" },
-    { name: "PROYECTOS", id: "#gallery-section" },
-    { name: "MATERIALES", id: "#materials-section" },
-    { name: "CONTACTO", id: "#contact-section" }
+    { name: "PROYECTOS", id: "#gallery-section" }
   ];
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
@@ -520,8 +518,7 @@ export default function App() {
             </div>
             <button
               onClick={() => {
-                setShowProjects(false);
-                setTimeout(() => document.querySelector("#contact-section")?.scrollIntoView({ behavior: "smooth" }), 100);
+                window.open("https://wa.me/5493510000000", "_blank");
               }}
               className="flex-shrink-0 border border-primary/60 text-white font-sans text-xs tracking-[0.25em] uppercase px-10 py-4 hover:bg-primary hover:text-black transition-all duration-300"
             >
@@ -926,16 +923,12 @@ export default function App() {
             <h2 className="video-text text-5xl md:text-7xl font-serif text-white leading-[1.05] mb-3 text-shadow-sm">Cada <span className="italic text-primary">detalle.</span></h2>
             <h2 className="video-text text-5xl md:text-7xl font-serif text-white leading-[1.05] mb-3 text-shadow-sm">Cada <span className="italic text-primary">espacio.</span></h2>
             <h2 className="video-text text-5xl md:text-7xl font-serif text-white leading-[1.05] mb-12 text-shadow-sm">Cada <span className="italic text-primary">historia.</span></h2>
-            <a 
-              href="#contact-section" 
-              onClick={(e) => {
-                e.preventDefault();
-                document.querySelector("#contact-section")?.scrollIntoView({ behavior: "smooth" });
-              }}
+            <button 
+              onClick={() => window.open("https://wa.me/5493510000000", "_blank")}
               className="inline-block border border-primary/60 text-white font-sans text-xs tracking-[0.25em] uppercase px-10 py-4 hover:bg-primary hover:text-black transition-all duration-300"
             >
               Comenzar proyecto
-            </a>
+            </button>
           </div>
 
           <div className="flex-shrink-0 order-1 md:order-2 flex flex-col md:flex-row gap-6 items-center md:items-end justify-center">
@@ -984,150 +977,7 @@ export default function App() {
         <div className="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-black to-transparent pointer-events-none z-20" />
       </section>
 
-      {/* ── MATERIALS ── */}
-      <section id="materials-section" className="relative py-32 px-6 md:px-12 bg-[#0A0A0A] overflow-hidden">
-        {/* Línea decorativa izquierda */}
-        <div className="absolute left-0 top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-primary/30 to-transparent" />
 
-        <div className="max-w-7xl mx-auto">
-          {/* Header */}
-          <div className="mb-20 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-            <div>
-              <span className="text-primary font-sans text-xs tracking-[0.3em] uppercase block mb-4">Nuestra selección</span>
-              <h2 className="text-4xl md:text-6xl font-serif text-white leading-tight">Materiales que<br /><span className="italic text-primary">definen lo extraordinario.</span></h2>
-            </div>
-            <p className="font-sans font-light text-muted-foreground text-sm max-w-xs leading-relaxed md:text-right">
-              Cada material es elegido con criterio estético y funcional para garantizar piezas que perduran en el tiempo.
-            </p>
-          </div>
-
-          {/* Material items — lista horizontal premium */}
-          <div className="flex flex-col">
-            {[
-              {
-                num: "01",
-                name: "Madera Maciza",
-                origin: "Argentina · Patagonia",
-                desc: "Roble, nogal y cedro seleccionados a mano. Cada veta es única, cada pieza irrepetible.",
-                tag: "ESTRUCTURA"
-              },
-              {
-                num: "02",
-                name: "Mármol & Piedra Natural",
-                origin: "Italia · Brasil",
-                desc: "Superficies que condensan millones de años de historia. Lujo que no necesita explicación.",
-                tag: "SUPERFICIE"
-              },
-              {
-                num: "03",
-                name: "Metales Nobles",
-                origin: "Alemania · Argentina",
-                desc: "Acero inoxidable, cobre envejecido y latón. Detalles que marcan la diferencia entre bueno y extraordinario.",
-                tag: "DETALLE"
-              },
-              {
-                num: "04",
-                name: "Textiles de Alta Gama",
-                origin: "Italia · España",
-                desc: "Cueros naturales, linos y telas técnicas con tratamientos premium para uso residencial y comercial.",
-                tag: "ACABADO"
-              },
-            ].map((mat, i) => (
-              <div
-                key={i}
-                className="material-card group relative flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-12 py-10 border-t border-[#1E1E1E] hover:border-primary/20 transition-all duration-500 cursor-default"
-              >
-                {/* Left accent line on hover */}
-                <span className="absolute left-0 top-0 bottom-0 w-[2px] bg-primary scale-y-0 group-hover:scale-y-100 origin-top transition-transform duration-500" />
-
-                {/* Number */}
-                <div className="w-16 flex-shrink-0">
-                  <span className="font-serif text-5xl text-white/8 group-hover:text-primary/20 transition-colors duration-500 select-none leading-none">{mat.num}</span>
-                </div>
-
-                {/* Tag pill */}
-                <div className="hidden lg:flex flex-shrink-0">
-                  <span className="border border-primary/30 text-primary font-sans text-[9px] tracking-[0.3em] uppercase px-3 py-1 group-hover:bg-primary/10 transition-colors duration-300">
-                    {mat.tag}
-                  </span>
-                </div>
-
-                {/* Name + Origin */}
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-baseline gap-4 mb-2 flex-wrap">
-                    <h3 className="text-2xl md:text-3xl font-serif text-white group-hover:text-primary/90 transition-colors duration-300">{mat.name}</h3>
-                    <span className="font-sans text-[10px] tracking-[0.2em] text-muted-foreground/60 uppercase">{mat.origin}</span>
-                  </div>
-                  <p className="font-sans font-light text-muted-foreground text-sm leading-relaxed max-w-xl">{mat.desc}</p>
-                </div>
-
-                {/* Decorative number large */}
-                <div className="hidden xl:block flex-shrink-0">
-                  <span className="font-serif text-[80px] text-white/3 group-hover:text-white/6 transition-colors duration-500 leading-none select-none">{mat.num}</span>
-                </div>
-              </div>
-            ))}
-            <div className="border-t border-[#1E1E1E]" />
-          </div>
-        </div>
-
-        {/* Decorative right accent */}
-        <div className="absolute right-12 top-1/2 -translate-y-1/2 hidden xl:flex flex-col items-center gap-3 opacity-20">
-          <div className="w-[1px] h-24 bg-primary" />
-          <span className="font-sans text-[9px] tracking-[0.4em] text-primary uppercase rotate-90 origin-center translate-y-8">Calidad</span>
-        </div>
-      </section>
-
-      {/* ── TESTIMONIALS ── */}
-      <section id="testimonials-section" className="py-24 px-6 md:px-12 bg-[#141414] border-t border-[#2A2520]">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {[
-              { quote: "El equipo de Disegno transformó completamente nuestro living. La calidad de los muebles es excepcional.", author: "María González, Córdoba" },
-              { quote: "Profesionales de otra categoría. Desde el diseño hasta la instalación, todo impecable.", author: "Carlos Méndez, Buenos Aires" },
-              { quote: "Nuestro local quedó increíble. Los clientes siempre preguntan quién nos lo diseñó.", author: "Restaurant Luma, Córdoba" }
-            ].map((t, i) => (
-              <div key={i} className="testimonial-card relative px-6 py-8 border border-[#2A2520] bg-background/30">
-                <div className="absolute -top-6 left-6 text-6xl font-serif text-primary opacity-50">"</div>
-                <p className="font-sans font-light text-foreground text-lg italic mb-6 relative z-10">{t.quote}</p>
-                <p className="font-sans text-primary text-sm tracking-widest uppercase">{t.author}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── CONTACT ── */}
-      <section id="contact-section" className="py-24 px-6 md:px-12 bg-background">
-        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16">
-          <div className="w-full lg:w-1/2">
-            <h2 className="text-4xl md:text-5xl font-serif text-white mb-10">Hablemos de tu proyecto</h2>
-            <form className="flex flex-col gap-8">
-              {["Nombre", "Email", "Teléfono"].map((field) => (
-                <div key={field} className="relative group">
-                  <input type={field === "Email" ? "email" : "text"} placeholder={field} className="w-full bg-transparent border-b border-[#2A2520] py-4 text-white placeholder-muted-foreground font-sans font-light focus:outline-none focus:border-transparent transition-colors peer" />
-                  <span className="absolute bottom-0 left-0 w-full h-[1px] bg-primary scale-x-0 peer-focus:scale-x-100 origin-left transition-transform duration-300"></span>
-                </div>
-              ))}
-              <div className="relative group">
-                <textarea placeholder="Mensaje" rows={4} className="w-full bg-transparent border-b border-[#2A2520] py-4 text-white placeholder-muted-foreground font-sans font-light focus:outline-none focus:border-transparent transition-colors peer resize-none"></textarea>
-                <span className="absolute bottom-0 left-0 w-full h-[1px] bg-primary scale-x-0 peer-focus:scale-x-100 origin-left transition-transform duration-300"></span>
-              </div>
-              <MagneticButton className="hover-clip-path-bottom relative bg-transparent border border-primary text-white py-5 mt-4 text-sm tracking-widest uppercase font-sans font-semibold overflow-hidden group">
-                <span className="relative z-10 group-hover:text-black transition-colors duration-300">ENVIAR CONSULTA</span>
-                <div className="clip-path-bottom absolute inset-0 bg-primary" />
-              </MagneticButton>
-            </form>
-          </div>
-
-          <div className="w-full lg:w-1/2 flex flex-col gap-10 lg:pl-16">
-            <div><h3 className="text-primary font-sans text-xs tracking-widest uppercase mb-4">DIRECCIÓN</h3><p className="font-serif text-2xl text-white">Córdoba, Argentina</p></div>
-            <div><h3 className="text-primary font-sans text-xs tracking-widest uppercase mb-4">WHATSAPP</h3><p className="font-serif text-2xl text-white">+54 9 351 000-0000</p></div>
-            <div><h3 className="text-primary font-sans text-xs tracking-widest uppercase mb-4">INSTAGRAM</h3><p className="font-serif text-2xl text-white">@disegno.mobiliario</p></div>
-            <div><h3 className="text-primary font-sans text-xs tracking-widest uppercase mb-4">HORARIOS</h3><p className="font-sans font-light text-lg text-muted-foreground">Lun-Vie 9:00 - 18:00</p></div>
-          </div>
-        </div>
-      </section>
 
       {/* ── FOOTER ── */}
       <footer className="bg-[#0A0A0A] pt-16 pb-8 border-t border-[#2A2520] relative">
@@ -1138,7 +988,7 @@ export default function App() {
             <span className="font-sans text-[10px] tracking-[0.3em] text-foreground mt-2">MOBILIARIO</span>
           </div>
           <div className="flex flex-wrap justify-center gap-6 md:gap-10 text-xs font-sans tracking-widest uppercase text-muted-foreground">
-            {["INICIO", "NOSOTROS", "SERVICIOS", "PROYECTOS", "MATERIALES", "CONTACTO"].map((link) => (
+            {["INICIO", "NOSOTROS", "SERVICIOS", "PROYECTOS"].map((link) => (
               <a key={link} href="#" className="hover:text-primary transition-colors">{link}</a>
             ))}
           </div>
