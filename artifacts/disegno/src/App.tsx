@@ -978,6 +978,43 @@ export default function App() {
       </section>
 
 
+      {/* ── MAP ── */}
+      <section className="relative bg-[#0A0A0A] border-t border-[#2A2520]">
+        {/* Decorative header */}
+        <div className="max-w-7xl mx-auto px-6 md:px-12 pt-16 pb-8 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+          <div>
+            <span className="text-primary font-sans text-xs tracking-[0.3em] uppercase block mb-3">Dónde encontrarnos</span>
+            <h2 className="text-3xl md:text-4xl font-serif text-white leading-tight">A. Yofre de Álvarez,<br /><span className="italic text-primary">Costa Sacate, Córdoba.</span></h2>
+          </div>
+          <div className="flex flex-col gap-2 text-sm font-sans text-muted-foreground">
+            <span>📞 <a href="tel:+5493513067321" className="hover:text-primary transition-colors">+54 9 3513 06-7321</a></span>
+            <span>✉️ <a href="mailto:disegnoplacares@gmail.com" className="hover:text-primary transition-colors">disegnoplacares@gmail.com</a></span>
+            <span>🕐 Lun–Vie · 8:00 a.m. – 6:00 p.m.</span>
+          </div>
+        </div>
+
+        {/* Map embed */}
+        <div className="relative overflow-hidden" style={{ height: "420px" }}>
+          {/* Gradient overlays for elegance */}
+          <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-[#0A0A0A] to-transparent z-10 pointer-events-none" />
+          <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#0A0A0A] to-transparent z-10 pointer-events-none" />
+          <div className="absolute top-0 left-0 bottom-0 w-16 bg-gradient-to-r from-[#0A0A0A] to-transparent z-10 pointer-events-none" />
+          <div className="absolute top-0 right-0 bottom-0 w-16 bg-gradient-to-l from-[#0A0A0A] to-transparent z-10 pointer-events-none" />
+          <iframe
+            title="Ubicación Disegno Mobiliario - Costa Sacate, Córdoba"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3406.0!2d-63.4!3d-31.85!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sA.+Yofre+de+%C3%81lvarez%2C+Costa+Sacate%2C+C%C3%B3rdoba%2C+Argentina!5e0!3m2!1ses!2sar!4v1!5m2!1ses!2sar&q=A.+Yofre+de+Álvarez,+Costa+Sacate,+Córdoba,+Argentina"
+            width="100%"
+            height="100%"
+            style={{
+              border: 0,
+              filter: "invert(90%) hue-rotate(180deg) saturate(0.5) brightness(0.85)",
+            }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+        </div>
+      </section>
 
       {/* ── FOOTER ── */}
       <footer className="bg-[#0A0A0A] pt-16 pb-8 border-t border-[#2A2520] relative">
@@ -993,12 +1030,26 @@ export default function App() {
             ))}
           </div>
           <div className="flex gap-6 text-white">
-            <a href="#" className="hover:text-primary transition-colors"><FaInstagram size={24} /></a>
-            <a href="#" className="hover:text-primary transition-colors"><FaWhatsapp size={24} /></a>
+            <a href="https://www.instagram.com/disegno.mobiliario" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors"><FaInstagram size={24} /></a>
+            <a href="https://wa.me/5493513067321" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors"><FaWhatsapp size={24} /></a>
           </div>
-          <div className="text-[#8A8580] font-sans text-xs font-light mt-8">© 2025 Disegno Mobiliario · Córdoba, Argentina</div>
+          <div className="flex flex-col items-center gap-2 mt-4">
+            <div className="text-[#8A8580] font-sans text-xs font-light">© 2026 Disegno · Elegancia a medida</div>
+            <div className="text-[#5A5550] font-sans text-[10px] tracking-wide">
+              Sitio creado por{" "}
+              <a
+                href="https://www.digitall.baby/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary/60 hover:text-primary transition-colors"
+              >
+                DIGITALL
+              </a>
+            </div>
+          </div>
         </div>
       </footer>
+
 
       {/* ── FLOATING CTA ── */}
       <div className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-40">
