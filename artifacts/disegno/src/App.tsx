@@ -602,7 +602,7 @@ export default function App() {
             className="hero-slide absolute inset-0 z-0 transition-none"
             style={{ opacity: i === 0 ? 1 : 0 }}
           >
-            <img src={url} alt="" className="w-full h-full object-cover animate-ken-burns" loading={i < 2 ? "eager" : "lazy"} />
+            <img src={url} alt={`Disegno Mobiliario - Diseño de interiores y mobiliario a medida en Córdoba - imagen ${i + 1}`} className="w-full h-full object-cover animate-ken-burns" loading={i < 2 ? "eager" : "lazy"} />
             <div className="absolute inset-0 bg-gradient-to-r from-black/85 to-black/30" />
           </div>
         ))}
