@@ -518,7 +518,7 @@ export default function App() {
             </div>
             <button
               onClick={() => {
-                window.open("https://wa.me/5493510000000", "_blank");
+                window.open("https://wa.me/5493513067321", "_blank");
               }}
               className="flex-shrink-0 border border-primary/60 text-white font-sans text-xs tracking-[0.25em] uppercase px-10 py-4 hover:bg-primary hover:text-black transition-all duration-300"
             >
@@ -916,7 +916,7 @@ export default function App() {
             <h2 className="video-text text-5xl md:text-7xl font-serif text-white leading-[1.05] mb-3 text-shadow-sm">Cada <span className="italic text-primary">espacio.</span></h2>
             <h2 className="video-text text-5xl md:text-7xl font-serif text-white leading-[1.05] mb-12 text-shadow-sm">Cada <span className="italic text-primary">historia.</span></h2>
             <button 
-              onClick={() => window.open("https://wa.me/5493510000000", "_blank")}
+              onClick={() => window.open("https://wa.me/5493513067321", "_blank")}
               className="inline-block border border-primary/60 text-white font-sans text-xs tracking-[0.25em] uppercase px-10 py-4 hover:bg-primary hover:text-black transition-all duration-300"
             >
               Comenzar proyecto
@@ -1045,7 +1045,7 @@ export default function App() {
 
       {/* ── FLOATING CTA ── */}
       <div className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-40">
-        <button className="relative w-14 h-14 md:w-20 md:h-20 bg-primary rounded-full flex items-center justify-center text-black hover:scale-105 transition-transform shadow-lg shadow-black/50 group">
+        <a href="https://wa.me/5493513067321" target="_blank" rel="noopener noreferrer" className="relative w-14 h-14 md:w-20 md:h-20 bg-primary rounded-full flex items-center justify-center text-black hover:scale-105 transition-transform shadow-lg shadow-black/50 group cursor-pointer block">
           <div className="absolute inset-[-10px] hidden md:block">
             <svg viewBox="0 0 100 100" width="100" height="100" className="animate-[spin_8s_linear_infinite]">
               <defs><path id="circle" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" /></defs>
@@ -1054,8 +1054,8 @@ export default function App() {
               </text>
             </svg>
           </div>
-          <FaWhatsapp className="relative z-10 text-3xl md:text-4xl" />
-        </button>
+          <FaWhatsapp className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 text-3xl md:text-4xl" />
+        </a>
       </div>
 
     </div>
