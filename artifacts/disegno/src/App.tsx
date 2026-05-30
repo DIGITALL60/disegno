@@ -518,7 +518,7 @@ export default function App() {
             </div>
             <button
               onClick={() => {
-                window.open("https://wa.me/5493513067321", "_blank");
+                window.open("https://wa.me/5493513067321?text=Hola%20Disegno,%20estuve%20viendo%20su%20web%20y%20me%20gustar%C3%ADa%20hacer%20una%20consulta%20por%20un%20proyecto.", "_blank");
               }}
               className="flex-shrink-0 border border-primary/60 text-white font-sans text-xs tracking-[0.25em] uppercase px-10 py-4 hover:bg-primary hover:text-black transition-all duration-300"
             >
@@ -831,6 +831,56 @@ export default function App() {
         </div>
       </section>
 
+      {/* ── OUR PROCESS ── */}
+      <section className="py-24 px-6 md:px-12 bg-[#0A0A0A] relative border-t border-[#1E1E1E]">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <span className="text-primary font-sans text-xs tracking-[0.3em] uppercase block mb-4">Metodología</span>
+            <h2 className="text-3xl md:text-5xl font-serif text-white">Nuestro Proceso</h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-4">
+            {[
+              {
+                step: "01",
+                title: "Asesoramiento",
+                desc: "Entendemos tu visión y relevamos el espacio para captar tus necesidades exactas."
+              },
+              {
+                step: "02",
+                title: "Diseño 3D",
+                desc: "Proyectamos tu idea con renders realistas y planificación al milímetro."
+              },
+              {
+                step: "03",
+                title: "Fabricación",
+                desc: "Producimos en nuestra propia planta con materiales premium y tecnología de precisión."
+              },
+              {
+                step: "04",
+                title: "Instalación",
+                desc: "Montaje perfecto en tu domicilio a cargo de nuestro equipo especializado."
+              }
+            ].map((item, i) => (
+              <div key={i} className="relative group p-6">
+                {/* Connector line (desktop only) */}
+                {i !== 3 && <div className="hidden md:block absolute top-12 left-[60%] w-full h-[1px] bg-[#2A2520] group-hover:bg-primary/50 transition-colors duration-500" />}
+                
+                <div className="relative z-10 flex flex-col md:items-center md:text-center">
+                  <div className="w-16 h-16 rounded-full bg-[#141414] border border-[#2A2520] flex items-center justify-center text-primary font-serif text-2xl mb-6 group-hover:scale-110 group-hover:border-primary/50 transition-all duration-500 shadow-[0_0_15px_rgba(200,130,42,0)] group-hover:shadow-[0_0_20px_rgba(200,130,42,0.15)]">
+                    {item.step}
+                  </div>
+                  <h3 className="text-xl font-serif text-white mb-3 group-hover:text-primary transition-colors duration-500">{item.title}</h3>
+                  <p className="font-sans font-light text-muted-foreground text-sm leading-relaxed max-w-[250px]">
+                    {item.desc}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ══════════════════════════════════════════════════════════
           GALERÍA MASONRY — Google Drive images
       ══════════════════════════════════════════════════════════ */}
@@ -916,7 +966,7 @@ export default function App() {
             <h2 className="video-text text-5xl md:text-7xl font-serif text-white leading-[1.05] mb-3 text-shadow-sm">Cada <span className="italic text-primary">espacio.</span></h2>
             <h2 className="video-text text-5xl md:text-7xl font-serif text-white leading-[1.05] mb-12 text-shadow-sm">Cada <span className="italic text-primary">historia.</span></h2>
             <button 
-              onClick={() => window.open("https://wa.me/5493513067321", "_blank")}
+              onClick={() => window.open("https://wa.me/5493513067321?text=Hola%20Disegno,%20estuve%20viendo%20su%20web%20y%20me%20gustar%C3%ADa%20hacer%20una%20consulta%20por%20un%20proyecto.", "_blank")}
               className="inline-block border border-primary/60 text-white font-sans text-xs tracking-[0.25em] uppercase px-10 py-4 hover:bg-primary hover:text-black transition-all duration-300"
             >
               Comenzar proyecto
@@ -1023,7 +1073,7 @@ export default function App() {
           </div>
           <div className="flex gap-6 text-white">
             <a href="https://www.instagram.com/disegno.mobiliario" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors"><FaInstagram size={24} /></a>
-            <a href="https://wa.me/5493513067321" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors"><FaWhatsapp size={24} /></a>
+            <a href="https://wa.me/5493513067321?text=Hola%20Disegno,%20estuve%20viendo%20su%20web%20y%20me%20gustar%C3%ADa%20hacer%20una%20consulta%20por%20un%20proyecto." target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors"><FaWhatsapp size={24} /></a>
           </div>
           <div className="flex flex-col items-center gap-2 mt-4">
             <div className="text-[#8A8580] font-sans text-xs font-light">© 2026 Disegno · Elegancia a medida</div>
@@ -1045,7 +1095,7 @@ export default function App() {
 
       {/* ── FLOATING CTA ── */}
       <div className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-40">
-        <a href="https://wa.me/5493513067321" target="_blank" rel="noopener noreferrer" className="relative w-14 h-14 md:w-20 md:h-20 bg-primary rounded-full flex items-center justify-center text-black hover:scale-105 transition-transform shadow-lg shadow-black/50 group cursor-pointer block">
+        <a href="https://wa.me/5493513067321?text=Hola%20Disegno,%20estuve%20viendo%20su%20web%20y%20me%20gustar%C3%ADa%20hacer%20una%20consulta%20por%20un%20proyecto." target="_blank" rel="noopener noreferrer" className="relative w-14 h-14 md:w-20 md:h-20 bg-primary rounded-full flex items-center justify-center text-black hover:scale-105 transition-transform shadow-lg shadow-black/50 group cursor-pointer block">
           <div className="absolute inset-[-10px] hidden md:block">
             <svg viewBox="0 0 100 100" width="100" height="100" className="animate-[spin_8s_linear_infinite]">
               <defs><path id="circle" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" /></defs>
