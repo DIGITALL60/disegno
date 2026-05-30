@@ -435,8 +435,10 @@ export default function App() {
           {/* Top bar */}
           <div className="sticky top-0 z-10 bg-[#050505]/95 backdrop-blur-md border-b border-[#1A1A1A] px-6 md:px-12 h-20 flex items-center justify-between">
             <div className="flex flex-col cursor-pointer" onClick={() => { setSelectedProject(null); window.scrollTo({ top: 0 }); }}>
-              <span className="font-serif text-xl tracking-wider text-primary leading-none">Disegno</span>
-              <span className="font-sans text-[9px] tracking-[0.2em] text-white/60 mt-0.5">MOBILIARIO</span>
+              <div className="flex leading-none font-serif text-xl tracking-wider">
+                <span className="text-white">D</span><span className="text-primary">isegno</span>
+              </div>
+              <span className="font-sans text-[9px] tracking-[0.2em] text-white/60 mt-0.5">ELEGANCIA A MEDIDA</span>
             </div>
             <button
               onClick={() => { setSelectedProject(null); window.scrollTo({ top: 0 }); }}
@@ -476,8 +478,10 @@ export default function App() {
           {/* Top bar */}
           <div className="sticky top-0 z-10 bg-[#030303]/95 backdrop-blur-md border-b border-[#1A1A1A] px-6 md:px-12 h-20 flex items-center justify-between">
             <div className="flex flex-col cursor-pointer" onClick={() => { setShowProjects(false); window.scrollTo({ top: 0 }); }}>
-              <span className="font-serif text-xl tracking-wider text-primary leading-none">Disegno</span>
-              <span className="font-sans text-[9px] tracking-[0.2em] text-white/60 mt-0.5">MOBILIARIO</span>
+              <div className="flex leading-none font-serif text-xl tracking-wider">
+                <span className="text-white">D</span><span className="text-primary">isegno</span>
+              </div>
+              <span className="font-sans text-[9px] tracking-[0.2em] text-white/60 mt-0.5">ELEGANCIA A MEDIDA</span>
             </div>
             <button
               onClick={() => { setShowProjects(false); window.scrollTo({ top: 0 }); }}
@@ -537,10 +541,10 @@ export default function App() {
           <div id="loader-logo" className="mt-6 opacity-0 text-center">
             <div className="flex justify-center leading-none" style={{ perspective: "300px" }}>
               {Array.from("Disegno").map((char, i) => (
-                <span key={i} className="loader-logo-char inline-block font-serif text-2xl tracking-widest text-white" style={{ display: "inline-block" }}>{char}</span>
+                <span key={i} className={`loader-logo-char inline-block font-serif text-2xl tracking-widest ${i === 0 ? 'text-white' : 'text-primary'}`} style={{ display: "inline-block" }}>{char}</span>
               ))}
             </div>
-            <div className="loader-sub text-[10px] font-sans text-primary mt-2" style={{ letterSpacing: "0.6em", opacity: 0 }}>MOBILIARIO</div>
+            <div className="loader-sub text-[10px] font-sans text-white/80 mt-2" style={{ letterSpacing: "0.4em", opacity: 0 }}>ELEGANCIA A MEDIDA</div>
           </div>
         </div>
       </div>
@@ -553,10 +557,10 @@ export default function App() {
           </div>
           <div className="flex leading-none" style={{ perspective: "300px" }}>
             {Array.from("Disegno").map((char, i) => (
-              <span key={i} className="nav-logo-char inline-block font-serif text-xl tracking-wider text-primary" style={{ willChange: "transform" }}>{char}</span>
+              <span key={i} className={`nav-logo-char inline-block font-serif text-xl tracking-wider ${i === 0 ? 'text-white' : 'text-primary'}`} style={{ willChange: "transform" }}>{char}</span>
             ))}
           </div>
-          <span className="nav-sub font-sans text-[9px] text-foreground mt-1 block" style={{ letterSpacing: "0.2em" }}>MOBILIARIO</span>
+          <span className="nav-sub font-sans text-[8px] text-foreground mt-1 block" style={{ letterSpacing: "0.15em" }}>ELEGANCIA A MEDIDA</span>
         </div>
 
         <div className="hidden md:flex gap-8 items-center font-sans font-light text-xs tracking-widest uppercase">
@@ -1063,8 +1067,10 @@ export default function App() {
         <div className="absolute top-0 left-0 w-full h-[1px] bg-primary origin-left scale-x-0" id="footer-line"></div>
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col items-center gap-10">
           <div className="flex flex-col items-center">
-            <span className="font-serif text-3xl tracking-wider leading-none text-primary">Disegno</span>
-            <span className="font-sans text-[10px] tracking-[0.3em] text-foreground mt-2">MOBILIARIO</span>
+            <div className="flex leading-none font-serif text-3xl tracking-wider">
+              <span className="text-white">D</span><span className="text-primary">isegno</span>
+            </div>
+            <span className="font-sans text-[10px] tracking-[0.3em] text-foreground mt-2 border-b border-white/20 pb-1">ELEGANCIA A MEDIDA</span>
           </div>
           <div className="flex flex-wrap justify-center gap-6 md:gap-10 text-xs font-sans tracking-widest uppercase text-muted-foreground">
             {["INICIO", "NOSOTROS", "SERVICIOS", "PROYECTOS"].map((link) => (
@@ -1100,7 +1106,7 @@ export default function App() {
             <svg viewBox="0 0 100 100" width="100" height="100" className="animate-[spin_8s_linear_infinite]">
               <defs><path id="circle" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" /></defs>
               <text fontSize="11" fill="hsl(var(--primary))" letterSpacing="2" className="font-sans font-semibold uppercase">
-                <textPath href="#circle">DISEGNO · MOBILIARIO · CONTACTO ·</textPath>
+                <textPath href="#circle">DISEGNO · ELEGANCIA A MEDIDA · CONTACTO ·</textPath>
               </text>
             </svg>
           </div>
