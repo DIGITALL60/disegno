@@ -804,34 +804,26 @@ export default function App() {
             {[
               {
                 title: "Diseño de Interiores",
-                desc: "Desarrollamos proyectos integrales de arquitectura interior. Optimizamos la distribución espacial y seleccionamos cada textura para crear atmósferas que reflejen tu identidad.",
-                img: PROJECT_IMGS[0]
+                desc: "Desarrollamos proyectos integrales de arquitectura interior. Optimizamos la distribución espacial y seleccionamos cada textura para crear atmósferas que reflejen tu identidad."
               },
               {
                 title: "Mobiliario a Medida",
-                desc: "Diseñamos y fabricamos cada pieza en nuestra propia planta. Desde cocinas de alta gama hasta vestidores de lujo, garantizando un ajuste milimétrico y acabados perfectos.",
-                img: PROJECT_IMGS[1]
+                desc: "Diseñamos y fabricamos cada pieza en nuestra propia planta. Desde cocinas de alta gama hasta vestidores de lujo, garantizando un ajuste milimétrico y acabados perfectos."
               },
               {
                 title: "Dirección y Montaje",
-                desc: "No solo diseñamos; ejecutamos. Nuestro equipo de profesionales supervisa la instalación completa para asegurar que la visión original se materialice sin compromisos.",
-                img: PROJECT_IMGS[2]
+                desc: "No solo diseñamos; ejecutamos. Nuestro equipo de profesionales supervisa la instalación completa para asegurar que la visión original se materialice sin compromisos."
               }
             ].map((srv, i) => (
-              <div key={i} className="service-card group relative h-[450px] md:h-[550px] rounded-[24px] overflow-hidden border border-[#2A2520] hover:border-primary/50 transition-colors duration-500">
-                <img src={srv.img} alt={srv.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" loading="lazy" decoding="async" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent opacity-90 transition-opacity duration-500" />
-                
-                <div className="absolute inset-0 p-8 flex flex-col justify-end">
-                  <div className="text-primary font-serif text-5xl mb-4 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                    0{i + 1}.
-                  </div>
-                  <h3 className="text-2xl md:text-3xl font-serif text-white mb-4 transition-transform duration-500 group-hover:-translate-y-2">{srv.title}</h3>
-                  <div className="overflow-hidden">
-                    <p className="font-sans font-light text-muted-foreground text-sm leading-relaxed max-h-0 opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-700 ease-in-out">
-                      {srv.desc}
-                    </p>
-                  </div>
+              <div key={i} className="service-card group relative p-8 md:p-12 min-h-[350px] rounded-[24px] overflow-hidden border border-[#2A2520] bg-[#0F0F0F] hover:border-primary/50 hover:bg-[#141414] transition-all duration-500 flex flex-col justify-between">
+                <div className="text-primary font-serif text-6xl opacity-30 group-hover:opacity-100 transition-opacity duration-500">
+                  0{i + 1}.
+                </div>
+                <div className="mt-12">
+                  <h3 className="text-2xl md:text-3xl font-serif text-white mb-4 transition-colors duration-500 group-hover:text-primary">{srv.title}</h3>
+                  <p className="font-sans font-light text-muted-foreground text-sm leading-relaxed">
+                    {srv.desc}
+                  </p>
                 </div>
               </div>
             ))}
